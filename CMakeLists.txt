@@ -4,6 +4,8 @@ PROJECT(fido VERSION 0.0.1 LANGUAGES C CXX)
 
 INCLUDE(CheckSymbolExists)
 
+option(MODEL_CHECKING_ENABLED "Enable Model Checking")
+
 #pkgconfig
 find_package(PkgConfig REQUIRED)
 #minunit package
@@ -47,3 +49,8 @@ ADD_CUSTOM_TARGET(
     COMMAND testfido
     DEPENDS testfido
     USES_TERMINAL)
+
+#model checks
+if (MODEL_CHECKING_ENABLED)
+    ADD_SUBDIRECTORY(models)
+endif ()
