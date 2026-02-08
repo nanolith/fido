@@ -143,6 +143,8 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
             MODEL_ASSERT(1 == (*scanner)->col);
             /* the input string matches our input. */
             MODEL_ASSERT(input == (*scanner)->input);
+            /* the input string matches our original_input. */
+            MODEL_ASSERT(input == (*scanner)->original_input);
         }
         else
         {
