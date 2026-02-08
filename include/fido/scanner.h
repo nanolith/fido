@@ -153,12 +153,8 @@ MODEL_CONTRACT_POSTCONDITIONS_END(fido_scanner_create)
  * \brief Release a \ref fido_scanner instance.
  *
  * \param scanner           The scanner to release.
- *
- * \returns a status code indicating success or failure.
- *      - 0 on success.
- *      - a non-zero error code on failure.
  */
-int FN_DECL_MUST_CHECK
+void
 fido_scanner_release(fido_scanner* scanner);
 
 /* function contract preconditions. */
