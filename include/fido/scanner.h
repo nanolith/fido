@@ -126,6 +126,29 @@ MODEL_CONTRACT_PRECONDITIONS_BEGIN(
         MODEL_ASSERT(NULL != input);
 MODEL_CONTRACT_PRECONDITIONS_END(fido_scanner_create)
 
+/* function contract postconditions. */
+MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
+    fido_scanner_create, int retval, fido_scanner** scanner, const char* input)
+        /* on success... */
+        if (0 == retval)
+        {
+            /* the scanner is valid. */
+            MODEL_ASSERT(property_fido_scanner_valid(*scanner));
+            /* the index starts at 0. */
+            MODEL_ASSERT(0 == (*scanner)->index);
+            /* the line starts at 1. */
+            MODEL_ASSERT(1 == (*scanner)->line);
+            /* the column starts at 1. */
+            MODEL_ASSERT(1 == (*scanner)->col);
+            /* the input string matches our input. */
+            MODEL_ASSERT(input == (*scanner)->input);
+        }
+        else
+        {
+            MODEL_ASSERT(NULL == *scanner);
+        }
+MODEL_CONTRACT_POSTCONDITIONS_END(fido_scanner_create)
+
 /**
  * \brief Release a \ref fido_scanner instance.
  *
