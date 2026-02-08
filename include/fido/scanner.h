@@ -37,8 +37,10 @@ enum fido_scanner_token_type
     FIDO_SCANNER_TOKEN_TYPE_CLOSE_BRACE,
     /** \brief String. */
     FIDO_SCANNER_TOKEN_TYPE_STRING,
-    /** \brief Add environment variable.. */
+    /** \brief Add environment variable. */
     FIDO_SCANNER_TOKEN_TYPE_ADD_VARIABLE,
+    /** \brief Username. */
+    FIDO_SCANNER_TOKEN_TYPE_USERNAME,
 };
 
 /* C++ compatibility. */
