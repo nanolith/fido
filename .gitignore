@@ -1,0 +1,6 @@
+#cmake build directory
+build
+
+#cscope related artifacts
+cscope.*
+tags
