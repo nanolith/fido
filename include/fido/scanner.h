@@ -9,6 +9,7 @@
 
 #pragma once
 
+#include <fido/error_codes.h>
 #include <fido/function_contracts.h>
 #include <fido/function_decl.h>
 #include <fido/model_assert.h>
@@ -148,6 +149,10 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
         }
         else
         {
+            /* this is a defined error code. */
+            enum fido_error_code error = retval;
+            MODEL_ASSERT(__CPROVER_enum_is_in_range(error));
+            /* scanner is set to NULL. */
             MODEL_ASSERT(NULL == *scanner);
         }
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_scanner_create)
