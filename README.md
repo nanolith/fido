@@ -11,8 +11,8 @@ fido makes use of a role-based configuration, similar to the given example:
 
 ```
     role "disk mounter" {
-        cmd /sbin/mount
-        cmd /sbin/umount
+        cmd /sbin/mount *
+        cmd /sbin/umount *
         as root
         permit :operator
     }
