@@ -9,6 +9,8 @@
 
 #pragma once
 
+#include <stddef.h>
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 extern "C" {
@@ -43,6 +45,21 @@ enum fido_scanner_token_type
     FIDO_SCANNER_TOKEN_TYPE_USERNAME,
     /** \brief Group. */
     FIDO_SCANNER_TOKEN_TYPE_GROUP,
+};
+
+/**
+ * \brief Token details.
+ */
+typedef struct fido_token_details fido_token_details;
+struct fido_token_details
+{
+    int type;
+    size_t begin_index;
+    size_t end_index;
+    size_t begin_line;
+    size_t end_line;
+    size_t begin_col;
+    size_t end_col;
 };
 
 /* C++ compatibility. */
