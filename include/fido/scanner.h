@@ -23,6 +23,8 @@ enum fido_scanner_token_type
     FIDO_SCANNER_TOKEN_TYPE_ROLE = 1,
     /** \brief Command keyword. */
     FIDO_SCANNER_TOKEN_TYPE_CMD,
+    /** \brief As keyword. */
+    FIDO_SCANNER_TOKEN_TYPE_AS,
 };
 
 /* C++ compatibility. */
