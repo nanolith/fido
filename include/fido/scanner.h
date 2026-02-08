@@ -9,6 +9,7 @@
 
 #pragma once
 
+#include <fido/function_decl.h>
 #include <stddef.h>
 
 /* C++ compatibility. */
@@ -73,6 +74,22 @@ struct fido_scanner
     size_t line;
     size_t col;
 };
+
+/******************************************************************************/
+/* Start of constructors.                                                     */
+/******************************************************************************/
+
+/**
+ * \brief Release a \ref fido_scanner instance.
+ *
+ * \param scanner           The scanner to release.
+ *
+ * \returns a status code indicating success or failure.
+ *      - 0 on success.
+ *      - a non-zero error code on failure.
+ */
+int FN_DECL_MUST_CHECK
+fido_scanner_release(fido_scanner* scanner);
 
 /* C++ compatibility. */
 # ifdef   __cplusplus
