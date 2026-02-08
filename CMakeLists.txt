@@ -11,6 +11,7 @@ pkg_search_module(minunit REQUIRED IMPORTED_TARGET minunit)
 
 #chooser helpers
 SET(COMPILER_CHOOSER ${CMAKE_SOURCE_DIR}/scripts/compiler-chooser.sh)
+SET(LINKER_CHOOSER ${CMAKE_SOURCE_DIR}/scripts/linker-chooser.sh)
 
 #source files
 file(GLOB_RECURSE FIDO_SOURCES src/*.c)
