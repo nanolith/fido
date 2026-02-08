@@ -9,6 +9,9 @@ find_package(PkgConfig REQUIRED)
 #minunit package
 pkg_search_module(minunit REQUIRED IMPORTED_TARGET minunit)
 
+#chooser helpers
+SET(COMPILER_CHOOSER ${CMAKE_SOURCE_DIR}/scripts/compiler-chooser.sh)
+
 #source files
 file(GLOB_RECURSE FIDO_SOURCES src/*.c)
 list(FILTER FIDO_SOURCES EXCLUDE REGEX ".*/main[.]c")
