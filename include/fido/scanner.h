@@ -78,6 +78,7 @@ struct fido_token_details
 typedef struct fido_scanner fido_scanner;
 struct fido_scanner
 {
+    const char* original_input;
     const char* input;
     size_t index;
     size_t line;
