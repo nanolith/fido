@@ -7,10 +7,10 @@
  * distribution for the license terms under which this software is distributed.
  */
 
-#include <fido/error_codes.h>
-#include <fido/scanner.h>
 #include <stdlib.h>
 #include <string.h>
+
+#include "scanner_internal.h"
 
 /**
  * \brief Create a \ref fido_scanner instance.
