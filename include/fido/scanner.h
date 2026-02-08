@@ -9,7 +9,9 @@
 
 #pragma once
 
+#include <fido/function_contracts.h>
 #include <fido/function_decl.h>
+#include <stdbool.h>
 #include <stddef.h>
 
 /* C++ compatibility. */
@@ -74,6 +76,21 @@ struct fido_scanner
     size_t line;
     size_t col;
 };
+
+/******************************************************************************/
+/* Start of model checking properties.                                        */
+/******************************************************************************/
+
+/**
+ * \brief Valid scanner property.
+ *
+ * \param alloc         The scanner instance to be verified.
+ *
+ * \returns true if the scanner instance is valid.
+ */
+bool
+property_fido_scanner_valid(
+    const fido_scanner* scanner);
 
 /******************************************************************************/
 /* Start of constructors.                                                     */
