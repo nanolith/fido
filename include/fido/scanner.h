@@ -11,6 +11,7 @@
 
 #include <fido/function_contracts.h>
 #include <fido/function_decl.h>
+#include <fido/model_assert.h>
 #include <stdbool.h>
 #include <stddef.h>
 
@@ -115,6 +116,15 @@ property_fido_scanner_valid(
  */
 int FN_DECL_MUST_CHECK
 fido_scanner_create(fido_scanner** scanner, const char* input);
+
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_scanner_create, fido_scanner** scanner, const char* input)
+        /* the scanner pointer is valid. */
+        MODEL_CHECK_OBJECT_RW(scanner, sizeof(*scanner));
+        /* the input is not NULL. */
+        MODEL_ASSERT(NULL != input);
+MODEL_CONTRACT_PRECONDITIONS_END(fido_scanner_create)
 
 /**
  * \brief Release a \ref fido_scanner instance.
