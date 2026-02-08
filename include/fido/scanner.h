@@ -41,6 +41,8 @@ enum fido_scanner_token_type
     FIDO_SCANNER_TOKEN_TYPE_ADD_VARIABLE,
     /** \brief Username. */
     FIDO_SCANNER_TOKEN_TYPE_USERNAME,
+    /** \brief Group. */
+    FIDO_SCANNER_TOKEN_TYPE_GROUP,
 };
 
 /* C++ compatibility. */
