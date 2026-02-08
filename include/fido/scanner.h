@@ -62,6 +62,18 @@ struct fido_token_details
     size_t end_col;
 };
 
+/**
+ * \brief fido_scanner implementation.
+ */
+typedef struct fido_scanner fido_scanner;
+struct fido_scanner
+{
+    const char* input;
+    size_t index;
+    size_t line;
+    size_t col;
+};
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
