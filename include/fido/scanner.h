@@ -25,6 +25,8 @@ enum fido_scanner_token_type
     FIDO_SCANNER_TOKEN_TYPE_CMD,
     /** \brief As keyword. */
     FIDO_SCANNER_TOKEN_TYPE_AS,
+    /** \brief Environment keyword. */
+    FIDO_SCANNER_TOKEN_TYPE_ENV,
 };
 
 /* C++ compatibility. */
