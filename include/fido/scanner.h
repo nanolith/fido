@@ -80,6 +80,20 @@ struct fido_scanner
 /******************************************************************************/
 
 /**
+ * \brief Create a \ref fido_scanner instance.
+ *
+ * \param scanner           Pointer to the scanner pointer to be set to this
+ *                          created scanner instance on success.
+ * \param input             The input string to scan.
+ *
+ * \returns a status code indicating success or failure.
+ *      - 0 on success.
+ *      - a non-zero error code on failure.
+ */
+int FN_DECL_MUST_CHECK
+fido_scanner_create(fido_scanner** scanner, const char* input);
+
+/**
  * \brief Release a \ref fido_scanner instance.
  *
  * \param scanner           The scanner to release.
