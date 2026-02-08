@@ -20,7 +20,7 @@ extern "C" {
 enum fido_scanner_token_type
 {
     /** \brief Role keyword. */
-    FIDO_SCANNER_TOKEN_TYPE_ROLE = 1,
+    FIDO_SCANNER_TOKEN_TYPE_KEYWORD_ROLE = 1,
     /** \brief Command keyword. */
     FIDO_SCANNER_TOKEN_TYPE_CMD,
     /** \brief As keyword. */
