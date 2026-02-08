@@ -32,9 +32,11 @@ enum fido_scanner_token_type
     /** \brief Deny keyword. */
     FIDO_SCANNER_TOKEN_TYPE_KEYWORD_DENY,
     /** \brief Open brace. */
-    FIDO_SCANNER_TOKEN_TYPE_KEYWORD_OPEN_BRACE,
+    FIDO_SCANNER_TOKEN_TYPE_OPEN_BRACE,
     /** \brief Close brace. */
-    FIDO_SCANNER_TOKEN_TYPE_KEYWORD_CLOSE_BRACE,
+    FIDO_SCANNER_TOKEN_TYPE_CLOSE_BRACE,
+    /** \brief String. */
+    FIDO_SCANNER_TOKEN_TYPE_STRING,
 };
 
 /* C++ compatibility. */
