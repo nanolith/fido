@@ -1,0 +1,1 @@
+ADD_SUBDIRECTORY(scanner_create_release)
