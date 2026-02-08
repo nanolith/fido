@@ -11,30 +11,30 @@ fido makes use of a role-based configuration, similar to the given example:
 
 ```
     role "disk mounter" {
-        cmd /sbin/mount *
-        cmd /sbin/umount *
+        cmd "/sbin/mount *"
+        cmd "/sbin/umount *"
         as root
         permit :operator
     }
 
     role "multimedia (cd player)" {
-        cmd /usr/bin/cdio -f /dev/cd0c play *
-        cmd /usr/bin/cdio -f /dev/cd0c pause
-        cmd /usr/bin/cdio -f /dev/cd0c stop
+        cmd "/usr/bin/cdio -f /dev/cd0c play *"
+        cmd "/usr/bin/cdio -f /dev/cd0c pause"
+        cmd "/usr/bin/cdio -f /dev/cd0c stop"
         as root
         permit :multimedia
         deny george #no more dubstep!
     }
 
     role "multimedia (sound volume)" {
-        cmd /usr/bin/mixerctl outputs.master=*
+        cmd "/usr/bin/mixerctl outputs.master=*"
         as root
         permit :multimedia
     }
 
     role "webadmin" {
-        cmd /usr/local/bin/webstart
-        cmd /usr/local/bin/webstop
+        cmd "/usr/local/bin/webstart"
+        cmd "/usr/local/bin/webstop"
         as www
         env +EDITOR
         permit :webadmin
