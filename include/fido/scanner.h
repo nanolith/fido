@@ -51,6 +51,9 @@ enum fido_scanner_token_type
 
     /** \brief End of input. */
     FIDO_SCANNER_TOKEN_TYPE_EOF = 0xFFFF,
+
+    /** \brief Bad input token. */
+    FIDO_SCANNER_TOKEN_TYPE_BAD_INPUT,
 };
 
 /**
