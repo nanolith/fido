@@ -48,6 +48,9 @@ enum fido_scanner_token_type
     FIDO_SCANNER_TOKEN_TYPE_USERNAME,
     /** \brief Group. */
     FIDO_SCANNER_TOKEN_TYPE_GROUP,
+
+    /** \brief End of input. */
+    FIDO_SCANNER_TOKEN_TYPE_EOF = 0xFFFF,
 };
 
 /**
