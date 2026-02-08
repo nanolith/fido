@@ -168,6 +168,11 @@ MODEL_CONTRACT_PRECONDITIONS_BEGIN(
         MODEL_CHECK_OBJECT_RW(scanner, sizeof(*scanner));
 MODEL_CONTRACT_PRECONDITIONS_END(fido_scanner_release)
 
+/* function contract postconditions. */
+MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
+    fido_scanner_release, fido_scanner* scanner)
+MODEL_CONTRACT_POSTCONDITIONS_END(fido_scanner_release)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
