@@ -150,7 +150,7 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
         else
         {
             /* this is a defined error code. */
-            enum fido_error_code error = retval;
+            enum fido_error_code error = (enum fido_error_code)retval;
             MODEL_ASSERT(__CPROVER_enum_is_in_range(error));
             /* scanner is set to NULL. */
             MODEL_ASSERT(NULL == *scanner);
@@ -212,7 +212,8 @@ MODEL_CONTRACT_PRECONDITIONS_END(fido_scanner_read_token)
 MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
     fido_scanner_read_token, int retval, fido_token_details* details,
     fido_scanner* scanner)
-        enum fido_scanner_token_type type = retval;
+        enum fido_scanner_token_type type =
+            (enum fido_scanner_token_type)retval;
         MODEL_ASSERT(__CPROVER_enum_is_in_range(type));
         /* on success... */
         if (FIDO_SCANNER_TOKEN_TYPE_BAD_INPUT != type
@@ -260,7 +261,8 @@ MODEL_CONTRACT_PRECONDITIONS_END(fido_scanner_peek_token)
 MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
     fido_scanner_peek_token, int retval, fido_token_details* details,
     fido_scanner* scanner)
-        enum fido_scanner_token_type type = retval;
+        enum fido_scanner_token_type type =
+            (enum fido_scanner_token_type)retval;
         MODEL_ASSERT(__CPROVER_enum_is_in_range(type));
         /* on success... */
         if (FIDO_SCANNER_TOKEN_TYPE_BAD_INPUT != type
