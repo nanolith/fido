@@ -24,7 +24,7 @@ enum fido_scanner_token_type
     /** \brief Command keyword. */
     FIDO_SCANNER_TOKEN_TYPE_KEYWORD_CMD,
     /** \brief As keyword. */
-    FIDO_SCANNER_TOKEN_TYPE_AS,
+    FIDO_SCANNER_TOKEN_TYPE_KEYWORD_AS,
     /** \brief Environment keyword. */
     FIDO_SCANNER_TOKEN_TYPE_ENV,
     /** \brief Permit keyword. */
