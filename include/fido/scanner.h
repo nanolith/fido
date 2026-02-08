@@ -29,6 +29,8 @@ enum fido_scanner_token_type
     FIDO_SCANNER_TOKEN_TYPE_ENV,
     /** \brief Permit keyword. */
     FIDO_SCANNER_TOKEN_TYPE_PERMIT,
+    /** \brief Deny keyword. */
+    FIDO_SCANNER_TOKEN_TYPE_DENY,
 };
 
 /* C++ compatibility. */
