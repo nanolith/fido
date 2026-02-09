@@ -364,6 +364,29 @@ MODEL_CONTRACT_PRECONDITIONS_BEGIN(
         MODEL_ASSERT(property_fido_scanner_valid(scanner));
 MODEL_CONTRACT_PRECONDITIONS_END(fido_scanner_read_token_keyword_cmd)
 
+/* function contract postconditions. */
+MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
+    fido_scanner_read_token_keyword_cmd, int retval,
+    fido_token_details* details, fido_scanner* scanner)
+        /* on success... */
+        if (FIDO_SCANNER_TOKEN_TYPE_BAD_INPUT != retval
+         && FIDO_SCANNER_TOKEN_TYPE_EOF != retval)
+        {
+            /* the returned token type matches our expected token. */
+            MODEL_ASSERT(
+                FIDO_SCANNER_TOKEN_TYPE_KEYWORD_CMD == retval
+             || FIDO_SCANNER_TOKEN_TYPE_USERNAME == retval);
+            /* the details type matches. */
+            MODEL_ASSERT(retval == details->type);
+            /* end index is strictly >= begin index. */
+            MODEL_ASSERT(details->end_index >= details->begin_index);
+            /* the indices are within the bounds of the input. */
+            MODEL_CHECK_OBJECT_READ(
+                scanner->original_input + details->begin_index,
+                details->end_index - details->begin_index);
+        }
+MODEL_CONTRACT_POSTCONDITIONS_END(fido_scanner_read_token_keyword_cmd)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
