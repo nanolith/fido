@@ -66,7 +66,15 @@ MODEL_CONTRACT_PRECONDITIONS_BEGIN(
         /* the type is valid. */
         enum fido_scanner_token_type t = (enum fido_scanner_token_type)type;
         MODEL_ASSERT(__CPROVER_enum_is_in_range(t));
-MODEL_CONTRACT_PRECONDITIONS_END(fido_scanner_next_character)
+MODEL_CONTRACT_PRECONDITIONS_END(fido_scanner_token_details_end)
+
+/* function contract postconditions. */
+MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
+    fido_scanner_token_details_end, int retval, fido_token_details* details,
+    fido_scanner* scanner, int type)
+        /* the type is returned. */
+        MODEL_ASSERT(retval == type);
+MODEL_CONTRACT_POSTCONDITIONS_END(fido_scanner_token_details_end)
 
 /**
  * \brief Skip whitespace to get the start of the next token.
