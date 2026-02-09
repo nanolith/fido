@@ -71,3 +71,24 @@ TEST(username_fallback)
     /* clean up. */
     fido_scanner_release(scanner);
 }
+
+/**
+ * \brief If this doesn't start with 'd', it's a failure.
+ */
+TEST(not_deny)
+{
+    fido_scanner* scanner = nullptr;
+    fido_token_details details;
+    const char* TEST_INPUT = "alpha";
+
+    /* Create the scanner instance. */
+    TEST_ASSERT(0 == fido_scanner_create(&scanner, TEST_INPUT));
+
+    /* read fails. */
+    TEST_ASSERT(
+        FIDO_SCANNER_TOKEN_TYPE_BAD_INPUT ==
+            fido_scanner_read_token_keyword_deny(&details, scanner));
+
+    /* clean up. */
+    fido_scanner_release(scanner);
+}
