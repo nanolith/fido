@@ -1,3 +1,4 @@
 ADD_SUBDIRECTORY(scanner_create_release)
+ADD_SUBDIRECTORY(fido_scanner_read_token_keyword_cmd)
 ADD_SUBDIRECTORY(fido_scanner_read_token_keyword_role)
 ADD_SUBDIRECTORY(fido_scanner_skip_whitespace)
