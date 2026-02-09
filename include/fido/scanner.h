@@ -387,6 +387,27 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
         }
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_scanner_read_token_keyword_cmd)
 
+/**
+ * \brief Attempt to read a "as" keyword token.
+ *
+ * \note This function exists mainly for verification purposes. The function,
+ * \ref fido_scanner_complete_token_keyword_as is used by the scanner proper,
+ * and called by this function.
+ *
+ * \param details           Pointer to the token structure to receive additional
+ *                          details.
+ * \param scanner           The scanner instance for this operation.
+ *
+ * \returns a token from the scanner.
+ *      - FIDO_SCANNER_TOKEN_TYPE_KEYWORD_AS or
+ *        FIDO_SCANNER_TOKEN_TYPE_USERNAME on success.
+ *      - FIDO_SCANNER_TOKEN_TYPE_BAD_INPUT if the scanner encounteres bad
+ *        input.
+ */
+int FN_DECL_MUST_CHECK
+fido_scanner_read_token_keyword_as(
+    fido_token_details* details, fido_scanner* scanner);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
