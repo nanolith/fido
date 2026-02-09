@@ -19,7 +19,7 @@ int main(int argc, char* argv[])
 
     /* randomize input, and ensure it is ASCIIZ. */
     __CPROVER_havoc_object(input);
-    input[9] = 0;
+    input[sizeof(input)-1] = 0;
 
     /* create the scanner instance. */
     retval = fido_scanner_create(&scanner, input);
