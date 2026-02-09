@@ -41,3 +41,33 @@ TEST(basics)
     /* clean up. */
     fido_scanner_release(scanner);
 }
+
+/**
+ * \brief Fall back to a username.
+ */
+TEST(username_fallback)
+{
+    fido_scanner* scanner = nullptr;
+    fido_token_details details;
+    const char* TEST_INPUT = "cmaude";
+
+    /* Create the scanner instance. */
+    TEST_ASSERT(0 == fido_scanner_create(&scanner, TEST_INPUT));
+
+    /* read a username token. */
+    TEST_ASSERT(
+        FIDO_SCANNER_TOKEN_TYPE_USERNAME ==
+            fido_scanner_read_token_keyword_cmd(&details, scanner));
+
+    /* the details are correct. */
+    TEST_EXPECT(FIDO_SCANNER_TOKEN_TYPE_USERNAME == details.type);
+    TEST_EXPECT(0 == details.begin_index);
+    TEST_EXPECT(5 == details.end_index);
+    TEST_EXPECT(1 == details.begin_line);
+    TEST_EXPECT(1 == details.end_line);
+    TEST_EXPECT(1 == details.begin_col);
+    TEST_EXPECT(6 == details.end_col);
+
+    /* clean up. */
+    fido_scanner_release(scanner);
+}
