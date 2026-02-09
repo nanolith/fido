@@ -320,7 +320,9 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
          && FIDO_SCANNER_TOKEN_TYPE_EOF != retval)
         {
             /* the returned token type matches our expected token. */
-            MODEL_ASSERT(FIDO_SCANNER_TOKEN_TYPE_KEYWORD_ROLE == retval);
+            MODEL_ASSERT(
+                FIDO_SCANNER_TOKEN_TYPE_KEYWORD_ROLE == retval
+             || FIDO_SCANNER_TOKEN_TYPE_USERNAME == retval);
             /* the details type matches. */
             MODEL_ASSERT(retval == details->type);
             /* end index is strictly >= begin index. */
