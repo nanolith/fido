@@ -44,7 +44,7 @@ fido_scanner_complete_token_keyword_role(
     {
         goto username_fallback;
     }
-    fido_scanner_next_character(scanner + 1);
+    fido_scanner_next_character(scanner);
 
     if ('e' != *(scanner->input + 1))
     {
