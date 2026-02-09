@@ -84,7 +84,7 @@ TEST(not_role)
     /* Create the scanner instance. */
     TEST_ASSERT(0 == fido_scanner_create(&scanner, TEST_INPUT));
 
-    /* read a username token. */
+    /* read fails. */
     TEST_ASSERT(
         FIDO_SCANNER_TOKEN_TYPE_BAD_INPUT ==
             fido_scanner_read_token_keyword_role(&details, scanner));
