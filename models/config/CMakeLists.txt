@@ -1,1 +1,2 @@
 ADD_SUBDIRECTORY(scanner_create_release)
+ADD_SUBDIRECTORY(fido_scanner_skip_whitespace)
