@@ -64,6 +64,15 @@ MODEL_CONTRACT_PRECONDITIONS_BEGIN(
         MODEL_ASSERT(property_fido_scanner_valid(scanner));
 MODEL_CONTRACT_PRECONDITIONS_END(fido_scanner_token_details_begin)
 
+/* function contract postconditions. */
+MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
+    fido_scanner_token_details_begin, int retval, fido_token_details* details,
+    fido_scanner* scanner)
+        /* the begin details are constrained within the input string. */
+        MODEL_CHECK_OBJECT_READ(
+            scanner->original_input + details->begin_index, 1);
+MODEL_CONTRACT_POSTCONDITIONS_END(fido_scanner_token_details_begin)
+
 /**
  * \brief End the current input token, populating token details.
  *
