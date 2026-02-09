@@ -388,7 +388,7 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_scanner_read_token_keyword_cmd)
 
 /**
- * \brief Attempt to read a "as" keyword token.
+ * \brief Attempt to read an "as" keyword token.
  *
  * \note This function exists mainly for verification purposes. The function,
  * \ref fido_scanner_complete_token_keyword_as is used by the scanner proper,
