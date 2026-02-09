@@ -67,11 +67,9 @@ fido_scanner_complete_token_keyword_role(
     }
     else
     {
-        /* TODO - wrap this in end_input helper method. */
-        retval = details->type = FIDO_SCANNER_TOKEN_TYPE_KEYWORD_ROLE;
-        details->end_index = scanner->index;
-        details->end_col = scanner->col;
-        details->end_line = scanner->line;
+        retval =
+            fido_scanner_token_details_end(
+                details, scanner, FIDO_SCANNER_TOKEN_TYPE_KEYWORD_ROLE);
 
         fido_scanner_next_character(scanner);
 
