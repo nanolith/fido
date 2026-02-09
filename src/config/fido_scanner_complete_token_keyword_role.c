@@ -36,29 +36,25 @@ fido_scanner_complete_token_keyword_role(
 
     if ('o' != *(scanner->input + 1))
     {
-        /* TODO - fall back to username. */
-        goto bad_input;
+        goto username_fallback;
     }
     fido_scanner_next_character(scanner);
 
     if ('l' != *(scanner->input + 1))
     {
-        /* TODO - fall back to username. */
-        goto bad_input;
+        goto username_fallback;
     }
     fido_scanner_next_character(scanner + 1);
 
     if ('e' != *(scanner->input + 1))
     {
-        /* TODO - fall back to username. */
-        goto bad_input;
+        goto username_fallback;
     }
     fido_scanner_next_character(scanner);
 
     if (isalnum(*(scanner->input + 1)))
     {
-        /* TODO - fall back to username. */
-        goto bad_input;
+        goto username_fallback;
     }
     else
     {
@@ -71,8 +67,8 @@ fido_scanner_complete_token_keyword_role(
         goto done;
     }
 
-bad_input:
-    retval = FIDO_SCANNER_TOKEN_TYPE_BAD_INPUT;
+username_fallback:
+    retval = fido_scanner_complete_token_username(details, scanner);
 
 done:
     MODEL_CONTRACT_CHECK_POSTCONDITIONS(
