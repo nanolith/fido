@@ -27,6 +27,15 @@ extern "C" {
  */
 void fido_scanner_next_character(fido_scanner* scanner);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_scanner_next_character, fido_scanner* scanner)
+        /* scanner is valid. */
+        MODEL_ASSERT(property_fido_scanner_valid(scanner));
+        /* the scanner is not at end of input. */
+        MODEL_ASSERT(0 != *(scanner->input));
+MODEL_CONTRACT_PRECONDITIONS_END(fido_scanner_next_character)
+
 /**
  * \brief Attempt to complete a role keyword token.
  *
