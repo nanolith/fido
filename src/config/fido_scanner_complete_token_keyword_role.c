@@ -28,6 +28,7 @@
 int FN_DECL_MUST_CHECK
 fido_scanner_complete_token_keyword_role(
     fido_token_details* details, fido_scanner* scanner)
+{
     int retval;
 
     MODEL_CONTRACT_CHECK_PRECONDITIONS(
@@ -43,21 +44,21 @@ fido_scanner_complete_token_keyword_role(
         /* TODO - fall back to username. */
         goto bad_input;
     }
-    next_character(scanner);
+    fido_scanner_next_character(scanner);
 
     if ('l' != *(scanner->input + 1))
     {
         /* TODO - fall back to username. */
         goto bad_input;
     }
-    next_character(scanner + 1);
+    fido_scanner_next_character(scanner + 1);
 
     if ('e' != *(scanner->input + 1))
     {
         /* TODO - fall back to username. */
         goto bad_input;
     }
-    next_character(scanner);
+    fido_scanner_next_character(scanner);
 
     if (isalnum(*(scanner->input + 1)))
     {
@@ -72,7 +73,7 @@ fido_scanner_complete_token_keyword_role(
         details->end_col = scanner->col;
         details->end_line = scanner->line;
 
-        next_character(scanner);
+        fido_scanner_next_character(scanner);
 
         goto done;
     }
