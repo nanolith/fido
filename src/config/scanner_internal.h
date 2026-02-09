@@ -59,6 +59,13 @@ MODEL_CONTRACT_PRECONDITIONS_BEGIN(
         MODEL_ASSERT(property_fido_scanner_valid(scanner));
 MODEL_CONTRACT_PRECONDITIONS_END(fido_scanner_skip_whitespace)
 
+/* function contract postconditions. */
+MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
+    fido_scanner_skip_whitespace, int retval, fido_scanner* scanner)
+        /* scanner is valid. */
+        MODEL_ASSERT(property_fido_scanner_valid(scanner));
+MODEL_CONTRACT_POSTCONDITIONS_END(fido_scanner_skip_whitespace)
+
 /**
  * \brief Attempt to complete a role keyword token.
  *
