@@ -21,7 +21,8 @@ property_fido_scanner_valid(
     const fido_scanner* scanner)
 {
     MODEL_CHECK_OBJECT_READ(scanner, sizeof(*scanner));
-    MODEL_CHECK_OBJECT_READ(scanner->input + scanner->index, 1);
+    MODEL_CHECK_OBJECT_READ(scanner->original_input + scanner->index, 1);
+    MODEL_CHECK_OBJECT_READ(scanner->input, 1);
     MODEL_ASSERT(NULL != scanner->original_input);
     MODEL_ASSERT(NULL != scanner->input);
     MODEL_ASSERT(scanner->line >= 1);
