@@ -301,6 +301,16 @@ int FN_DECL_MUST_CHECK
 fido_scanner_complete_token_keyword_as(
     fido_token_details* details, fido_scanner* scanner);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_scanner_complete_token_keyword_as, fido_token_details* details,
+    fido_scanner* scanner)
+        /* token details point to a valid region of memory. */
+        MODEL_CHECK_OBJECT_RW(details, sizeof(*details));
+        /* scanner is valid. */
+        MODEL_ASSERT(property_fido_scanner_valid(scanner));
+MODEL_CONTRACT_PRECONDITIONS_END(fido_scanner_complete_token_keyword_as)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
