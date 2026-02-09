@@ -44,6 +44,15 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_scanner_next_character)
 
 /**
+ * \brief Skip whitespace to get the start of the next token.
+ *
+ * \param scanner       The scanner instance for this operation.
+ *
+ * \returns the start of the next token.
+ */
+int fido_scanner_skip_whitespace(fido_scanner* scanner);
+
+/**
  * \brief Attempt to complete a role keyword token.
  *
  * \param details           Pointer to the token structure to receive additional
