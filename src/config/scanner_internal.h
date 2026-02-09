@@ -21,6 +21,13 @@ extern "C" {
 /******************************************************************************/
 
 /**
+ * \brief Skip to the next character.
+ *
+ * \param scanner           The scanner instance for this operation.
+ */
+void fido_scanner_next_character(fido_scanner* scanner);
+
+/**
  * \brief Attempt to complete a role keyword token.
  *
  * \param details           Pointer to the token structure to receive additional
