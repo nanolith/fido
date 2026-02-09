@@ -34,11 +34,6 @@ fido_scanner_complete_token_username(
     MODEL_CONTRACT_CHECK_PRECONDITIONS(
         fido_scanner_complete_token_username, details, scanner);
 
-    /* cache the start of the keyword. */
-    details->begin_index = scanner->index;
-    details->begin_col = scanner->col;
-    details->begin_line = scanner->line;
-
     peek = *(scanner->input + 1);
 
     while (isalnum(peek) || '_' == peek)
