@@ -44,6 +44,17 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_scanner_next_character)
 
 /**
+ * \brief Begin the input token, populating token details.
+ *
+ * \param details           The details to populate with the begin token data.
+ * \param scanner           The scanner instance.
+ *
+ * \returns the token type.
+ */
+int fido_scanner_token_details_begin(
+    fido_token_details* details, fido_scanner* scanner);
+
+/**
  * \brief End the current input token, populating token details.
  *
  * \param details           The details to populate with the end token data.
