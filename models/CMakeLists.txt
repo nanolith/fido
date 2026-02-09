@@ -5,6 +5,6 @@ SET(CBMC_OPTIONS
     "--drop-unused-functions" "--unwind" "10" "--unwinding-assertions")
 
 #CBMC build options
-SET(CBMC_BUILD_OPTIONS "-DCBMC -I ${CMAKE_SOURCE_DIR}/models")
+SET(CBMC_BUILD_OPTIONS "-D_ANSI_LIBRARY -DCBMC -I ${CMAKE_SOURCE_DIR}/models -I ${CMAKE_SOURCE_DIR}/src")
 
 ADD_SUBDIRECTORY(config)
