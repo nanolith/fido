@@ -55,6 +55,19 @@ MODEL_CONTRACT_POSTCONDITIONS_END(fido_scanner_next_character)
 int fido_scanner_token_details_end(
     fido_token_details* details, fido_scanner* scanner, int type);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_scanner_token_details_end, fido_token_details* details,
+    fido_scanner* scanner, int type)
+        /* details are writable. */
+        MODEL_CHECK_OBJECT_RW(details, sizeof(*details));
+        /* scanner is valid. */
+        MODEL_ASSERT(property_fido_scanner_valid(scanner));
+        /* the type is valid. */
+        enum fido_scanner_token_type t = (enum fido_scanner_token_type)type;
+        MODEL_ASSERT(__CPROVER_enum_is_in_range(t));
+MODEL_CONTRACT_PRECONDITIONS_END(fido_scanner_next_character)
+
 /**
  * \brief Skip whitespace to get the start of the next token.
  *
