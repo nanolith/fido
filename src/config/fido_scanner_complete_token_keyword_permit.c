@@ -19,7 +19,7 @@
  * \param scanner           The scanner instance for this operation.
  *
  * \returns a token from the scanner.
- *      - FIDO_SCANNER_TOKEN_TYPE_KEYWORD_ENV or
+ *      - FIDO_SCANNER_TOKEN_TYPE_KEYWORD_PERMIT or
  *        FIDO_SCANNER_TOKEN_TYPE_USERNAME on success.
  *      - FIDO_SCANNER_TOKEN_TYPE_BAD_INPUT if the scanner encounteres bad
  *        input.
