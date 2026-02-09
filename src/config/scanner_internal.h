@@ -269,7 +269,7 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
         if (FIDO_SCANNER_TOKEN_TYPE_BAD_INPUT != retval
          && FIDO_SCANNER_TOKEN_TYPE_EOF != retval)
         {
-            /* the returned token type is either role or username. */
+            /* the returned token type is either cmd or username. */
             MODEL_ASSERT(
                 FIDO_SCANNER_TOKEN_TYPE_KEYWORD_CMD == retval
              || FIDO_SCANNER_TOKEN_TYPE_USERNAME == retval);
