@@ -48,10 +48,8 @@ MODEL_CONTRACT_POSTCONDITIONS_END(fido_scanner_next_character)
  *
  * \param details           The details to populate with the begin token data.
  * \param scanner           The scanner instance.
- *
- * \returns the token type.
  */
-int fido_scanner_token_details_begin(
+void fido_scanner_token_details_begin(
     fido_token_details* details, fido_scanner* scanner);
 
 /* function contract preconditions. */
@@ -66,8 +64,14 @@ MODEL_CONTRACT_PRECONDITIONS_END(fido_scanner_token_details_begin)
 
 /* function contract postconditions. */
 MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
-    fido_scanner_token_details_begin, int retval, fido_token_details* details,
+    fido_scanner_token_details_begin, fido_token_details* details,
     fido_scanner* scanner)
+        /* the type is set to "bad input". */
+        MODEL_ASSERT(FIDO_SCANNER_TOKEN_TYPE_BAD_INPUT == details->type);
+        /* end details are set to the beginning. */
+        MODEL_ASSERT(details->end_index == details->begin_index);
+        MODEL_ASSERT(details->end_line == details->begin_line);
+        MODEL_ASSERT(details->end_col == details->begin_col);
         /* the begin details are constrained within the input string. */
         MODEL_CHECK_OBJECT_READ(
             scanner->original_input + details->begin_index, 1);
