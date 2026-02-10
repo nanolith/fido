@@ -37,7 +37,7 @@ fido_scanner_read_token_username(
         fido_scanner_read_token_username, details, scanner);
 
     /* for this function, the token must begin with alpha or '_'. */
-    if (isalpha(*(scanner->input)) || '_' == *(scanner->input))
+    if (!isalpha(*(scanner->input)) && '_' != *(scanner->input))
     {
         goto bad_input;
     }
