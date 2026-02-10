@@ -41,3 +41,33 @@ TEST(basics)
     /* clean up. */
     fido_scanner_release(scanner);
 }
+
+/**
+ * \brief Variable adds can begin with underscores.
+ */
+TEST(underscore)
+{
+    fido_scanner* scanner = nullptr;
+    fido_token_details details;
+    const char* TEST_INPUT = "+_www";
+
+    /* Create the scanner instance. */
+    TEST_ASSERT(0 == fido_scanner_create(&scanner, TEST_INPUT));
+
+    /* read this username. */
+    TEST_ASSERT(
+        FIDO_SCANNER_TOKEN_TYPE_ADD_VARIABLE ==
+            fido_scanner_read_token_add_variable(&details, scanner));
+
+    /* the details are correct. */
+    TEST_EXPECT(FIDO_SCANNER_TOKEN_TYPE_ADD_VARIABLE == details.type);
+    TEST_EXPECT(0 == details.begin_index);
+    TEST_EXPECT(4 == details.end_index);
+    TEST_EXPECT(1 == details.begin_line);
+    TEST_EXPECT(1 == details.end_line);
+    TEST_EXPECT(1 == details.begin_col);
+    TEST_EXPECT(5 == details.end_col);
+
+    /* clean up. */
+    fido_scanner_release(scanner);
+}
