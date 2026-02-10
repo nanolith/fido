@@ -18,6 +18,8 @@
  *                          details.
  * \param scanner           The scanner instance for this operation.
  * \param type              The token type to scan.
+ * \param read_start        Flag to indicate whether we should read the start of
+ *                          the identifier.
  *
  * \returns a token from the scanner.
  *      - the given type on success.
@@ -26,14 +28,24 @@
  */
 int FN_DECL_MUST_CHECK
 fido_scanner_complete_token_identifier(
-    fido_token_details* details, fido_scanner* scanner, int type)
+    fido_token_details* details, fido_scanner* scanner, int type,
+    bool read_start)
 {
     int retval, peek;
 
     MODEL_CONTRACT_CHECK_PRECONDITIONS(
-        fido_scanner_complete_token_identifier, details, scanner, type);
+        fido_scanner_complete_token_identifier, details, scanner, type,
+        read_start);
 
     peek = *(scanner->input + 1);
+
+    if (read_start)
+    {
+        if (!isalpha(peek) && '_' != peek)
+        {
+            goto bad_input;
+        }
+    }
 
     while (isalnum(peek) || '_' == peek)
     {
@@ -45,8 +57,15 @@ fido_scanner_complete_token_identifier(
 
     fido_scanner_next_character(scanner);
 
+    goto done;
+
+bad_input:
+    retval = FIDO_SCANNER_TOKEN_TYPE_BAD_INPUT;
+
+done:
     MODEL_CONTRACT_CHECK_POSTCONDITIONS(
-        fido_scanner_complete_token_identifier, retval, details, scanner, type);
+        fido_scanner_complete_token_identifier, retval, details, scanner, type,
+        read_start);
 
     return retval;
 }

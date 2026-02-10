@@ -245,6 +245,8 @@ MODEL_CONTRACT_POSTCONDITIONS_END(fido_scanner_complete_token_simple)
  *                          details.
  * \param scanner           The scanner instance for this operation.
  * \param type              The token type to scan.
+ * \param read_start        Flag to indicate whether we should read the start of
+ *                          the identifier.
  *
  * \returns a token from the scanner.
  *      - the given type on success.
@@ -253,12 +255,13 @@ MODEL_CONTRACT_POSTCONDITIONS_END(fido_scanner_complete_token_simple)
  */
 int FN_DECL_MUST_CHECK
 fido_scanner_complete_token_identifier(
-    fido_token_details* details, fido_scanner* scanner, int type);
+    fido_token_details* details, fido_scanner* scanner, int type,
+    bool read_start);
 
 /* function contract preconditions. */
 MODEL_CONTRACT_PRECONDITIONS_BEGIN(
     fido_scanner_complete_token_identifier, fido_token_details* details,
-    fido_scanner* scanner, int type)
+    fido_scanner* scanner, int type, bool read_start)
         /* token details point to a valid region of memory. */
         MODEL_CHECK_OBJECT_RW(details, sizeof(*details));
         /* scanner is valid. */
@@ -273,7 +276,8 @@ MODEL_CONTRACT_PRECONDITIONS_END(fido_scanner_complete_token_identifier)
 /* function contract postconditions. */
 MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
     fido_scanner_complete_token_identifier, int retval,
-    fido_token_details* details, fido_scanner* scanner, int type)
+    fido_token_details* details, fido_scanner* scanner, int type,
+    bool read_start)
         /* on success... */
         if (FIDO_SCANNER_TOKEN_TYPE_BAD_INPUT != retval
          && FIDO_SCANNER_TOKEN_TYPE_EOF != retval)

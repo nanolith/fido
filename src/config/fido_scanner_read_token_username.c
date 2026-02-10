@@ -48,7 +48,7 @@ fido_scanner_read_token_username(
     /* attempt to complete this token. */
     retval =
         fido_scanner_complete_token_identifier(
-            details, scanner, FIDO_SCANNER_TOKEN_TYPE_USERNAME);
+            details, scanner, FIDO_SCANNER_TOKEN_TYPE_USERNAME, false);
     goto done;
 
 bad_input:
