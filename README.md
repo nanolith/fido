@@ -7,7 +7,7 @@ NetBSD, and OpenBSD.
 Role-based Configuration
 ------------------------
 
-fido makes use of a role-based configuration, similar to the given example:
+fido makes use of a role-based configuration, like in the following example:
 
 ```
     role "disk mounter" {
