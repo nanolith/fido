@@ -1,6 +1,7 @@
 ADD_SUBDIRECTORY(scanner_create_release)
 ADD_SUBDIRECTORY(fido_scanner_read_token_keyword_as)
 ADD_SUBDIRECTORY(fido_scanner_read_token_keyword_cmd)
+ADD_SUBDIRECTORY(fido_scanner_read_token_keyword_deny)
 ADD_SUBDIRECTORY(fido_scanner_read_token_keyword_env)
 ADD_SUBDIRECTORY(fido_scanner_read_token_keyword_permit)
 ADD_SUBDIRECTORY(fido_scanner_read_token_keyword_role)
