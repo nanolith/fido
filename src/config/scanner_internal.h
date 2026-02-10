@@ -241,53 +241,6 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_scanner_complete_token_identifier)
 
 /**
- * \brief Attempt to complete a username token.
- *
- * \param details           Pointer to the token structure to receive additional
- *                          details.
- * \param scanner           The scanner instance for this operation.
- *
- * \returns a token from the scanner.
- *      - FIDO_SCANNER_TOKEN_TYPE_USERNAME on success.
- *      - FIDO_SCANNER_TOKEN_TYPE_BAD_INPUT if the scanner encounters bad
- *        input.
- */
-int FN_DECL_MUST_CHECK
-fido_scanner_complete_token_username(
-    fido_token_details* details, fido_scanner* scanner);
-
-/* function contract preconditions. */
-MODEL_CONTRACT_PRECONDITIONS_BEGIN(
-    fido_scanner_complete_token_username, fido_token_details* details,
-    fido_scanner* scanner)
-        /* token details point to a valid region of memory. */
-        MODEL_CHECK_OBJECT_RW(details, sizeof(*details));
-        /* scanner is valid. */
-        MODEL_ASSERT(property_fido_scanner_valid(scanner));
-MODEL_CONTRACT_PRECONDITIONS_END(fido_scanner_complete_token_username)
-
-/* function contract postconditions. */
-MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
-    fido_scanner_complete_token_username, int retval,
-    fido_token_details* details, fido_scanner* scanner)
-        /* on success... */
-        if (FIDO_SCANNER_TOKEN_TYPE_BAD_INPUT != retval
-         && FIDO_SCANNER_TOKEN_TYPE_EOF != retval)
-        {
-            /* the returned token type is username. */
-            MODEL_ASSERT(FIDO_SCANNER_TOKEN_TYPE_USERNAME == retval);
-            /* the details type matches. */
-            MODEL_ASSERT(retval == details->type);
-            /* end index is strictly >= begin index. */
-            MODEL_ASSERT(details->end_index >= details->begin_index);
-            /* the indices are within the bounds of the input. */
-            MODEL_CHECK_OBJECT_READ(
-                scanner->original_input + details->begin_index,
-                details->end_index - details->begin_index);
-        }
-MODEL_CONTRACT_POSTCONDITIONS_END(fido_scanner_complete_token_username)
-
-/**
  * \brief Attempt to complete a cmd keyword token.
  *
  * \param details           Pointer to the token structure to receive additional
