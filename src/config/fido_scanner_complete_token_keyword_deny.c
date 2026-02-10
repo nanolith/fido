@@ -67,7 +67,9 @@ fido_scanner_complete_token_keyword_deny(
     }
 
 username_fallback:
-    retval = fido_scanner_complete_token_username(details, scanner);
+    retval =
+        fido_scanner_complete_token_identifier(
+            details, scanner, FIDO_SCANNER_TOKEN_TYPE_USERNAME);
 
 done:
     MODEL_CONTRACT_CHECK_POSTCONDITIONS(
