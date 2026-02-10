@@ -213,7 +213,7 @@ fido_scanner_complete_token_identifier(
  *
  * \returns a token from the scanner.
  *      - FIDO_SCANNER_TOKEN_TYPE_USERNAME on success.
- *      - FIDO_SCANNER_TOKEN_TYPE_BAD_INPUT if the scanner encounteres bad
+ *      - FIDO_SCANNER_TOKEN_TYPE_BAD_INPUT if the scanner encounters bad
  *        input.
  */
 int FN_DECL_MUST_CHECK
