@@ -347,7 +347,7 @@ MODEL_CONTRACT_POSTCONDITIONS_END(fido_scanner_read_token_keyword_role)
  * \returns a token from the scanner.
  *      - FIDO_SCANNER_TOKEN_TYPE_KEYWORD_CMD or
  *        FIDO_SCANNER_TOKEN_TYPE_USERNAME on success.
- *      - FIDO_SCANNER_TOKEN_TYPE_BAD_INPUT if the scanner encounteres bad
+ *      - FIDO_SCANNER_TOKEN_TYPE_BAD_INPUT if the scanner encounters bad
  *        input.
  */
 int FN_DECL_MUST_CHECK
