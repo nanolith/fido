@@ -1,8 +1,8 @@
 SET(MC_SOURCES
     ${CMAKE_SOURCE_DIR}/models/shadow/config/property_fido_scanner_valid.c
     ${CMAKE_SOURCE_DIR}/src/config/fido_scanner_create.c
+    ${CMAKE_SOURCE_DIR}/src/config/fido_scanner_complete_token_identifier.c
     ${CMAKE_SOURCE_DIR}/src/config/fido_scanner_complete_token_keyword_permit.c
-    ${CMAKE_SOURCE_DIR}/src/config/fido_scanner_complete_token_username.c
     ${CMAKE_SOURCE_DIR}/src/config/fido_scanner_next_character.c
     ${CMAKE_SOURCE_DIR}/src/config/fido_scanner_read_token_keyword_permit.c
     ${CMAKE_SOURCE_DIR}/src/config/fido_scanner_release.c
