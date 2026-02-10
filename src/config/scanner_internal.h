@@ -188,6 +188,21 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_scanner_complete_token_keyword_role)
 
 /**
+ * \brief Complete a simple token of the given type.
+ *
+ * \param details           Pointer to the token structure to receive additional
+ *                          details.
+ * \param scanner           The scanner instance for this operation.
+ * \param type              The token type to scan.
+ *
+ * \returns a token from the scanner.
+ *      - the given type.
+ */
+int FN_DECL_MUST_CHECK
+fido_scanner_complete_token_simple(
+    fido_token_details* details, fido_scanner* scanner, int type);
+
+/**
  * \brief Attempt to complete an identifier token.
  *
  * \param details           Pointer to the token structure to receive additional
