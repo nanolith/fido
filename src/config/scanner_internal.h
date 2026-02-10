@@ -204,6 +204,21 @@ int FN_DECL_MUST_CHECK
 fido_scanner_complete_token_identifier(
     fido_token_details* details, fido_scanner* scanner, int type);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_scanner_complete_token_identifier, fido_token_details* details,
+    fido_scanner* scanner, int type)
+        /* token details point to a valid region of memory. */
+        MODEL_CHECK_OBJECT_RW(details, sizeof(*details));
+        /* scanner is valid. */
+        MODEL_ASSERT(property_fido_scanner_valid(scanner));
+        /* type is a valid token type. */
+        enum fido_scanner_token_type t = (enum fido_scanner_token_type)type;
+        MODEL_ASSERT(__CPROVER_enum_is_in_range(t));
+        MODEL_ASSERT(FIDO_SCANNER_TOKEN_TYPE_BAD_INPUT != type);
+        MODEL_ASSERT(FIDO_SCANNER_TOKEN_TYPE_EOF != type);
+MODEL_CONTRACT_PRECONDITIONS_END(fido_scanner_complete_token_identifier)
+
 /**
  * \brief Attempt to complete a username token.
  *
