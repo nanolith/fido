@@ -234,7 +234,7 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
             /* the indices are within the bounds of the input. */
             MODEL_CHECK_OBJECT_READ(
                 scanner->original_input + details->begin_index,
-                details->end_index - details->begin_index);
+                details->end_index - details->begin_index + 1);
         }
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_scanner_complete_token_simple)
 
