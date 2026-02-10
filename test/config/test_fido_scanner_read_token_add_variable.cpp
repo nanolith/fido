@@ -71,3 +71,24 @@ TEST(underscore)
     /* clean up. */
     fido_scanner_release(scanner);
 }
+
+/**
+ * \brief Variable adds cannot start with numbers.
+ */
+TEST(number_fail)
+{
+    fido_scanner* scanner = nullptr;
+    fido_token_details details;
+    const char* TEST_INPUT = "+123";
+
+    /* Create the scanner instance. */
+    TEST_ASSERT(0 == fido_scanner_create(&scanner, TEST_INPUT));
+
+    /* read fails. */
+    TEST_ASSERT(
+        FIDO_SCANNER_TOKEN_TYPE_BAD_INPUT ==
+            fido_scanner_read_token_add_variable(&details, scanner));
+
+    /* clean up. */
+    fido_scanner_release(scanner);
+}
