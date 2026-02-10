@@ -191,7 +191,7 @@ MODEL_CONTRACT_POSTCONDITIONS_END(fido_scanner_release)
  *
  * \returns a token from the scanner.
  *      - FIDO_SCANNER_TOKEN_TYPE_EOF at the end of input.
- *      - FIDO_SCANNER_TOKEN_TYPE_BAD_INPUT if the scanner encounteres bad
+ *      - FIDO_SCANNER_TOKEN_TYPE_BAD_INPUT if the scanner encounters bad
  *        input.
  *      - a value belonging to the \ref fido_scanner_token_type enumeration.
  */
