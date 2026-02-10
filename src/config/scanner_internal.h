@@ -219,6 +219,27 @@ MODEL_CONTRACT_PRECONDITIONS_BEGIN(
         MODEL_ASSERT(FIDO_SCANNER_TOKEN_TYPE_EOF != type);
 MODEL_CONTRACT_PRECONDITIONS_END(fido_scanner_complete_token_identifier)
 
+/* function contract postconditions. */
+MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
+    fido_scanner_complete_token_identifier, int retval,
+    fido_token_details* details, fido_scanner* scanner, int type)
+        /* on success... */
+        if (FIDO_SCANNER_TOKEN_TYPE_BAD_INPUT != retval
+         && FIDO_SCANNER_TOKEN_TYPE_EOF != retval)
+        {
+            /* the returned token type matches our type. */
+            MODEL_ASSERT(type == retval);
+            /* the details type matches. */
+            MODEL_ASSERT(retval == details->type);
+            /* end index is strictly >= begin index. */
+            MODEL_ASSERT(details->end_index >= details->begin_index);
+            /* the indices are within the bounds of the input. */
+            MODEL_CHECK_OBJECT_READ(
+                scanner->original_input + details->begin_index,
+                details->end_index - details->begin_index);
+        }
+MODEL_CONTRACT_POSTCONDITIONS_END(fido_scanner_complete_token_identifier)
+
 /**
  * \brief Attempt to complete a username token.
  *
