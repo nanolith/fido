@@ -46,6 +46,10 @@ fido_scanner_read_token(
                     details, scanner, FIDO_SCANNER_TOKEN_TYPE_EOF);
             goto done;
 
+        case '"':
+            retval = fido_scanner_complete_token_string(details, scanner);
+            goto done;
+
         case '{':
             retval =
                 fido_scanner_token_details_end(
