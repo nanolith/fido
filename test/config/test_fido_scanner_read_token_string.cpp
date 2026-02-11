@@ -29,6 +29,15 @@ TEST(basics)
         FIDO_SCANNER_TOKEN_TYPE_STRING ==
             fido_scanner_read_token_string(&details, scanner));
 
+    /* the details are correct. */
+    TEST_EXPECT(FIDO_SCANNER_TOKEN_TYPE_STRING == details.type);
+    TEST_EXPECT(0 == details.begin_index);
+    TEST_EXPECT(5 == details.end_index);
+    TEST_EXPECT(1 == details.begin_line);
+    TEST_EXPECT(1 == details.end_line);
+    TEST_EXPECT(1 == details.begin_col);
+    TEST_EXPECT(6 == details.end_col);
+
     /* clean up. */
     fido_scanner_release(scanner);
 }
