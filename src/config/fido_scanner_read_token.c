@@ -83,6 +83,10 @@ fido_scanner_read_token(
             retval = fido_scanner_complete_token_keyword_deny(details, scanner);
             goto done;
 
+        case 'e':
+            retval = fido_scanner_complete_token_keyword_env(details, scanner);
+            goto done;
+
         case 'p':
             retval =
                 fido_scanner_complete_token_keyword_permit(details, scanner);
