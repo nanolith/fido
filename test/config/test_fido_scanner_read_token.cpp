@@ -347,3 +347,38 @@ TEST(add_variable)
     /* clean up. */
     fido_scanner_release(scanner);
 }
+
+/**
+ * \brief We can read a username token.
+ */
+TEST(username)
+{
+    fido_scanner* scanner = nullptr;
+    fido_token_details details;
+    const char* TEST_INPUT = " root ";
+
+    /* Create the scanner instance. */
+    TEST_ASSERT(0 == fido_scanner_create(&scanner, TEST_INPUT));
+
+    /* read a token. */
+    TEST_ASSERT(
+        FIDO_SCANNER_TOKEN_TYPE_USERNAME ==
+            fido_scanner_read_token(&details, scanner));
+
+    /* the details are correct. */
+    TEST_EXPECT(FIDO_SCANNER_TOKEN_TYPE_USERNAME == details.type);
+    TEST_EXPECT(1 == details.begin_index);
+    TEST_EXPECT(4 == details.end_index);
+    TEST_EXPECT(1 == details.begin_line);
+    TEST_EXPECT(1 == details.end_line);
+    TEST_EXPECT(2 == details.begin_col);
+    TEST_EXPECT(5 == details.end_col);
+
+    /* EOF ends input. */
+    TEST_ASSERT(
+        FIDO_SCANNER_TOKEN_TYPE_EOF ==
+            fido_scanner_read_token(&details, scanner));
+
+    /* clean up. */
+    fido_scanner_release(scanner);
+}
