@@ -64,6 +64,8 @@ fido_scanner_complete_token_string(
         peek = *(scanner->input + 1);
     }
 
+    fido_scanner_next_character(scanner);
+
     retval =
         fido_scanner_token_details_end(
             details, scanner, FIDO_SCANNER_TOKEN_TYPE_STRING);
