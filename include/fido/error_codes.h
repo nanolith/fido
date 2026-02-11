@@ -18,6 +18,8 @@ enum fido_error_code
 {
     /** \brief Out of memory error. */
     FIDO_ERROR_OUT_OF_MEMORY = 1,
+    /** \brief Invalid input error. */
+    FIDO_ERROR_INVALID_INPUT = 2,
 };
 
 /* C++ compatibility. */
