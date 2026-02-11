@@ -11,15 +11,7 @@
 
 #include "config/scanner_internal.h"
 
-static size_t nondet_size();
-
-static size_t choose_size()
-{
-    size_t retval = nondet_size();
-    MODEL_ASSUME(retval <= 3);
-
-    return retval;
-}
+int nondet_status();
 
 int FN_DECL_MUST_CHECK
 fido_scanner_complete_token_identifier(
@@ -32,21 +24,29 @@ fido_scanner_complete_token_identifier(
         fido_scanner_complete_token_identifier, details, scanner, type,
         read_start);
 
-    size_t i = choose_size();
-    while (i > 0)
+    if (0 == nondet_status)
     {
         peek = *(scanner->input + 1);
         if (0 == peek)
-            goto bad_input;
+            goto hit_eof;
         fido_scanner_next_character(scanner);
+    }
+    else
+    {
+        goto bad_input;
     }
 
     retval = fido_scanner_token_details_end(details, scanner, type);
     fido_scanner_next_character(scanner);
     goto done;
 
+hit_eof:
+    retval = FIDO_SCANNER_TOKEN_TYPE_EOF;
+    goto done;
+
 bad_input:
     retval = FIDO_SCANNER_TOKEN_TYPE_BAD_INPUT;
+    goto done;
 
 done:
     MODEL_CONTRACT_CHECK_POSTCONDITIONS(
