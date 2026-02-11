@@ -9,7 +9,22 @@
 
 #pragma once
 
+#include <ctype.h>
 #include <fido/scanner.h>
+
+/* force the usage of non-macro versions of ctype functions during model
+ * checking. */
+#ifdef CBMC
+# ifdef isalpha
+#  undef isalpha
+# endif
+# ifdef isalnum
+#  undef isalnum
+# endif
+# ifdef isspace
+#  undef isspace
+# endif
+#endif
 
 /* C++ compatibility. */
 # ifdef   __cplusplus
