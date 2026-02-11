@@ -43,7 +43,7 @@ fido_scanner_complete_token_string(
         switch (peek)
         {
             /* if the input terminates early, this is a bad input. */
-            case '0':
+            case 0:
                 goto bad_input;
 
             /* handle escape sequences. */
