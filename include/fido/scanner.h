@@ -768,7 +768,7 @@ MODEL_CONTRACT_POSTCONDITIONS_END(fido_scanner_read_token_add_variable)
  * \param scanner           The scanner instance for this operation.
  *
  * \returns a token from the scanner.
- *      - FIDO_SCANNER_TOKEN_TYPE_ADD_VARIABLE on success.
+ *      - FIDO_SCANNER_TOKEN_TYPE_STRING on success.
  *      - FIDO_SCANNER_TOKEN_TYPE_BAD_INPUT if the scanner encounters bad
  *        input.
  */
