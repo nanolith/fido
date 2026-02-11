@@ -24,7 +24,7 @@ fido_scanner_complete_token_identifier(
         fido_scanner_complete_token_identifier, details, scanner, type,
         read_start);
 
-    if (0 == nondet_status)
+    if (0 == nondet_status())
     {
         peek = *(scanner->input + 1);
         if (0 == peek)
