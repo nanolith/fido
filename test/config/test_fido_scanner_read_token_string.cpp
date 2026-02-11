@@ -41,3 +41,33 @@ TEST(basics)
     /* clean up. */
     fido_scanner_release(scanner);
 }
+
+/**
+ * \brief A star character can be escaped.
+ */
+TEST(escape_star)
+{
+    fido_scanner* scanner = nullptr;
+    fido_token_details details;
+    const char* TEST_INPUT = R"("\*")";
+
+    /* Create the scanner instance. */
+    TEST_ASSERT(0 == fido_scanner_create(&scanner, TEST_INPUT));
+
+    /* read a string token. */
+    TEST_ASSERT(
+        FIDO_SCANNER_TOKEN_TYPE_STRING ==
+            fido_scanner_read_token_string(&details, scanner));
+
+    /* the details are correct. */
+    TEST_EXPECT(FIDO_SCANNER_TOKEN_TYPE_STRING == details.type);
+    TEST_EXPECT(0 == details.begin_index);
+    TEST_EXPECT(3 == details.end_index);
+    TEST_EXPECT(1 == details.begin_line);
+    TEST_EXPECT(1 == details.end_line);
+    TEST_EXPECT(1 == details.begin_col);
+    TEST_EXPECT(4 == details.end_col);
+
+    /* clean up. */
+    fido_scanner_release(scanner);
+}
