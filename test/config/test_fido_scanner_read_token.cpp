@@ -59,6 +59,11 @@ TEST(open_brace)
     TEST_EXPECT(2 == details.begin_col);
     TEST_EXPECT(2 == details.end_col);
 
+    /* EOF ends input. */
+    TEST_ASSERT(
+        FIDO_SCANNER_TOKEN_TYPE_EOF ==
+            fido_scanner_read_token(&details, scanner));
+
     /* clean up. */
     fido_scanner_release(scanner);
 }
