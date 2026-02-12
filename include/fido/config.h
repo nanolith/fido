@@ -25,6 +25,8 @@ enum fido_config_identifier_type
 {
     /** \brief Group identifier. */
     FIDO_CONFIG_IDENTIFIER_TYPE_GROUP = 1,
+    /** \brief Username identifier. */
+    FIDO_CONFIG_IDENTIFIER_TYPE_USERNAME,
 };
 
 /* C++ compatibility. */
