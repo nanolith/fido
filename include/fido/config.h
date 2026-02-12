@@ -36,6 +36,8 @@ enum fido_config_permission_type
 {
     /** \brief Permit type. */
     FIDO_CONFIG_PERMISSION_TYPE_PERMIT = 1,
+    /** \brief Deny type. */
+    FIDO_CONFIG_PERMISSION_TYPE_DENY,
 };
 
 /* C++ compatibility. */
