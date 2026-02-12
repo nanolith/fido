@@ -29,6 +29,15 @@ enum fido_config_identifier_type
     FIDO_CONFIG_IDENTIFIER_TYPE_USERNAME,
 };
 
+/**
+ * \brief Permission type.
+ */
+enum fido_config_permission_type
+{
+    /** \brief Permit type. */
+    FIDO_CONFIG_PERMISSION_TYPE_PERMIT = 1,
+};
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
