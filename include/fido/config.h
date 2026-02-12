@@ -40,6 +40,18 @@ enum fido_config_permission_type
     FIDO_CONFIG_PERMISSION_TYPE_DENY,
 };
 
+/**
+ * \brief Fido config permission record.
+ */
+typedef struct fido_config_permission fido_config_permission;
+struct fido_config_permission
+{
+    fido_config_permission* next;
+    char* identifier;
+    int identifier_type;
+    int permission_type;
+};
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
