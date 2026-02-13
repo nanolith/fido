@@ -41,6 +41,15 @@ enum fido_config_permission_type
 };
 
 /**
+ * \brief Argument type.
+ */
+enum fido_config_command_argument_type
+{
+    /** \brief Wildcard argument type. */
+    FIDO_CONFIG_ARGUMENT_TYPE_WILDCARD = 1,
+};
+
+/**
  * \brief Fido config permission record.
  */
 typedef struct fido_config_permission fido_config_permission;
