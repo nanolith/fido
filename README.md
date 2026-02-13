@@ -27,7 +27,7 @@ fido makes use of a role-based configuration, like in the following example:
     }
 
     role "multimedia (sound volume)" {
-        cmd "/usr/bin/mixerctl outputs.master=*"
+        cmd "/usr/bin/mixerctl outputs.master=%"
         as root
         permit :multimedia
     }
@@ -46,6 +46,11 @@ Evaluation order is strictly last role-match wins and last permit/deny wins.
 So, for instance, in this example, if `george` belongs to the `multimedia`
 group, he is allowed to adjust the volume, but he is not allowed to use `cdio`
 to play, pause, or stop an audio CD-ROM in `/dev/cd0c`.
+
+The "multimedia (sound volume)" role allows permitted users to change the master
+volume of the mixer. Here, a special `%` wildcard is used, which matches against
+a substring. Hence, users are allowed to issue a `mixerctl` command, but only
+with some variation of the `outputs.master=` parameter.
 
 As another example, a user belonging to the `webadmin` group can run `webstart`
 and `webstop` as the `www` user. The `EDITOR` environment variable is
