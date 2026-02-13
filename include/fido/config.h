@@ -89,6 +89,16 @@ struct fido_config_command
     fido_config_command_argument* head;
 };
 
+/**
+ * \brief Fido config environment variable additions.
+ */
+typedef struct fido_config_add_variable fido_config_add_variable;
+struct fido_config_add_variable
+{
+    fido_config_add_variable* next;
+    char* name;
+};
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
