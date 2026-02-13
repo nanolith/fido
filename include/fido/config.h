@@ -99,6 +99,21 @@ struct fido_config_add_variable
     char* name;
 };
 
+/**
+ * \brief Fido config role.
+ */
+typedef struct fido_config_role fido_config_role;
+struct fido_config_role
+{
+    fido_config_role* next;
+    char* name;
+    char* as_user;
+    char* as_group;
+    fido_config_command* command_head;
+    fido_config_add_variable* variable_head;
+    fido_config_permission* permission_head;
+};
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
