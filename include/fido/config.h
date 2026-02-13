@@ -51,6 +51,8 @@ enum fido_config_command_argument_type
     FIDO_CONFIG_ARGUMENT_TYPE_PREFIX_WILDCARD,
     /** \brief Postfix wildcard argument type. */
     FIDO_CONFIG_ARGUMENT_TYPE_POSTFIX_WILDCARD,
+    /** \brief Verbatim argument type. */
+    FIDO_CONFIG_ARGUMENT_TYPE_VERBATIM,
 };
 
 /**
