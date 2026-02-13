@@ -78,6 +78,17 @@ struct fido_config_command_argument
     char* argument_match;
 };
 
+/**
+ * \brief Fido config command record.
+ */
+typedef struct fido_config_command fido_config_command;
+struct fido_config_command
+{
+    fido_config_command* next;
+    char* binary;
+    fido_config_command_argument* head;
+};
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
