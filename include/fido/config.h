@@ -47,6 +47,8 @@ enum fido_config_command_argument_type
 {
     /** \brief Wildcard argument type. */
     FIDO_CONFIG_ARGUMENT_TYPE_WILDCARD = 1,
+    /** \brief Prefix wildcard argument type. */
+    FIDO_CONFIG_ARGUMENT_TYPE_PREFIX_WILDCARD,
 };
 
 /**
