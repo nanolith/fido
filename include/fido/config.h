@@ -52,6 +52,17 @@ struct fido_config_permission
     int permission_type;
 };
 
+/**
+ * \brief Fido config command argument record.
+ */
+typedef struct fido_config_command_argument fido_config_command_argument;
+struct fido_config_command_argument
+{
+    fido_config_command_argument* next;
+    int argument_type;
+    char* argument_match;
+};
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
