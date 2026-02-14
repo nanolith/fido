@@ -11,6 +11,7 @@
 
 #include <fido/function_contracts.h>
 #include <fido/function_decl.h>
+#include <stdbool.h>
 #include <stddef.h>
 
 /* C++ compatibility. */
@@ -113,6 +114,21 @@ struct fido_config_role
     fido_config_add_variable* variable_head;
     fido_config_permission* permission_head;
 };
+
+/******************************************************************************/
+/* Start of model checking properties.                                        */
+/******************************************************************************/
+
+/**
+ * \brief Valid permission record property.
+ *
+ * \param perm          The permission record to check.
+ *
+ * \returns true if the permission record is valid.
+ */
+bool
+property_fido_config_permission_valid(
+    const fido_config_permission* perm);
 
 /* C++ compatibility. */
 # ifdef   __cplusplus
