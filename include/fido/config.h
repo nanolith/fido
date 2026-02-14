@@ -141,6 +141,17 @@ bool
 property_fido_config_command_argument_valid(
     const fido_config_command_argument* arg);
 
+/**
+ * \brief Valid command record property.
+ *
+ * \param cmd           The command record to check.
+ *
+ * \returns true if the command record is valid.
+ */
+bool
+property_fido_config_command_valid(
+    const fido_config_command* cmd);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
