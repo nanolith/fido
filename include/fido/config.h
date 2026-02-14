@@ -9,6 +9,7 @@
 
 #pragma once
 
+#include <fido/error_codes.h>
 #include <fido/function_contracts.h>
 #include <fido/function_decl.h>
 #include <fido/model_assert.h>
@@ -245,6 +246,25 @@ MODEL_CONTRACT_PRECONDITIONS_BEGIN(
         /* the input is not NULL. */
         MODEL_ASSERT(NULL != input);
 MODEL_CONTRACT_PRECONDITIONS_END(fido_config_parse)
+
+/* function contract postconditions. */
+MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
+    fido_config_parse, int retval, fido_config** config, const char* input)
+        /* on success... */
+        if (0 == retval)
+        {
+            /* the config is valid. */
+            MODEL_ASSERT(property_fido_config_valid(*config));
+        }
+        else
+        {
+            /* this is a defined error code. */
+            enum fido_error_code error = (enum fido_error_code)retval;
+            MODEL_ASSERT(__CPROVER_enum_is_in_range(error));
+            /* scanner is set to NULL. */
+            MODEL_ASSERT(NULL == *scanner);
+        }
+MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_parse)
 
 /* C++ compatibility. */
 # ifdef   __cplusplus
