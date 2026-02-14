@@ -194,6 +194,18 @@ bool
 property_fido_config_valid(
     const fido_config* config);
 
+/******************************************************************************/
+/* Start of constructors.                                                     */
+/******************************************************************************/
+
+/**
+ * \brief Release a \ref fido_config instance.
+ *
+ * \param config        The config record to release.
+ */
+void
+fido_config_release(fido_config* config);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
