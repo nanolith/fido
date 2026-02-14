@@ -163,6 +163,17 @@ bool
 property_fido_config_add_variable_valid(
     const fido_config_add_variable* arg);
 
+/**
+ * \brief Valid role record.
+ *
+ * \param role          The role record to check.
+ *
+ * \returns true if the role record is valid.
+ */
+bool
+property_fido_config_role_valid(
+    const fido_config_role* role);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
