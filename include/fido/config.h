@@ -11,6 +11,7 @@
 
 #include <fido/function_contracts.h>
 #include <fido/function_decl.h>
+#include <fido/model_assert.h>
 #include <stdbool.h>
 #include <stddef.h>
 
@@ -205,6 +206,13 @@ property_fido_config_valid(
  */
 void
 fido_config_release(fido_config* config);
+
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_config_release, fido_config* config)
+        /* config points to a region of memory large enough to hold it. */
+        MODEL_CHECK_OBJECT_RW(config, sizeof(*config));
+MODEL_CONTRACT_PRECONDITIONS_END(fido_config_release)
 
 /* C++ compatibility. */
 # ifdef   __cplusplus
