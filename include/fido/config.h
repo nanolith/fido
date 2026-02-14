@@ -115,6 +115,15 @@ struct fido_config_role
     fido_config_permission* permission_head;
 };
 
+/**
+ * \brief Fido config.
+ */
+typedef struct fido_config fido_config;
+struct fido_config
+{
+    fido_config_role* head;
+};
+
 /******************************************************************************/
 /* Start of model checking properties.                                        */
 /******************************************************************************/
