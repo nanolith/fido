@@ -152,6 +152,17 @@ bool
 property_fido_config_command_valid(
     const fido_config_command* cmd);
 
+/**
+ * \brief Valid add variable record.
+ *
+ * \param arg           The add variable record to check.
+ *
+ * \returns true if the add variable record is valid.
+ */
+bool
+property_fido_config_add_variable_valid(
+    const fido_config_add_variable* arg);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
