@@ -237,6 +237,15 @@ MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_release)
 int FN_DECL_MUST_CHECK
 fido_config_parse(fido_config** config, const char* input);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_config_parse, fido_config** config, const char* input)
+        /* the config pointer is valid. */
+        MODEL_CHECK_OBJECT_RW(config, sizeof(*config));
+        /* the input is not NULL. */
+        MODEL_ASSERT(NULL != input);
+MODEL_CONTRACT_PRECONDITIONS_END(fido_config_parse)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
