@@ -219,6 +219,24 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
     fido_config_release, fido_config* config)
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_release)
 
+/******************************************************************************/
+/* Start of public methods.                                                   */
+/******************************************************************************/
+
+/**
+ * \brief Parse config data into a \ref fido_config instance.
+ *
+ * \param config        Pointer to the config pointer to set to the created
+ *                      instance on success.
+ * \param input         The input string to parse.
+ *
+ * \returns a status code indicating success or failure.
+ *      - 0 on success.
+ *      - a non-zero error code on failure.
+ */
+int FN_DECL_MUST_CHECK
+fido_config_parse(fido_config** config, const char* input);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
