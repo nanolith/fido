@@ -183,6 +183,17 @@ bool
 property_fido_config_role_valid(
     const fido_config_role* role);
 
+/**
+ * \brief Valid config record.
+ *
+ * \param config        The config record to check.
+ *
+ * \returns true if the config record is valid.
+ */
+bool
+property_fido_config_valid(
+    const fido_config* config);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
