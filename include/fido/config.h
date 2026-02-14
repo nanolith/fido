@@ -130,6 +130,17 @@ bool
 property_fido_config_permission_valid(
     const fido_config_permission* perm);
 
+/**
+ * \brief Valid command argument property.
+ *
+ * \param arg           The command argument to check.
+ *
+ * \returns true if the command argument is valid.
+ */
+bool
+property_fido_config_command_argument_valid(
+    const fido_config_command_argument* arg);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
