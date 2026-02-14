@@ -28,6 +28,13 @@ extern "C" {
  */
 void fido_config_permission_release(fido_config_permission* perm);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_config_permission_release, fido_config_permission* perm)
+        /* perm points to a region of memory large enough to hold it. */
+        MODEL_CHECK_OBJECT_RW(perm, sizeof(*perm));
+MODEL_CONTRACT_PRECONDITIONS_END(fido_config_permission_release)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
