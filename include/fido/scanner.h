@@ -93,7 +93,7 @@ struct fido_scanner
 /**
  * \brief Valid scanner property.
  *
- * \param alloc         The scanner instance to be verified.
+ * \param scanner       The scanner instance to be verified.
  *
  * \returns true if the scanner instance is valid.
  */
