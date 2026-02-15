@@ -22,6 +22,21 @@ extern "C" {
 /******************************************************************************/
 
 /**
+ * \brief Create a \ref fido_config_permission instance.
+ *
+ * \param perm              Pointer to the permission pointer to set to this
+                            created instance on success.
+ * \param identifier        The identifier name.
+ * \param identifier_type   The identifier type. \see
+ *                          \ref fido_config_identifier_type.
+ * \param permission_type   The permission type. \see
+ *                          \ref fido_config_permission_type.
+ */
+void fido_config_permission_create(
+    fido_config_permission** perm, const char* identifier, int identifier_type,
+    int permission_type);
+
+/**
  * \brief Release a \ref fido_config_permission instance.
  *
  * \param perm          The permission to release.
