@@ -36,6 +36,25 @@ void fido_config_permission_create(
     fido_config_permission** perm, const char* identifier, int identifier_type,
     int permission_type);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_config_permission_create, fido_config_permission** perm,
+    const char* identifier, int identifier_type, int permission_type)
+        /* perm points to a region of memory large enough to hold a perm */
+        /* pointer. */
+        MODEL_CHECK_OBJECT_RW(perm, sizeof(*perm));
+        /* identifier is valid. */
+        MODEL_ASSERT(NULL != identifier);
+        /* identifier type is a valid enumeration value. */
+        enum fido_config_identifier_type it =
+            (enum fido_config_identifier_type)identifier_type;
+        MODEL_ASSERT(__CPROVER_enum_is_in_range(it));
+        /* permission type is a valid enumeration value. */
+        enum fido_config_permission_type pt =
+            (enum fido_config_permission_type)permission_type;
+        MODEL_ASSERT(__CPROVER_enum_is_in_range(pt));
+MODEL_CONTRACT_PRECONDITIONS_END(fido_config_permission_create)
+
 /**
  * \brief Release a \ref fido_config_permission instance.
  *
