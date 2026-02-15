@@ -55,6 +55,26 @@ MODEL_CONTRACT_PRECONDITIONS_BEGIN(
         MODEL_ASSERT(__CPROVER_enum_is_in_range(pt));
 MODEL_CONTRACT_PRECONDITIONS_END(fido_config_permission_create)
 
+/* function contract postconditions. */
+MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
+    fido_config_permission_create, int retval, fido_config_permission** perm,
+    const char* identifier, int identifier_type, int permission_type)
+        /* on success... */
+        if (0 == retval)
+        {
+            /* *perm points to a valid permission instance. */
+            MODEL_ASSERT(property_fido_config_permission_valid(*perm));
+        }
+        else
+        {
+            /* *perm is NULL. */
+            MODEL_ASSERT(NULL == (*perm));
+            /* the error code belongs to the error enumeration. */
+            enum fido_error_code ec = (enum fido_error_code)retval;
+            MODEL_ASSERT(__CPROVER_enum_is_in_range(ec));
+        }
+MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_permission_create)
+
 /**
  * \brief Release a \ref fido_config_permission instance.
  *
