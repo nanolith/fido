@@ -112,7 +112,8 @@ MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_permission_release)
  *      - 0 on success.
  *      - non-zero on failure.
  */
-int fido_config_command_argument_create(
+int FN_DECL_MUST_CHECK
+fido_config_command_argument_create(
     fido_config_command_argument** arg, int argument_type,
     const char* argument_match);
 
