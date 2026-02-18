@@ -223,6 +223,13 @@ MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_command_create)
  */
 void fido_config_command_release(fido_config_command* cmd);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_config_command_release, fido_config_command* cmd)
+        /* cmd points to a region of memory large enough to hold it. */
+        MODEL_CHECK_OBJECT_RW(cmd, sizeof(*cmd));
+MODEL_CONTRACT_PRECONDITIONS_END(fido_config_command_release)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
