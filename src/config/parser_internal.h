@@ -94,6 +94,23 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
     fido_config_permission_release, fido_config_permission* perm)
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_permission_release)
 
+/**
+ * \brief Create a \ref fido_command_argument instance.
+ *
+ * \param arg               Pointer to the argument pointer to set to this
+ *                          created instance on success.
+ * \param argument_type     The type of argument. \see \ref
+ *                          fido_config_command_argument_type.
+ * \param argument_match    The match expression for the argument.
+ *
+ * \returns a status code indicating success or failure.
+ *      - 0 on success.
+ *      - non-zero on failure.
+ */
+int fido_config_command_argument_create(
+    fido_config_command_argument** arg, int argument_type,
+    const char* argument_match);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
