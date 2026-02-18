@@ -216,6 +216,13 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
         }
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_command_create)
 
+/**
+ * \brief Release a \ref fido_config_command instance.
+ *
+ * \param cmd           The command to release.
+ */
+void fido_config_command_release(fido_config_command* cmd);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
