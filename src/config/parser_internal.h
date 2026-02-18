@@ -151,6 +151,19 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
         }
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_command_argument)
 
+/**
+ * \brief Create a \ref fido_command instance.
+ *
+ * \param cmd               Pointer to the command pointer to set to this
+ *                          created instance on success.
+ * \param binary            Real path to the binary.
+ *
+ * \returns a status code indicating success or failure.
+ *      - 0 on success.
+ *      - non-zero on failure.
+ */
+int fido_config_command_create(fido_config_command** cmd, const char* binary);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
