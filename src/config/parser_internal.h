@@ -173,7 +173,7 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_command_argument_release)
 
 /**
- * \brief Create a \ref fido_command instance.
+ * \brief Create a \ref fido_config_command instance.
  *
  * \param cmd               Pointer to the command pointer to set to this
  *                          created instance on success.
