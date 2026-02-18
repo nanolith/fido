@@ -186,6 +186,16 @@ MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_command_argument_release)
 int FN_DECL_MUST_CHECK
 fido_config_command_create(fido_config_command** cmd, const char* binary);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_config_command_create, fido_config_command** cmd, const char* binary)
+        /* cmd points to a region of memory large enough to hold a cmd */
+        /* pointer. */
+        MODEL_CHECK_OBJECT_RW(cmd, sizeof(*cmd));
+        /* binary is valid. */
+        MODEL_ASSERT(NULL != binary);
+MODEL_CONTRACT_PRECONDITIONS_END(fido_config_command_create)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
