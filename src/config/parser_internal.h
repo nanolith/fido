@@ -230,6 +230,11 @@ MODEL_CONTRACT_PRECONDITIONS_BEGIN(
         MODEL_CHECK_OBJECT_RW(cmd, sizeof(*cmd));
 MODEL_CONTRACT_PRECONDITIONS_END(fido_config_command_release)
 
+/* function contract postconditions. */
+MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
+    fido_config_command_release, fido_config_command* cmd)
+MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_command_release)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
