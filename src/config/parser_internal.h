@@ -154,6 +154,13 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_command_argument)
 
 /**
+ * \brief Release a \ref fido_config_command_argument instance.
+ *
+ * \param arg           The argument to release.
+ */
+void fido_config_command_argument_release(fido_config_command_argument* arg);
+
+/**
  * \brief Create a \ref fido_command instance.
  *
  * \param cmd               Pointer to the command pointer to set to this
