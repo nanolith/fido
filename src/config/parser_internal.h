@@ -121,7 +121,7 @@ fido_config_command_argument_create(
 MODEL_CONTRACT_PRECONDITIONS_BEGIN(
     fido_config_command_argument_create, fido_config_command_argument** arg,
     int argument_type, const char* argument_match)
-        /* perm points to a region of memory large enough to hold an arg */
+        /* arg points to a region of memory large enough to hold an arg */
         /* pointer. */
         MODEL_CHECK_OBJECT_RW(arg, sizeof(*arg));
         /* argument type is a valid enumeration value. */
