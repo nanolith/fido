@@ -115,6 +115,21 @@ int fido_config_command_argument_create(
     fido_config_command_argument** arg, int argument_type,
     const char* argument_match);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_config_command_argument_create, fido_config_command_argument** arg,
+    int argument_type, const char* argument_match)
+        /* perm points to a region of memory large enough to hold an arg */
+        /* pointer. */
+        MODEL_CHECK_OBJECT_RW(arg, sizeof(*arg));
+        /* argument type is a valid enumeration value. */
+        enum fido_config_command_argument_type at =
+            (enum fido_config_command_argument_type)argument_type;
+        MODEL_ASSERT(__CPROVER_enum_is_in_range(at));
+        /* argument_match is valid. */
+        MODEL_ASSERT(NULL != argument_match);
+MODEL_CONTRACT_PRECONDITIONS_END(fido_config_command_argument_create)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
