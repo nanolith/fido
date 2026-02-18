@@ -36,7 +36,8 @@ extern "C" {
  *      - 0 on success.
  *      - non-zero on failure.
  */
-int fido_config_permission_create(
+int FN_DECL_MUST_CHECK
+fido_config_permission_create(
     fido_config_permission** perm, const char* identifier, int identifier_type,
     int permission_type);
 
