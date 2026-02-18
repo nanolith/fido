@@ -160,6 +160,13 @@ MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_command_argument)
  */
 void fido_config_command_argument_release(fido_config_command_argument* arg);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_config_command_argument_release, fido_config_command_argument* arg)
+        /* arg points to a region of memory large enough to hold it. */
+        MODEL_CHECK_OBJECT_RW(arg, sizeof(*arg));
+MODEL_CONTRACT_PRECONDITIONS_END(fido_config_command_argument_release)
+
 /**
  * \brief Create a \ref fido_command instance.
  *
