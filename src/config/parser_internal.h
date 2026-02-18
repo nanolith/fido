@@ -151,7 +151,7 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
             enum fido_error_code ec = (enum fido_error_code)retval;
             MODEL_ASSERT(__CPROVER_enum_is_in_range(ec));
         }
-MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_command_argument)
+MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_command_argument_create)
 
 /**
  * \brief Release a \ref fido_config_command_argument instance.
