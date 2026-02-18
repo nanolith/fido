@@ -130,6 +130,27 @@ MODEL_CONTRACT_PRECONDITIONS_BEGIN(
         MODEL_ASSERT(NULL != argument_match);
 MODEL_CONTRACT_PRECONDITIONS_END(fido_config_command_argument_create)
 
+/* function contract postconditions. */
+MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
+    fido_config_command_argument_create, int retval,
+    fido_config_command_argument** arg, int argument_type,
+    const char* argument_match)
+        /* on success... */
+        if (0 == retval)
+        {
+            /* *arg points to a valid argument instance. */
+            MODEL_ASSERT(property_fido_config_command_argument_valid(*arg));
+        }
+        else
+        {
+            /* *arg is NULL. */
+            MODEL_ASSERT(NULL == (*arg));
+            /* the error code belongs to the error enumeration. */
+            enum fido_error_code ec = (enum fido_error_code)retval;
+            MODEL_ASSERT(__CPROVER_enum_is_in_range(ec));
+        }
+MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_command_argument)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
