@@ -31,8 +31,12 @@ extern "C" {
  *                          \ref fido_config_identifier_type.
  * \param permission_type   The permission type. \see
  *                          \ref fido_config_permission_type.
+ *
+ * \returns a status code indicating success or failure.
+ *      - 0 on success.
+ *      - non-zero on failure.
  */
-void fido_config_permission_create(
+int fido_config_permission_create(
     fido_config_permission** perm, const char* identifier, int identifier_type,
     int permission_type);
 
