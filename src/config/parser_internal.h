@@ -164,7 +164,8 @@ MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_command_argument)
  *      - 0 on success.
  *      - non-zero on failure.
  */
-int fido_config_command_create(fido_config_command** cmd, const char* binary);
+int FN_DECL_MUST_CHECK
+fido_config_command_create(fido_config_command** cmd, const char* binary);
 
 /* C++ compatibility. */
 # ifdef   __cplusplus
