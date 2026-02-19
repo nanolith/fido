@@ -448,6 +448,14 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
         MODEL_ASSERT(property_fido_config_command_valid(*cmd));
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_command_add_argument)
 
+/**
+ * \brief Finalize arguments for a \ref fido_config_command instance.
+ *
+ * \param cmd               The command instance for this operation.
+ */
+void
+fido_config_command_arguments_finalize(fido_config_command* cmd);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
