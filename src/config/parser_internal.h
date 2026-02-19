@@ -421,10 +421,6 @@ MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_create)
  *
  * \param cmd               The command instance for this operation.
  * \param arg               The argument to add.
- *
- * \returns a status code indicating success or failure.
- *      - 0 on success.
- *      - non-zero on failure.
  */
 void
 fido_config_command_add_argument(
