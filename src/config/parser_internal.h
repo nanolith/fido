@@ -318,6 +318,21 @@ fido_config_role_create(
     fido_config_role** role, const char* name, const char* as_user,
     const char* as_group);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_config_role_create, fido_config_role** role, const char* name,
+    const char* as_user, const char* as_group)
+        /* role points to a region of memory large enough to hold a role */
+        /* pointer. */
+        MODEL_CHECK_OBJECT_RW(role, sizeof(*role));
+        /* name is valid. */
+        MODEL_ASSERT(NULL != name);
+        /* as_user is valid. */
+        MODEL_ASSERT(NULL != as_user);
+        /* as_group is valid. */
+        MODEL_ASSERT(NULL != as_group);
+MODEL_CONTRACT_PRECONDITIONS_END(fido_config_role_create)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
