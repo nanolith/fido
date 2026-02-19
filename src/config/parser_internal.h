@@ -261,6 +261,26 @@ MODEL_CONTRACT_PRECONDITIONS_BEGIN(
         MODEL_ASSERT(NULL != name);
 MODEL_CONTRACT_PRECONDITIONS_END(fido_config_add_variable_create)
 
+/* function contract postconditions. */
+MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
+    fido_config_add_variable_create, int retval, fido_config_add_variable** var,
+    const char* name)
+        /* on success... */
+        if (0 == retval)
+        {
+            /* *var points to a valid add variable instance. */
+            MODEL_ASSERT(property_fido_config_add_variable_valid(*var));
+        }
+        else
+        {
+            /* *var is NULL. */
+            MODEL_ASSERT(NULL == (*var));
+            /* the error code belongs to the error enumeration. */
+            enum fido_error_code ec = (enum fido_error_code)retval;
+            MODEL_ASSERT(__CPROVER_enum_is_in_range(ec));
+        }
+MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_add_variable_create)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
