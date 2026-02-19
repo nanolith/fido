@@ -199,6 +199,17 @@ property_fido_config_role_valid(
     const fido_config_role* role);
 
 /**
+ * \brief Finalized role record.
+ *
+ * \param role          The role record to check.
+ *
+ * \returns true if the role record is finalized.
+ */
+bool
+property_fido_config_role_finalized(
+    const fido_config_role* role);
+
+/**
  * \brief Valid config record.
  *
  * \param config        The config record to check.
