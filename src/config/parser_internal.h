@@ -575,6 +575,8 @@ MODEL_CONTRACT_PRECONDITIONS_BEGIN(
     fido_config_role_permissions_finalize, fido_config_role* role)
         /* role is valid. */
         MODEL_ASSERT(property_fido_config_role_valid(role));
+        /* permissions have not yet been finalized. */
+        MODEL_ASSERT(!role->permissions_finalized);
 MODEL_CONTRACT_PRECONDITIONS_END(fido_config_role_permissions_finalize)
 
 /* function contract postconditions. */
