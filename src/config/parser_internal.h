@@ -412,13 +412,6 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
         }
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_create)
 
-/**
- * \brief Release a \ref fido_config instance.
- *
- * \param config        The config instance to release.
- */
-void fido_config_release(fido_config* config);
-
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
