@@ -88,6 +88,7 @@ typedef struct fido_config_command fido_config_command;
 struct fido_config_command
 {
     fido_config_command* next;
+    bool arguments_finalized;
     char* binary;
     fido_config_command_argument* head;
 };
