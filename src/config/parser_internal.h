@@ -385,6 +385,14 @@ MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_role_release)
 int FN_DECL_MUST_CHECK
 fido_config_create(fido_config** config);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_config_create, fido_config** config)
+        /* config points to a region of memory large enough to hold a config */
+        /* pointer. */
+        MODEL_CHECK_OBJECT_RW(config, sizeof(*config));
+MODEL_CONTRACT_PRECONDITIONS_END(fido_config_create)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
