@@ -486,6 +486,14 @@ MODEL_CONTRACT_PRECONDITIONS_BEGIN(
         MODEL_ASSERT(property_fido_config_command_valid(cmd));
 MODEL_CONTRACT_PRECONDITIONS_END(fido_config_role_add_command)
 
+/* function contract postconditions. */
+MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
+    fido_config_role_add_command, fido_config_role* role,
+    fido_config_command* cmd)
+        /* role is valid. */
+        MODEL_ASSERT(property_fido_config_role_valid(role));
+MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_role_add_command)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
