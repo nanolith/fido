@@ -538,6 +538,18 @@ void
 fido_config_role_add_permission(
     fido_config_role* role, fido_config_permission* perm);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_config_role_add_permission,
+    fido_config_role* role, fido_config_permission* perm)
+        /* role is valid. */
+        MODEL_ASSERT(property_fido_config_role_valid(role));
+        /* perm is valid. */
+        MODEL_ASSERT(property_fido_config_role_valid(perm));
+        /* perm does not currently point to a next. */
+        MODEL_ASSERT(NULL == perm->next);
+MODEL_CONTRACT_PRECONDITIONS_END(fido_config_role_add_permission)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
