@@ -434,6 +434,8 @@ MODEL_CONTRACT_PRECONDITIONS_BEGIN(
         MODEL_ASSERT(property_fido_config_command_valid(cmd));
         /* arg is valid. */
         MODEL_ASSERT(property_fido_config_command_argument_valid(arg));
+        /* arg does not currently point to a next. */
+        MODEL_ASSERT(NULL == arg->next);
 MODEL_CONTRACT_PRECONDITIONS_END(fido_config_command_add_argument)
 
 /* function contract postconditions. */
