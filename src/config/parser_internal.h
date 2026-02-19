@@ -452,6 +452,13 @@ MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_command_add_argument)
 void
 fido_config_command_arguments_finalize(fido_config_command* cmd);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_config_command_arguments_finalize, fido_config_command* cmd)
+        /* cmd is valid. */
+        MODEL_ASSERT(property_fido_config_command_valid(*cmd));
+MODEL_CONTRACT_PRECONDITIONS_END(fido_config_command_arguments_finalize)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
