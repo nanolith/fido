@@ -372,6 +372,19 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
     fido_config_role_release, fido_config_role* role)
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_role_release)
 
+/**
+ * \brief Create a \ref fido_config instance.
+ *
+ * \param config            Pointer to the config pointer to set to this
+ *                          created instance on success.
+ *
+ * \returns a status code indicating success or failure.
+ *      - 0 on success.
+ *      - non-zero on failure.
+ */
+int FN_DECL_MUST_CHECK
+fido_config_create(fido_config** config);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
