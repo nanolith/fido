@@ -440,7 +440,7 @@ MODEL_CONTRACT_PRECONDITIONS_END(fido_config_command_add_argument)
 MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
     fido_config_command_add_argument, fido_config_command* cmd,
     fido_config_command_argument* arg)
-        /* cmd points to a valid command instance. */
+        /* cmd is valid. */
         MODEL_ASSERT(property_fido_config_command_valid(cmd));
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_command_add_argument)
 
