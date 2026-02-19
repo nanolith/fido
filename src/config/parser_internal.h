@@ -281,6 +281,13 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
         }
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_add_variable_create)
 
+/**
+ * \brief Release a \ref fido_config_add_variable instance.
+ *
+ * \param var           The add variable instance to release.
+ */
+void fido_config_add_variable_release(fido_config_add_variable* var);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
