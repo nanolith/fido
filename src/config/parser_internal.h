@@ -466,6 +466,16 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
         MODEL_ASSERT(property_fido_config_command_valid(cmd));
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_command_arguments_finalize)
 
+/**
+ * \brief Add a command to a role instance.
+ *
+ * \param role              The role instance for this operation.
+ * \param cmd               The command to add.
+ */
+void
+fido_config_role_add_command(
+    fido_config_role* role, fido_config_command* cmd);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
