@@ -550,6 +550,14 @@ MODEL_CONTRACT_PRECONDITIONS_BEGIN(
         MODEL_ASSERT(NULL == perm->next);
 MODEL_CONTRACT_PRECONDITIONS_END(fido_config_role_add_permission)
 
+/* function contract postconditions. */
+MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
+    fido_config_role_add_permission, fido_config_role* role,
+    fido_config_permission* perm)
+        /* role is valid. */
+        MODEL_ASSERT(property_fido_config_role_valid(role));
+MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_role_add_permission)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
