@@ -166,6 +166,17 @@ property_fido_config_command_valid(
     const fido_config_command* cmd);
 
 /**
+ * \brief Finalized command record property.
+ *
+ * \param cmd           The command record to check.
+ *
+ * \returns true if the command record is finalized.
+ */
+bool
+property_fido_config_command_finalized(
+    const fido_config_command* cmd);
+
+/**
  * \brief Valid add variable record.
  *
  * \param arg           The add variable record to check.
