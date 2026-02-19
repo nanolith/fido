@@ -250,6 +250,17 @@ int FN_DECL_MUST_CHECK
 fido_config_add_variable_create(
     fido_config_add_variable** var, const char* name);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_config_add_variable_create, fido_config_add_variable** var,
+    const char* name)
+        /* var points to a region of memory large enough to hold a var */
+        /* pointer. */
+        MODEL_CHECK_OBJECT_RW(var, sizeof(*var));
+        /* name is valid. */
+        MODEL_ASSERT(NULL != name);
+MODEL_CONTRACT_PRECONDITIONS_END(fido_config_add_variable_create)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
