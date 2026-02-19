@@ -588,6 +588,16 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
         MODEL_ASSERT(role->permissions_finalized);
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_role_permissions_finalize)
 
+/**
+ * \brief Add a role to a config instance.
+ *
+ * \param config            The config instance for this operation.
+ * \param role              The role to add.
+ */
+void
+fido_config_add_role(
+    fido_config* config, fido_config_role* role);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
