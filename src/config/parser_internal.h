@@ -333,6 +333,26 @@ MODEL_CONTRACT_PRECONDITIONS_BEGIN(
         MODEL_ASSERT(NULL != as_group);
 MODEL_CONTRACT_PRECONDITIONS_END(fido_config_role_create)
 
+/* function contract postconditions. */
+MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
+    fido_config_role_create, int retval, fido_config_role** role,
+    const char* name, const char* as_user, const char* as_group)
+        /* on success... */
+        if (0 == retval)
+        {
+            /* *role points to a valid add variable instance. */
+            MODEL_ASSERT(property_fido_config_role_valid(*role));
+        }
+        else
+        {
+            /* *role is NULL. */
+            MODEL_ASSERT(NULL == (*role));
+            /* the error code belongs to the error enumeration. */
+            enum fido_error_code ec = (enum fido_error_code)retval;
+            MODEL_ASSERT(__CPROVER_enum_is_in_range(ec));
+        }
+MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_role_create)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
