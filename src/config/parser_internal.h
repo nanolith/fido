@@ -340,7 +340,7 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
         /* on success... */
         if (0 == retval)
         {
-            /* *role points to a valid add variable instance. */
+            /* *role points to a valid role instance. */
             MODEL_ASSERT(property_fido_config_role_valid(*role));
         }
         else
