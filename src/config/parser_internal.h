@@ -393,6 +393,25 @@ MODEL_CONTRACT_PRECONDITIONS_BEGIN(
         MODEL_CHECK_OBJECT_RW(config, sizeof(*config));
 MODEL_CONTRACT_PRECONDITIONS_END(fido_config_create)
 
+/* function contract postconditions. */
+MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
+    fido_config_create, int retval, fido_config** config)
+        /* on success... */
+        if (0 == retval)
+        {
+            /* *role points to a valid config instance. */
+            MODEL_ASSERT(property_fido_config_valid(*config));
+        }
+        else
+        {
+            /* *config is NULL. */
+            MODEL_ASSERT(NULL == (*config));
+            /* the error code belongs to the error enumeration. */
+            enum fido_error_code ec = (enum fido_error_code)retval;
+            MODEL_ASSERT(__CPROVER_enum_is_in_range(ec));
+        }
+MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_create)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
