@@ -288,6 +288,13 @@ MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_add_variable_create)
  */
 void fido_config_add_variable_release(fido_config_add_variable* var);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_config_add_variable_release, fido_config_add_variable* var)
+        /* var points to a region of memory large enough to hold it. */
+        MODEL_CHECK_OBJECT_RW(var, sizeof(*var));
+MODEL_CONTRACT_PRECONDITIONS_END(fido_config_add_variable_release)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
