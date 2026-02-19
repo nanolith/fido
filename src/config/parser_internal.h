@@ -598,6 +598,19 @@ void
 fido_config_add_role(
     fido_config* config, fido_config_role* role);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_config_add_role, fido_config* config, fido_config_role* role)
+        /* config is valid. */
+        MODEL_ASSERT(property_fido_config_valid(config));
+        /* role is valid. */
+        MODEL_ASSERT(property_fido_config_role_valid(role));
+        /* role does not currently point to a next. */
+        MODEL_ASSERT(NULL == role->next);
+        /* roles have not yet been finalized. */
+        MODEL_ASSERT(!config->roles_finalized);
+MODEL_CONTRACT_PRECONDITIONS_END(fido_config_add_role)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
