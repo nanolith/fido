@@ -125,6 +125,7 @@ struct fido_config_role
 typedef struct fido_config fido_config;
 struct fido_config
 {
+    bool roles_finalized;
     fido_config_role* head;
 };
 
