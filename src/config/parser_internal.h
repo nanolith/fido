@@ -367,6 +367,11 @@ MODEL_CONTRACT_PRECONDITIONS_BEGIN(
         MODEL_CHECK_OBJECT_RW(role, sizeof(*role));
 MODEL_CONTRACT_PRECONDITIONS_END(fido_config_role_release)
 
+/* function contract postconditions. */
+MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
+    fido_config_role_release, fido_config_role* role)
+MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_role_release)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
