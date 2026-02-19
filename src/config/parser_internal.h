@@ -547,7 +547,7 @@ MODEL_CONTRACT_PRECONDITIONS_BEGIN(
         /* role is valid. */
         MODEL_ASSERT(property_fido_config_role_valid(role));
         /* perm is valid. */
-        MODEL_ASSERT(property_fido_config_role_valid(perm));
+        MODEL_ASSERT(property_fido_config_permission_valid(perm));
         /* perm does not currently point to a next. */
         MODEL_ASSERT(NULL == perm->next);
         /* permissions have not yet been finalized. */
