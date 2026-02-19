@@ -109,6 +109,7 @@ typedef struct fido_config_role fido_config_role;
 struct fido_config_role
 {
     fido_config_role* next;
+    bool permissions_finalized;
     char* name;
     char* as_user;
     char* as_group;
