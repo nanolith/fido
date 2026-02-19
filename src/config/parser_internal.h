@@ -300,6 +300,24 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
     fido_config_add_variable_release, fido_config_add_variable* var)
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_add_variable_release)
 
+/**
+ * \brief Create a \ref fido_config_role instance.
+ *
+ * \param role              Pointer to the role pointer to set to this
+ *                          created instance on success.
+ * \param name              The name of the role.
+ * \param as_user           Optional "as user" attribute or NULL.
+ * \param as_group          Optional "as group" attribute or NULL.
+ *
+ * \returns a status code indicating success or failure.
+ *      - 0 on success.
+ *      - non-zero on failure.
+ */
+int FN_DECL_MUST_CHECK
+fido_config_role_create(
+    fido_config_role** role, const char* name, const char* as_user,
+    const char* as_group);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
