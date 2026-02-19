@@ -494,6 +494,16 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
         MODEL_ASSERT(property_fido_config_role_valid(role));
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_role_add_command)
 
+/**
+ * \brief Add a variable to a role instance.
+ *
+ * \param role              The role instance for this operation.
+ * \param var               The variable to add.
+ */
+void
+fido_config_role_add_variable(
+    fido_config_role* role, fido_config_add_variable* var);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
