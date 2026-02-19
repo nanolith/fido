@@ -618,6 +618,14 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
         MODEL_ASSERT(property_fido_config_valid(config));
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_add_role)
 
+/**
+ * \brief Finalize roles for a \ref fido_config instance.
+ *
+ * \param config            The config instance for this operation.
+ */
+void
+fido_config_roles_finalize(fido_config* config);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
