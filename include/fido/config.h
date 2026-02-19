@@ -220,6 +220,17 @@ bool
 property_fido_config_valid(
     const fido_config* config);
 
+/**
+ * \brief Finalized config record.
+ *
+ * \param config        The config record to check.
+ *
+ * \returns true if the config record is finalized.
+ */
+bool
+property_fido_config_finalized(
+    const fido_config* config);
+
 /******************************************************************************/
 /* Start of constructors.                                                     */
 /******************************************************************************/
