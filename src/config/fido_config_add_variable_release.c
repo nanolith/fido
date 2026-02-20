@@ -1,5 +1,5 @@
 /**
- * \file config/fido_config_add_variable.c
+ * \file config/fido_config_add_variable_release.c
  *
  * \brief Release a \ref fido_config_add_variable instance.
  *
