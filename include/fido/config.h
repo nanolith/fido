@@ -297,8 +297,8 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
             /* this is a defined error code. */
             enum fido_error_code error = (enum fido_error_code)retval;
             MODEL_ASSERT(__CPROVER_enum_is_in_range(error));
-            /* scanner is set to NULL. */
-            MODEL_ASSERT(NULL == *scanner);
+            /* config is set to NULL. */
+            MODEL_ASSERT(NULL == *config);
         }
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_parse)
 
