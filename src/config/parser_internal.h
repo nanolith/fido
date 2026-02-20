@@ -413,7 +413,7 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_create)
 
 /******************************************************************************/
-/* Start of public methods.                                                   */
+/* Start of private methods.                                                  */
 /******************************************************************************/
 
 /**
