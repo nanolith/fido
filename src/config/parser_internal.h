@@ -11,6 +11,7 @@
 #pragma once
 
 #include <fido/config.h>
+#include <fido/scanner.h>
 
 /* C++ compatibility. */
 # ifdef   __cplusplus
@@ -643,6 +644,21 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
         /* roles for config have been finalized. */
         MODEL_ASSERT(config->roles_finalized);
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_roles_finalize)
+
+/**
+ * \brief Parse config data into a \ref fido_config instance.
+ *
+ * \param perm          Pointer to the permision pointer to set to the created
+ *                      instance on success.
+ * \param scanner       The scanner to use to parse this permission.
+ *
+ * \returns a status code indicating success or failure.
+ *      - 0 on success.
+ *      - a non-zero error code on failure.
+ */
+int FN_DECL_MUST_CHECK
+fido_config_parse_permission(
+    fido_config_permission** perm, fido_scanner* scanner);
 
 /* C++ compatibility. */
 # ifdef   __cplusplus
