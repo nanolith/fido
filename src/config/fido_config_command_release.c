@@ -22,7 +22,7 @@ void fido_config_command_release(fido_config_command* cmd)
 
     MODEL_CONTRACT_CHECK_PRECONDITIONS(fido_config_command_release, cmd);
 
-    /* clean up binay if set. */
+    /* clean up binary if set. */
     if (NULL != cmd->binary)
     {
         free(cmd->binary);
