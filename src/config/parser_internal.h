@@ -660,6 +660,16 @@ int FN_DECL_MUST_CHECK
 fido_config_parse_permission(
     fido_config_permission** perm, fido_scanner* scanner);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_config_parse_permission, fido_config_permission** perm,
+    fido_scanner* scanner)
+        /* the perm pointer is valid. */
+        MODEL_CHECK_OBJECT_RW(perm, sizeof(*perm));
+        /* the scanner is valid. */
+        MODEL_ASSERT(property_fido_scanner_valid(scanner));
+MODEL_CONTRACT_PRECONDITIONS_END(fido_config_parse_permission)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
