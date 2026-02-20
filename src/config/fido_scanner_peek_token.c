@@ -8,6 +8,7 @@
  */
 
 #include <ctype.h>
+#include <string.h>
 
 #include "scanner_internal.h"
 
@@ -30,28 +31,19 @@ fido_scanner_peek_token(
     fido_token_details* details, fido_scanner* scanner)
 {
     int retval;
-    const char* input;
-    size_t index;
-    size_t line;
-    size_t col;
+    fido_scanner backup;
 
     MODEL_CONTRACT_CHECK_PRECONDITIONS(
         fido_scanner_peek_token, details, scanner);
 
-    /* TODO - extract into function. */
-    input = scanner->input;
-    index = scanner->index;
-    line = scanner->line;
-    col = scanner->col;
+    /* Back up scanner state. */
+    memcpy(&backup, scanner, sizeof(backup));
 
     /* read the next token. */
     retval = fido_scanner_read_token(details, scanner);
 
-    /* TODO - extract into function. */
-    scanner->input = input;
-    scanner->index = index;
-    scanner->line = line;
-    scanner->col = col;
+    /* Restore scanner state. */
+    memcpy(scanner, &backup, sizeof(backup));
 
     MODEL_CONTRACT_CHECK_POSTCONDITIONS(
         fido_scanner_peek_token, retval, details, scanner);
