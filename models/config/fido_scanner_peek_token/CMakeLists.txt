@@ -1,16 +1,7 @@
 SET(MC_SOURCES
     ${CMAKE_SOURCE_DIR}/models/shadow/config/property_fido_scanner_valid.c
     ${CMAKE_SOURCE_DIR}/src/config/fido_scanner_create.c
-    ${CMAKE_SOURCE_DIR}/models/shadow/config/fido_scanner_complete_token_identifier.c
-    ${CMAKE_SOURCE_DIR}/models/shadow/config/fido_scanner_complete_token_keyword_as.c
-    ${CMAKE_SOURCE_DIR}/models/shadow/config/fido_scanner_complete_token_keyword_cmd.c
-    ${CMAKE_SOURCE_DIR}/models/shadow/config/fido_scanner_complete_token_keyword_deny.c
-    ${CMAKE_SOURCE_DIR}/models/shadow/config/fido_scanner_complete_token_keyword_env.c
-    ${CMAKE_SOURCE_DIR}/models/shadow/config/fido_scanner_complete_token_keyword_permit.c
-    ${CMAKE_SOURCE_DIR}/models/shadow/config/fido_scanner_complete_token_keyword_role.c
-    ${CMAKE_SOURCE_DIR}/models/shadow/config/fido_scanner_complete_token_string.c
     ${CMAKE_SOURCE_DIR}/models/shadow/config/fido_scanner_read_token.c
-    ${CMAKE_SOURCE_DIR}/models/shadow/config/fido_scanner_skip_whitespace.c
     ${CMAKE_SOURCE_DIR}/src/config/fido_scanner_next_character.c
     ${CMAKE_SOURCE_DIR}/src/config/fido_scanner_peek_token.c
     ${CMAKE_SOURCE_DIR}/src/config/fido_scanner_release.c
