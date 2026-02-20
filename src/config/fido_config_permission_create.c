@@ -36,7 +36,7 @@ fido_config_permission_create(
     fido_config_permission* tmp;
 
     MODEL_CONTRACT_CHECK_PRECONDITIONS(
-        fido_config_permission_release, perm, identifier, identifier_type,
+        fido_config_permission_create, perm, identifier, identifier_type,
         permission_type);
 
     /* allocate memory for this permission. */
