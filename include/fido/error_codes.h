@@ -24,6 +24,8 @@ enum fido_error_code
     FIDO_ERROR_UNEXPECTED_EOF = 3,
     /** \brief An unexpected token was encountered when parsing config file. */
     FIDO_ERROR_UNEXPECTED_TOKEN = 4,
+    /** \brief The length of a string token was too long. */
+    FIDO_ERROR_BAD_LENGTH = 5,
 };
 
 /* C++ compatibility. */
