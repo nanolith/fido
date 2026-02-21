@@ -54,12 +54,12 @@ fido_config_parse_permission(
     else if (FIDO_SCANNER_TOKEN_TYPE_EOF == token)
     {
         retval = FIDO_ERROR_UNEXPECTED_EOF;
-        goto done;
+        goto error_exit;
     }
     else
     {
         retval = FIDO_ERROR_UNEXPECTED_TOKEN;
-        goto done;
+        goto error_exit;
     }
 
     /* read a username or group. */
@@ -69,6 +69,10 @@ fido_config_parse_permission(
         retval =
             create_permission_with_username(
                 perm, &details, permission_type, scanner);
+        if (0 != retval)
+        {
+            goto error_exit;
+        }
         goto done;
     }
     else if (FIDO_SCANNER_TOKEN_TYPE_GROUP == token)
@@ -76,12 +80,19 @@ fido_config_parse_permission(
         retval =
             create_permission_with_group(
                 perm, &details, permission_type, scanner);
+        if (0 != retval)
+        {
+            goto error_exit;
+        }
         goto done;
     }
 
     /* any other token is unexpected. */
     retval = FIDO_ERROR_UNEXPECTED_TOKEN;
-    goto done;
+    goto error_exit;
+
+error_exit:
+    *perm = NULL;
 
 done:
     MODEL_CONTRACT_CHECK_POSTCONDITIONS(
