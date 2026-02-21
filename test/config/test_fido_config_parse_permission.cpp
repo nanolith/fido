@@ -196,3 +196,28 @@ TEST(permit_group)
     fido_config_permission_release(perm);
     fido_scanner_release(scanner);
 }
+
+/**
+ * \brief We can parse a deny username.
+ */
+TEST(deny_username)
+{
+    fido_scanner* scanner = nullptr;
+    fido_config_permission* perm = nullptr;
+    const char* TEST_INPUT = "deny carl";
+
+    /* Create the scanner instance. */
+    TEST_ASSERT(0 == fido_scanner_create(&scanner, TEST_INPUT));
+
+    /* the parse should succeed. */
+    TEST_ASSERT(0 == fido_config_parse_permission(&perm, scanner));
+    TEST_ASSERT(nullptr != perm);
+    TEST_EXPECT(nullptr == perm->next);
+    TEST_EXPECT(!strcmp("carl", perm->identifier));
+    TEST_EXPECT(FIDO_CONFIG_IDENTIFIER_TYPE_USERNAME == perm->identifier_type);
+    TEST_EXPECT(FIDO_CONFIG_PERMISSION_TYPE_DENY == perm->permission_type);
+
+    /* clean up. */
+    fido_config_permission_release(perm);
+    fido_scanner_release(scanner);
+}
