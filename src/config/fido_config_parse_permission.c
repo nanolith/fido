@@ -86,6 +86,11 @@ fido_config_parse_permission(
         }
         goto done;
     }
+    else if (FIDO_SCANNER_TOKEN_TYPE_EOF == token)
+    {
+        retval = FIDO_ERROR_UNEXPECTED_EOF;
+        goto error_exit;
+    }
 
     /* any other token is unexpected. */
     retval = FIDO_ERROR_UNEXPECTED_TOKEN;
