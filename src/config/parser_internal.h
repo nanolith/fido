@@ -678,7 +678,7 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
         /* on success... */
         if (0 == retval)
         {
-            /* the config is valid. */
+            /* the permission is valid. */
             MODEL_ASSERT(property_fido_config_permission_valid(*perm));
         }
         else
