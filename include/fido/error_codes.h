@@ -22,6 +22,8 @@ enum fido_error_code
     FIDO_ERROR_INVALID_INPUT = 2,
     /** \brief Unexpected EOF while parsing config file. */
     FIDO_ERROR_UNEXPECTED_EOF = 3,
+    /** \brief An unexpected token was encountered when parsing config file. */
+    FIDO_ERROR_UNEXPECTED_TOKEN = 4,
 };
 
 /* C++ compatibility. */
