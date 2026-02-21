@@ -26,6 +26,8 @@ enum fido_error_code
     FIDO_ERROR_UNEXPECTED_TOKEN = 4,
     /** \brief The length of a string token was too long. */
     FIDO_ERROR_BAD_LENGTH = 5,
+    /** \brief The provided command is invalid. */
+    FIDO_ERROR_INVALID_COMMAND = 6,
 };
 
 /* C++ compatibility. */
