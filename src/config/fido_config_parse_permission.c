@@ -128,7 +128,7 @@ static int create_permission_with_username(
 {
     int retval;
     char username[1024];
-    size_t name_len = (details->end_index - details->begin_index) + 1;
+    size_t name_len = (details->end_index - details->begin_index) + 2;
     const char* input = scanner->original_input;
     input += details->begin_index;
 
@@ -176,7 +176,7 @@ static int create_permission_with_group(
 {
     int retval;
     char username[1024];
-    size_t name_len = (details->end_index - details->begin_index) + 1;
+    size_t name_len = (details->end_index - details->begin_index) + 2;
     const char* input = scanner->original_input;
     input += details->begin_index;
 
