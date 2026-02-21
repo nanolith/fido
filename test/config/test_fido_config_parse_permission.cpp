@@ -221,3 +221,28 @@ TEST(deny_username)
     fido_config_permission_release(perm);
     fido_scanner_release(scanner);
 }
+
+/**
+ * \brief We can parse a deny group.
+ */
+TEST(deny_group)
+{
+    fido_scanner* scanner = nullptr;
+    fido_config_permission* perm = nullptr;
+    const char* TEST_INPUT = "deny :wheel";
+
+    /* Create the scanner instance. */
+    TEST_ASSERT(0 == fido_scanner_create(&scanner, TEST_INPUT));
+
+    /* the parse should succeed. */
+    TEST_ASSERT(0 == fido_config_parse_permission(&perm, scanner));
+    TEST_ASSERT(nullptr != perm);
+    TEST_EXPECT(nullptr == perm->next);
+    TEST_EXPECT(!strcmp("wheel", perm->identifier));
+    TEST_EXPECT(FIDO_CONFIG_IDENTIFIER_TYPE_GROUP == perm->identifier_type);
+    TEST_EXPECT(FIDO_CONFIG_PERMISSION_TYPE_DENY == perm->permission_type);
+
+    /* clean up. */
+    fido_config_permission_release(perm);
+    fido_scanner_release(scanner);
+}
