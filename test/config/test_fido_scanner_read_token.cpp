@@ -1,5 +1,5 @@
 /**
- * \file test/config/test_fido_scanner_read_token.c
+ * \file test/config/test_fido_scanner_read_token.cpp
  *
  * \brief Test that we can read tokens from the scanner.
  *
