@@ -20,6 +20,8 @@ enum fido_error_code
     FIDO_ERROR_OUT_OF_MEMORY = 1,
     /** \brief Invalid input error. */
     FIDO_ERROR_INVALID_INPUT = 2,
+    /** \brief Unexpected EOF while parsing config file. */
+    FIDO_ERROR_UNEXPECTED_EOF = 3,
 };
 
 /* C++ compatibility. */
