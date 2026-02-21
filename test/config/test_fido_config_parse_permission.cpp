@@ -123,3 +123,25 @@ TEST(bad_token_after_permit)
     /* clean up. */
     fido_scanner_release(scanner);
 }
+
+/**
+ * \brief Any other token after deny is an error.
+ */
+TEST(bad_token_after_deny)
+{
+    fido_scanner* scanner = nullptr;
+    fido_config_permission* perm = nullptr;
+    const char* TEST_INPUT = "deny {";
+
+    /* Create the scanner instance. */
+    TEST_ASSERT(0 == fido_scanner_create(&scanner, TEST_INPUT));
+
+    /* attempt to parse a permission. */
+    TEST_ASSERT(
+        FIDO_ERROR_UNEXPECTED_TOKEN
+            == fido_config_parse_permission(&perm, scanner));
+    TEST_ASSERT(nullptr == perm);
+
+    /* clean up. */
+    fido_scanner_release(scanner);
+}
