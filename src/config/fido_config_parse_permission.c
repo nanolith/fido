@@ -21,7 +21,8 @@ static int create_permission_with_group(
     int permission_type, fido_scanner* scanner);
 
 /**
- * \brief Parse config data into a \ref fido_config instance.
+ * \brief Parse a permission statement into a \ref fido_config_permission
+ * instance.
  *
  * \param perm          Pointer to the permision pointer to set to the created
  *                      instance on success.
