@@ -28,6 +28,8 @@ enum fido_error_code
     FIDO_ERROR_BAD_LENGTH = 5,
     /** \brief The provided command is invalid. */
     FIDO_ERROR_INVALID_COMMAND = 6,
+    /** \brief An invalid string was encountered. */
+    FIDO_ERROR_INVALID_STRING = 7,
 };
 
 /* C++ compatibility. */
