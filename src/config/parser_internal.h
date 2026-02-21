@@ -706,6 +706,16 @@ int FN_DECL_MUST_CHECK
 fido_config_parse_command(
     fido_config_command** cmd, fido_scanner* scanner);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_config_parse_command, fido_config_command** cmd,
+    fido_scanner* scanner)
+        /* the cmd pointer is valid. */
+        MODEL_CHECK_OBJECT_RW(cmd, sizeof(*cmd));
+        /* the scanner is valid. */
+        MODEL_ASSERT(property_fido_scanner_valid(scanner));
+MODEL_CONTRACT_PRECONDITIONS_END(fido_config_parse_command)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
