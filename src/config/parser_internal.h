@@ -646,7 +646,8 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_roles_finalize)
 
 /**
- * \brief Parse config data into a \ref fido_config instance.
+ * \brief Parse a permission statement into a \ref fido_config_permission
+ * instance.
  *
  * \param perm          Pointer to the permision pointer to set to the created
  *                      instance on success.
