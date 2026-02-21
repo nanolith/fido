@@ -691,6 +691,21 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
         }
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_parse_permission)
 
+/**
+ * \brief Parse a command statement into a \ref fido_config_command instance.
+ *
+ * \param cmd           Pointer to the command pointer to set to the created
+ *                      instance on success.
+ * \param scanner       The scanner to use to parse this command.
+ *
+ * \returns a status code indicating success or failure.
+ *      - 0 on success.
+ *      - a non-zero error code on failure.
+ */
+int FN_DECL_MUST_CHECK
+fido_config_parse_command(
+    fido_config_command** cmd, fido_scanner* scanner);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
