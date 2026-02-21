@@ -57,3 +57,25 @@ TEST(incomplete_permit)
     /* clean up. */
     fido_scanner_release(scanner);
 }
+
+/**
+ * \brief An incomplete deny statement is an error.
+ */
+TEST(incomplete_deny)
+{
+    fido_scanner* scanner = nullptr;
+    fido_config_permission* perm = nullptr;
+    const char* TEST_INPUT = "deny";
+
+    /* Create the scanner instance. */
+    TEST_ASSERT(0 == fido_scanner_create(&scanner, TEST_INPUT));
+
+    /* attempt to parse a permission. */
+    TEST_ASSERT(
+        FIDO_ERROR_UNEXPECTED_EOF
+            == fido_config_parse_permission(&perm, scanner));
+    TEST_ASSERT(nullptr == perm);
+
+    /* clean up. */
+    fido_scanner_release(scanner);
+}
