@@ -236,3 +236,24 @@ TEST(cmd_arguments_after_wildcard)
     /* clean up. */
     fido_scanner_release(scanner);
 }
+
+/**
+ * \brief It's an error to have multiple wildcard operators in an argument.
+ */
+TEST(cmd_multiple_argument_wildcards_error)
+{
+    fido_scanner* scanner = nullptr;
+    fido_config_command* cmd = nullptr;
+    const char* TEST_INPUT = R"(cmd "/sbin/mount %sd%")";
+
+    /* Create the scanner instance. */
+    TEST_ASSERT(0 == fido_scanner_create(&scanner, TEST_INPUT));
+
+    /* attempt to parse a command. */
+    TEST_ASSERT(
+        FIDO_ERROR_BAD_WILDCARD
+            == fido_config_parse_command(&cmd, scanner));
+
+    /* clean up. */
+    fido_scanner_release(scanner);
+}
