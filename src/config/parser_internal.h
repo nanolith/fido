@@ -762,6 +762,26 @@ MODEL_CONTRACT_PRECONDITIONS_BEGIN(
         MODEL_ASSERT(property_fido_scanner_valid(scanner));
 MODEL_CONTRACT_PRECONDITIONS_END(fido_config_parse_add_variable)
 
+/* function contract postconditions. */
+MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
+    fido_config_parse_add_variable, int retval, fido_config_add_variable** var,
+    fido_scanner* scanner)
+        /* on success... */
+        if (0 == retval)
+        {
+            /* the command is valid. */
+            MODEL_ASSERT(property_fido_config_add_variable_valid(*var));
+        }
+        else
+        {
+            /* this is a defined error code. */
+            enum fido_error_code error = (enum fido_error_code)retval;
+            MODEL_ASSERT(__CPROVER_enum_is_in_range(error));
+            /* var is set to NULL. */
+            MODEL_ASSERT(NULL == *var);
+        }
+MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_parse_add_variable)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
