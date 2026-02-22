@@ -109,9 +109,11 @@ fido_config_parse_command(
                 goto error_exit;
             }
 
+            /* if this argument is a wildcard... */
             if (FIDO_CONFIG_ARGUMENT_TYPE_WILDCARD
                     == tmp_cmd->head->argument_type)
             {
+                /* multiple wildcards aren't supported. */
                 if (has_wildcard)
                 {
                     retval = FIDO_ERROR_MULTIPLE_WILDCARD_ARGUMENTS;
@@ -122,6 +124,7 @@ fido_config_parse_command(
                     has_wildcard = true;
                 }
             }
+            /* if a wildcard already exists. */
             else if (has_wildcard)
             {
                 retval = FIDO_ERROR_ARGUMENT_AFTER_WILDCARD;
