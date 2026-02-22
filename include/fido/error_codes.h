@@ -36,6 +36,8 @@ enum fido_error_code
     FIDO_ERROR_MULTIPLE_WILDCARD_ARGUMENTS = 9,
     /** \brief Argument encountered after wildcard. */
     FIDO_ERROR_ARGUMENT_AFTER_WILDCARD = 10,
+    /** \brief A bad wildcard construction. */
+    FIDO_ERROR_BAD_WILDCARD = 11,
 };
 
 /* C++ compatibility. */
