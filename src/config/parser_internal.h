@@ -798,6 +798,17 @@ int FN_DECL_MUST_CHECK
 fido_config_parse_as(
     char** str, int* type, fido_scanner* scanner);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_config_parse_as, char** str, int* type, fido_scanner* scanner)
+        /* the str pointer is valid. */
+        MODEL_CHECK_OBJECT_RW(str, sizeof(*str));
+        /* the type pointer is valid. */
+        MODEL_CHECK_OBJECT_RW(type, sizeof(*type));
+        /* the scanner is valid. */
+        MODEL_ASSERT(property_fido_scanner_valid(scanner));
+MODEL_CONTRACT_PRECONDITIONS_END(fido_config_parse_as)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
