@@ -80,3 +80,29 @@ TEST(cmd_empty_string)
     /* clean up. */
     fido_scanner_release(scanner);
 }
+
+/**
+ * \brief We can parse a command with no arguments.
+ */
+TEST(cmd_no_arguments)
+{
+    fido_scanner* scanner = nullptr;
+    fido_config_command* cmd = nullptr;
+    const char* TEST_INPUT = R"(cmd "/sbin/halt")";
+
+    /* Create the scanner instance. */
+    TEST_ASSERT(0 == fido_scanner_create(&scanner, TEST_INPUT));
+
+    /* attempt to parse a command. */
+    TEST_ASSERT(0 == fido_config_parse_command(&cmd, scanner));
+    TEST_ASSERT(nullptr != cmd);
+    TEST_EXPECT(nullptr == cmd->next);
+    TEST_EXPECT(nullptr == cmd->head);
+    TEST_EXPECT(cmd->arguments_finalized);
+    TEST_ASSERT(nullptr != cmd->binary);
+    TEST_EXPECT(!strcmp("/sbin/halt", cmd->binary));
+
+    /* clean up. */
+    fido_config_command_release(cmd);
+    fido_scanner_release(scanner);
+}
