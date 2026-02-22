@@ -30,6 +30,8 @@ enum fido_error_code
     FIDO_ERROR_INVALID_COMMAND = 6,
     /** \brief An invalid string was encountered. */
     FIDO_ERROR_INVALID_STRING = 7,
+    /** \brief An invalid escape sequence was encountered in a string. */
+    FIDO_ERROR_INVALID_STRING_ESCAPE = 8,
 };
 
 /* C++ compatibility. */
