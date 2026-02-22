@@ -71,7 +71,7 @@ TEST(bad_start_token)
     /* Create the scanner instance. */
     TEST_ASSERT(0 == fido_scanner_create(&scanner, TEST_INPUT));
 
-    /* attempt to parse a permission. */
+    /* attempt to parse an add variable. */
     TEST_ASSERT(
         FIDO_ERROR_UNEXPECTED_TOKEN
             == fido_config_parse_add_variable(&var, scanner));
