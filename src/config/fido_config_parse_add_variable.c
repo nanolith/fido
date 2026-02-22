@@ -113,7 +113,7 @@ static int add_variable_create(
     int retval;
     char var_name[1024];
     size_t var_length = (details->end_index - details->begin_index) + 2;
-    const char* input = scanner->original_input;
+    const char* input = scanner->original_input + details->begin_index;
 
     /* verify that the variable name is at least 2 characters. */
     if (var_length <= 2)
