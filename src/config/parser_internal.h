@@ -752,6 +752,16 @@ int FN_DECL_MUST_CHECK
 fido_config_parse_add_variable(
     fido_config_add_variable** var, fido_scanner* scanner);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_config_parse_add_variable, fido_config_add_variable** var,
+    fido_scanner* scanner)
+        /* the var pointer is valid. */
+        MODEL_CHECK_OBJECT_RW(var, sizeof(*var));
+        /* the scanner is valid. */
+        MODEL_ASSERT(property_fido_scanner_valid(scanner));
+MODEL_CONTRACT_PRECONDITIONS_END(fido_config_parse_add_variable)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
