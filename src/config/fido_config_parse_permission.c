@@ -181,7 +181,7 @@ static int create_permission_with_group(
     const char* input = scanner->original_input;
     input += details->begin_index;
 
-    /* THe name length should include the colon prefix for the group. */
+    /* The name length should include the colon prefix for the group. */
     if (name_len <= 1)
     {
         retval = FIDO_ERROR_BAD_LENGTH;
