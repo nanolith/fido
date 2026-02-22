@@ -102,3 +102,27 @@ TEST(bad_variable_token)
     /* clean up. */
     fido_scanner_release(scanner);
 }
+
+/**
+ * \brief We can parse a simple add variable statement.
+ */
+TEST(simple_add_variable)
+{
+    fido_scanner* scanner = nullptr;
+    fido_config_add_variable* var = nullptr;
+    const char* TEST_INPUT = "env +EDITOR";
+
+    /* Create the scanner instance. */
+    TEST_ASSERT(0 == fido_scanner_create(&scanner, TEST_INPUT));
+
+    /* attempt to parse an add variable. */
+    TEST_ASSERT(0 == fido_config_parse_add_variable(&var, scanner));
+    TEST_ASSERT(nullptr != var);
+    TEST_EXPECT(nullptr == var->next);
+    TEST_ASSERT(nullptr != var->name);
+    TEST_EXPECT(!strcmp("EDITOR", var->name));
+
+    /* clean up. */
+    fido_config_add_variable_release(var);
+    fido_scanner_release(scanner);
+}
