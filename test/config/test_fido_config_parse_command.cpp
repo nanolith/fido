@@ -82,6 +82,28 @@ TEST(bad_start_token)
 }
 
 /**
+ * \brief Parsing anything other than a command string results in an error.
+ */
+TEST(cmd_bad_string_token)
+{
+    fido_scanner* scanner = nullptr;
+    fido_config_command* cmd = nullptr;
+    const char* TEST_INPUT = "cmd {";
+
+    /* Create the scanner instance. */
+    TEST_ASSERT(0 == fido_scanner_create(&scanner, TEST_INPUT));
+
+    /* attempt to parse a command. */
+    TEST_ASSERT(
+        FIDO_ERROR_UNEXPECTED_TOKEN
+            == fido_config_parse_command(&cmd, scanner));
+    TEST_ASSERT(nullptr == cmd);
+
+    /* clean up. */
+    fido_scanner_release(scanner);
+}
+
+/**
  * \brief A command with an empty string results in an error.
  */
 TEST(cmd_empty_string)
