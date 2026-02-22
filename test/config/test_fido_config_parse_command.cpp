@@ -194,3 +194,24 @@ TEST(cmd_postfix_wildcard_argument)
     fido_config_command_release(cmd);
     fido_scanner_release(scanner);
 }
+
+/**
+ * \brief We can only have a single wildcard argument.
+ */
+TEST(cmd_single_wildcard)
+{
+    fido_scanner* scanner = nullptr;
+    fido_config_command* cmd = nullptr;
+    const char* TEST_INPUT = R"(cmd "/sbin/mount * *")";
+
+    /* Create the scanner instance. */
+    TEST_ASSERT(0 == fido_scanner_create(&scanner, TEST_INPUT));
+
+    /* attempt to parse a command. */
+    TEST_ASSERT(
+        FIDO_ERROR_MULTIPLE_WILDCARD_ARGUMENTS
+            == fido_config_parse_command(&cmd, scanner));
+
+    /* clean up. */
+    fido_scanner_release(scanner);
+}
