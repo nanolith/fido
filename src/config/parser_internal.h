@@ -736,6 +736,22 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
         }
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_parse_command)
 
+/**
+ * \brief Parse an add_variable expression.
+ *
+ * \param var           Pointer to the add variable pointer to set to the
+ *                      created instance on success.
+ * \param scanner       The scanner to use to parse this add variable
+ *                      expression.
+ *
+ * \returns a status code indicating success or failure.
+ *      - 0 on success.
+ *      - a non-zero error code on failure.
+ */
+int FN_DECL_MUST_CHECK
+fido_config_parse_add_variable(
+    fido_config_add_variable** var, fido_scanner* scanner);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
