@@ -371,7 +371,7 @@ static int parse_argument(
     /* argument hsa unbalanced wildcards. */
     else if (argument_has_unbalanced_wildcards(arg))
     {
-        retval = FIDO_ERROR_INVALID_STRING;
+        retval = FIDO_ERROR_BAD_WILDCARD;
     }
     /* verbatim argument. */
     else
