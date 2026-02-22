@@ -34,6 +34,8 @@ enum fido_error_code
     FIDO_ERROR_INVALID_STRING_ESCAPE = 8,
     /** \brief Multiple wildcard (*) arguments aren't supported. */
     FIDO_ERROR_MULTIPLE_WILDCARD_ARGUMENTS = 9,
+    /** \brief Argument encountered after wildcard. */
+    FIDO_ERROR_ARGUMENT_AFTER_WILDCARD = 10,
 };
 
 /* C++ compatibility. */
