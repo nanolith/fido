@@ -122,6 +122,11 @@ fido_config_parse_command(
                     has_wildcard = true;
                 }
             }
+            else if (has_wildcard)
+            {
+                retval = FIDO_ERROR_ARGUMENT_AFTER_WILDCARD;
+                goto error_exit;
+            }
         }
     }
 
