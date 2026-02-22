@@ -106,3 +106,31 @@ TEST(cmd_no_arguments)
     fido_config_command_release(cmd);
     fido_scanner_release(scanner);
 }
+
+/**
+ * \brief We can parse a command with a wildcard argument.
+ */
+TEST(cmd_wildcard_argument)
+{
+    fido_scanner* scanner = nullptr;
+    fido_config_command* cmd = nullptr;
+    const char* TEST_INPUT = R"(cmd "/sbin/mount *")";
+
+    /* Create the scanner instance. */
+    TEST_ASSERT(0 == fido_scanner_create(&scanner, TEST_INPUT));
+
+    /* attempt to parse a command. */
+    TEST_ASSERT(0 == fido_config_parse_command(&cmd, scanner));
+    TEST_ASSERT(nullptr != cmd);
+    TEST_EXPECT(nullptr == cmd->next);
+    TEST_EXPECT(cmd->arguments_finalized);
+    TEST_ASSERT(nullptr != cmd->binary);
+    TEST_EXPECT(!strcmp("/sbin/mount", cmd->binary));
+    TEST_ASSERT(nullptr != cmd->head);
+    TEST_EXPECT(nullptr == cmd->head->next);
+    TEST_EXPECT(FIDO_CONFIG_ARGUMENT_TYPE_WILDCARD == cmd->head->argument_type);
+
+    /* clean up. */
+    fido_config_command_release(cmd);
+    fido_scanner_release(scanner);
+}
