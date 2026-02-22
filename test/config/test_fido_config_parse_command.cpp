@@ -49,7 +49,7 @@ TEST(incomplete_cmd)
     /* Create the scanner instance. */
     TEST_ASSERT(0 == fido_scanner_create(&scanner, TEST_INPUT));
 
-    /* attempt to parse a permission. */
+    /* attempt to parse a command. */
     TEST_ASSERT(
         FIDO_ERROR_UNEXPECTED_EOF
             == fido_config_parse_command(&cmd, scanner));
