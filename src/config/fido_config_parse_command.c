@@ -43,6 +43,7 @@ fido_config_parse_command(
     char* tmp;
     char* command_string = NULL;
     fido_config_command* tmp_cmd = NULL;
+    bool has_wildcard = false;
 
     MODEL_CONTRACT_CHECK_PRECONDITIONS(
         fido_config_parse_command, cmd, scanner);
@@ -106,6 +107,20 @@ fido_config_parse_command(
             if (0 != retval)
             {
                 goto error_exit;
+            }
+
+            if (FIDO_CONFIG_ARGUMENT_TYPE_WILDCARD
+                    == tmp_cmd->head->argument_type)
+            {
+                if (has_wildcard)
+                {
+                    retval = FIDO_ERROR_MULTIPLE_WILDCARD_ARGUMENTS;
+                    goto error_exit;
+                }
+                else
+                {
+                    has_wildcard = true;
+                }
             }
         }
     }
