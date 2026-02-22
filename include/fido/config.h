@@ -65,6 +65,8 @@ enum fido_config_as_type
 {
     /** \brief As user type. */
     FIDO_CONFIG_AS_TYPE_USER = 1,
+    /** \brief As group type. */
+    FIDO_CONFIG_AS_TYPE_GROUP = 2,
 };
 
 /**
