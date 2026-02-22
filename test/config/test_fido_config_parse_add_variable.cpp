@@ -80,3 +80,25 @@ TEST(bad_start_token)
     /* clean up. */
     fido_scanner_release(scanner);
 }
+
+/**
+ * \brief Any other token than an environment variable after env is an error.
+ */
+TEST(bad_variable_token)
+{
+    fido_scanner* scanner = nullptr;
+    fido_config_add_variable* var = nullptr;
+    const char* TEST_INPUT = " env {";
+
+    /* Create the scanner instance. */
+    TEST_ASSERT(0 == fido_scanner_create(&scanner, TEST_INPUT));
+
+    /* attempt to parse an add variable. */
+    TEST_ASSERT(
+        FIDO_ERROR_UNEXPECTED_TOKEN
+            == fido_config_parse_add_variable(&var, scanner));
+    TEST_ASSERT(nullptr == var);
+
+    /* clean up. */
+    fido_scanner_release(scanner);
+}
