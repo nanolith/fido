@@ -215,3 +215,24 @@ TEST(cmd_single_wildcard)
     /* clean up. */
     fido_scanner_release(scanner);
 }
+
+/**
+ * \brief Arguments after wildcard arguments aren't allowed.
+ */
+TEST(cmd_arguments_after_wildcard)
+{
+    fido_scanner* scanner = nullptr;
+    fido_config_command* cmd = nullptr;
+    const char* TEST_INPUT = R"(cmd "/sbin/mount * -f")";
+
+    /* Create the scanner instance. */
+    TEST_ASSERT(0 == fido_scanner_create(&scanner, TEST_INPUT));
+
+    /* attempt to parse a command. */
+    TEST_ASSERT(
+        FIDO_ERROR_ARGUMENT_AFTER_WILDCARD
+            == fido_config_parse_command(&cmd, scanner));
+
+    /* clean up. */
+    fido_scanner_release(scanner);
+}
