@@ -59,6 +59,15 @@ enum fido_config_command_argument_type
 };
 
 /**
+ * \brief "as" type.
+ */
+enum fido_config_as_type
+{
+    /** \brief As user type. */
+    FIDO_CONFIG_AS_TYPE_USER = 1,
+};
+
+/**
  * \brief Fido config permission record.
  */
 typedef struct fido_config_permission fido_config_permission;
