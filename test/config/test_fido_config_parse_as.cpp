@@ -9,6 +9,7 @@
 
 #include <fido/scanner.h>
 #include <minunit/minunit.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include "../src/config/parser_internal.h"
@@ -60,5 +61,29 @@ TEST(as_without_identifier)
     TEST_ASSERT(0 == type);
 
     /* clean up. */
+    fido_scanner_release(scanner);
+}
+
+/**
+ * \brief We can parse an as username expression.
+ */
+TEST(as_username)
+{
+    fido_scanner* scanner = nullptr;
+    char* name = nullptr;
+    int type = 0;
+    const char* TEST_INPUT = "as www";
+
+    /* Create the scanner instance. */
+    TEST_ASSERT(0 == fido_scanner_create(&scanner, TEST_INPUT));
+
+    /* attempt to parse an as expression. */
+    TEST_ASSERT(0 == fido_config_parse_as(&name, &type, scanner));
+    TEST_EXPECT(FIDO_CONFIG_AS_TYPE_USER == type);
+    TEST_ASSERT(nullptr != name);
+    TEST_EXPECT(!strcmp("www", name));
+
+    /* clean up. */
+    free(name);
     fido_scanner_release(scanner);
 }
