@@ -38,3 +38,27 @@ TEST(empty_string_error)
     /* clean up. */
     fido_scanner_release(scanner);
 }
+
+/**
+ * \brief Parsing an as expression without an identifier results in an error.
+ */
+TEST(as_without_identifier)
+{
+    fido_scanner* scanner = nullptr;
+    char* name = nullptr;
+    int type = 0;
+    const char* TEST_INPUT = "as";
+
+    /* Create the scanner instance. */
+    TEST_ASSERT(0 == fido_scanner_create(&scanner, TEST_INPUT));
+
+    /* attempt to parse an as. */
+    TEST_ASSERT(
+        FIDO_ERROR_UNEXPECTED_EOF
+            == fido_config_parse_as(&name, &type, scanner));
+    TEST_ASSERT(nullptr == name);
+    TEST_ASSERT(0 == type);
+
+    /* clean up. */
+    fido_scanner_release(scanner);
+}
