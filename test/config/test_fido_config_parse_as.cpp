@@ -89,6 +89,30 @@ TEST(bad_start_token)
 }
 
 /**
+ * \brief Parsing a token other than group or username results in an error.
+ */
+TEST(bad_identifier_token)
+{
+    fido_scanner* scanner = nullptr;
+    char* name = nullptr;
+    int type = 0;
+    const char* TEST_INPUT = "as {";
+
+    /* Create the scanner instance. */
+    TEST_ASSERT(0 == fido_scanner_create(&scanner, TEST_INPUT));
+
+    /* attempt to parse an as expression. */
+    TEST_ASSERT(
+        FIDO_ERROR_UNEXPECTED_TOKEN
+            == fido_config_parse_as(&name, &type, scanner));
+    TEST_ASSERT(nullptr == name);
+    TEST_ASSERT(0 == type);
+
+    /* clean up. */
+    fido_scanner_release(scanner);
+}
+
+/**
  * \brief We can parse an as username expression.
  */
 TEST(as_username)
