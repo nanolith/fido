@@ -42,6 +42,8 @@ enum fido_error_code
     FIDO_ERROR_DUPLICATE_AS_USERNAME = 12,
     /** \brief as group was provided twice. */
     FIDO_ERROR_DUPLICATE_AS_GROUP = 13,
+    /** \brief Unknown as type. */
+    FIDO_ERROR_UNKNOWN_AS_TYPE = 14,
 };
 
 /* C++ compatibility. */
