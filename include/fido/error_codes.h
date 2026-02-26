@@ -38,6 +38,8 @@ enum fido_error_code
     FIDO_ERROR_ARGUMENT_AFTER_WILDCARD = 10,
     /** \brief A bad wildcard construction. */
     FIDO_ERROR_BAD_WILDCARD = 11,
+    /** \brief as username was provided twice. */
+    FIDO_ERROR_DUPLICATE_AS_USERNAME = 12,
 };
 
 /* C++ compatibility. */
