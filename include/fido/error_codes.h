@@ -40,6 +40,8 @@ enum fido_error_code
     FIDO_ERROR_BAD_WILDCARD = 11,
     /** \brief as username was provided twice. */
     FIDO_ERROR_DUPLICATE_AS_USERNAME = 12,
+    /** \brief as group was provided twice. */
+    FIDO_ERROR_DUPLICATE_AS_GROUP = 13,
 };
 
 /* C++ compatibility. */
