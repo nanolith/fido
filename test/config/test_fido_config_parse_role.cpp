@@ -99,3 +99,44 @@ TEST(incomplete_role_3)
     /* clean up. */
     fido_scanner_release(scanner);
 }
+
+/**
+ * \brief Simplest possible role, with no statements.
+ */
+TEST(simple_role)
+{
+    fido_scanner* scanner = nullptr;
+    fido_config_role* role = nullptr;
+    const char* TEST_INPUT = R"(role "foo" { })";
+
+    /* Create the scanner instance. */
+    TEST_ASSERT(0 == fido_scanner_create(&scanner, TEST_INPUT));
+
+    /* attempt to parse an as expression. */
+    TEST_ASSERT(0 == fido_config_parse_role(&role, scanner));
+    TEST_ASSERT(nullptr != role);
+
+    /* there is no next role. */
+    TEST_EXPECT(nullptr == role->next);
+    /* permissions have been finalized. */
+    TEST_EXPECT(role->permissions_finalized);
+    /* the name matches. */
+    TEST_ASSERT(nullptr != role->name);
+    TEST_EXPECT(!strcmp("foo", role->name));
+    /* the default username is root. */
+    TEST_ASSERT(nullptr != role->as_user);
+    TEST_EXPECT(!strcmp("root", role->as_user));
+    /* the default group is wheel. */
+    TEST_ASSERT(nullptr != role->as_group);
+    TEST_EXPECT(!strcmp("wheel", role->as_group));
+    /* command head is null. */
+    TEST_ASSERT(nullptr == role->command_head);
+    /* variable head is null. */
+    TEST_ASSERT(nullptr == role->variable_head);
+    /* permission head is NULL. */
+    TEST_ASSERT(nullptr == role->permission_head);
+
+    /* clean up. */
+    fido_config_role_release(role);
+    fido_scanner_release(scanner);
+}
