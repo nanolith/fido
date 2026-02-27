@@ -216,3 +216,28 @@ TEST(add_variable_expressions)
     fido_config_role_release(role);
     fido_scanner_release(scanner);
 }
+
+/**
+ * \brief Test that the user can be overridden.
+ */
+TEST(user_override)
+{
+    fido_scanner* scanner = nullptr;
+    fido_config_role* role = nullptr;
+    const char* TEST_INPUT = R"(role "foo" {
+        as www })";
+
+    /* Create the scanner instance. */
+    TEST_ASSERT(0 == fido_scanner_create(&scanner, TEST_INPUT));
+
+    /* attempt to parse an as expression. */
+    TEST_ASSERT(0 == fido_config_parse_role(&role, scanner));
+    TEST_ASSERT(nullptr != role);
+
+    /* verify that the user has been overridden. */
+    TEST_EXPECT(!strcmp("www", role->as_user));
+
+    /* clean up. */
+    fido_config_role_release(role);
+    fido_scanner_release(scanner);
+}
