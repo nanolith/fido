@@ -302,7 +302,7 @@ static int parse_as(
     /* decode the type. */
     switch (type)
     {
-        case FIDO_CONFIG_IDENTIFIER_TYPE_USERNAME:
+        case FIDO_CONFIG_AS_TYPE_USER:
             if (NULL != *as_user)
             {
                 retval = FIDO_ERROR_DUPLICATE_AS_USERNAME;
@@ -312,7 +312,7 @@ static int parse_as(
             str = NULL;
             goto done;
 
-        case FIDO_CONFIG_IDENTIFIER_TYPE_GROUP:
+        case FIDO_CONFIG_AS_TYPE_GROUP:
             if (NULL != *as_group)
             {
                 retval = FIDO_ERROR_DUPLICATE_AS_GROUP;
