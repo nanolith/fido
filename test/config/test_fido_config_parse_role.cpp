@@ -187,3 +187,32 @@ TEST(ordered_permissions)
     fido_config_role_release(role);
     fido_scanner_release(scanner);
 }
+
+/**
+ * \brief Test that we can parse environment variables.
+ */
+TEST(add_variable_expressions)
+{
+    fido_scanner* scanner = nullptr;
+    fido_config_role* role = nullptr;
+    const char* TEST_INPUT = R"(role "foo" {
+        env +PATH })";
+
+    /* Create the scanner instance. */
+    TEST_ASSERT(0 == fido_scanner_create(&scanner, TEST_INPUT));
+
+    /* attempt to parse an as expression. */
+    TEST_ASSERT(0 == fido_config_parse_role(&role, scanner));
+    TEST_ASSERT(nullptr != role);
+
+    /* verify that there is an environment variable set. */
+    TEST_ASSERT(nullptr != role->variable_head);
+    /* This environment variable matches PATH. */
+    TEST_EXPECT(!strcmp("PATH", role->variable_head->name));
+    /* there are no other variables. */
+    TEST_ASSERT(nullptr == role->variable_head->next);
+
+    /* clean up. */
+    fido_config_role_release(role);
+    fido_scanner_release(scanner);
+}
