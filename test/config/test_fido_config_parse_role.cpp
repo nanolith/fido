@@ -57,3 +57,24 @@ TEST(incomplete_role_1)
     /* clean up. */
     fido_scanner_release(scanner);
 }
+
+/**
+ * \brief Parsing an incomplete role results in an error.
+ */
+TEST(incomplete_role_2)
+{
+    fido_scanner* scanner = nullptr;
+    fido_config_role* role = nullptr;
+    const char* TEST_INPUT = R"(role "foo")";
+
+    /* Create the scanner instance. */
+    TEST_ASSERT(0 == fido_scanner_create(&scanner, TEST_INPUT));
+
+    /* attempt to parse an as expression. */
+    TEST_ASSERT(
+        FIDO_ERROR_UNEXPECTED_EOF == fido_config_parse_role(&role, scanner));
+    TEST_ASSERT(nullptr == role);
+
+    /* clean up. */
+    fido_scanner_release(scanner);
+}
