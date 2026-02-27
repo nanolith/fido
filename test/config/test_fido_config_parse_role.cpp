@@ -140,3 +140,50 @@ TEST(simple_role)
     fido_config_role_release(role);
     fido_scanner_release(scanner);
 }
+
+/**
+ * \brief Permissions are ordered sequentially.
+ */
+TEST(ordered_permissions)
+{
+    fido_scanner* scanner = nullptr;
+    fido_config_role* role = nullptr;
+    const char* TEST_INPUT = R"(role "foo" {
+        permit :wheel
+        deny george })";
+
+    /* Create the scanner instance. */
+    TEST_ASSERT(0 == fido_scanner_create(&scanner, TEST_INPUT));
+
+    /* attempt to parse an as expression. */
+    TEST_ASSERT(0 == fido_config_parse_role(&role, scanner));
+    TEST_ASSERT(nullptr != role);
+
+    /* permissions have been finalized. */
+    TEST_EXPECT(role->permissions_finalized);
+    /* permission head is not NULL. */
+    TEST_ASSERT(nullptr != role->permission_head);
+    /* the first entry is "permit :wheel". */
+    TEST_ASSERT(nullptr != role->permission_head->identifier);
+    TEST_EXPECT(!strcmp("wheel", role->permission_head->identifier));
+    TEST_EXPECT(
+        FIDO_CONFIG_IDENTIFIER_TYPE_GROUP
+            == role->permission_head->identifier_type);
+    TEST_EXPECT(
+        FIDO_CONFIG_PERMISSION_TYPE_PERMIT
+            == role->permission_head->permission_type);
+    /* the second entry is "deny george" */
+    TEST_ASSERT(nullptr != role->permission_head->next);
+    TEST_ASSERT(nullptr != role->permission_head->next->identifier);
+    TEST_EXPECT(!strcmp("george", role->permission_head->next->identifier));
+    TEST_EXPECT(
+        FIDO_CONFIG_IDENTIFIER_TYPE_USERNAME
+            == role->permission_head->next->identifier_type);
+    TEST_EXPECT(
+        FIDO_CONFIG_PERMISSION_TYPE_DENY
+            == role->permission_head->next->permission_type);
+
+    /* clean up. */
+    fido_config_role_release(role);
+    fido_scanner_release(scanner);
+}
