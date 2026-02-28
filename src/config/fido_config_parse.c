@@ -67,6 +67,11 @@ fido_config_parse(fido_config** config, const char* input)
                 {
                     goto done;
                 }
+                break;
+
+            default:
+                retval = FIDO_ERROR_UNEXPECTED_TOKEN;
+                goto done;
         }
     }
 
