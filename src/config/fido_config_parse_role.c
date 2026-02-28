@@ -116,6 +116,13 @@ fido_config_parse_role(
                 goto done;
 
             case FIDO_SCANNER_TOKEN_TYPE_CLOSE_BRACE:
+                /* eat this token. */
+                token = fido_scanner_read_token(&details, scanner);
+                if (FIDO_SCANNER_TOKEN_TYPE_CLOSE_BRACE != token)
+                {
+                    retval = FIDO_ERROR_UNEXPECTED_TOKEN;
+                    goto done;
+                }
                 retval =
                     create_role(
                         &tmp_role, name, as_user, as_group,
