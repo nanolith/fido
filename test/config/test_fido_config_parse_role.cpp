@@ -266,3 +266,38 @@ TEST(group_override)
     fido_config_role_release(role);
     fido_scanner_release(scanner);
 }
+
+/**
+ * \brief Test that we can parse commands.
+ */
+TEST(simple_command)
+{
+    fido_scanner* scanner = nullptr;
+    fido_config_role* role = nullptr;
+    const char* TEST_INPUT = R"(role "foo" {
+        cmd "/bin/ls *" })";
+
+    /* Create the scanner instance. */
+    TEST_ASSERT(0 == fido_scanner_create(&scanner, TEST_INPUT));
+
+    /* attempt to parse an as expression. */
+    TEST_ASSERT(0 == fido_config_parse_role(&role, scanner));
+    TEST_ASSERT(nullptr != role);
+
+    /* verify that there is a command set. */
+    TEST_ASSERT(nullptr != role->command_head);
+    /* This environment variable matches PATH. */
+    TEST_EXPECT(!strcmp("/bin/ls", role->command_head->binary));
+    /* there are no other commands. */
+    TEST_ASSERT(nullptr == role->command_head->next);
+    /* There is an argument. */
+    TEST_ASSERT(nullptr != role->command_head->head);
+    /* The argument type is wildcard. */
+    TEST_ASSERT(
+        FIDO_CONFIG_ARGUMENT_TYPE_WILDCARD
+            == role->command_head->head->argument_type);
+
+    /* clean up. */
+    fido_config_role_release(role);
+    fido_scanner_release(scanner);
+}
