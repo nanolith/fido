@@ -33,3 +33,35 @@ TEST(empty_string_empty_config)
     /* clean up. */
     fido_config_release(config);
 }
+
+/**
+ * \brief We can parse roles in order.
+ */
+TEST(roles_in_order)
+{
+    fido_config* config = nullptr;
+    const char* TEST_INPUT = R"(
+        role "foo" {
+        }
+
+        role "bar" {
+        }
+    )";
+
+    /* parsing succeeds. */
+    TEST_ASSERT(0 == fido_config_parse(&config, TEST_INPUT));
+
+    /* The config is valid. */
+    TEST_ASSERT(nullptr != config);
+    /* the first role is "foo". */
+    TEST_ASSERT(nullptr != config->head);
+    TEST_ASSERT(nullptr != config->head->name);
+    TEST_EXPECT(!strcmp("foo", config->head->name));
+    /* the second role is "bar". */
+    TEST_ASSERT(nullptr != config->head->next);
+    TEST_ASSERT(nullptr != config->head->next->name);
+    TEST_EXPECT(!strcmp("bar", config->head->next->name));
+
+    /* clean up. */
+    fido_config_release(config);
+}
