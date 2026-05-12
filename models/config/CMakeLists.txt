@@ -1,4 +1,5 @@
 ADD_SUBDIRECTORY(scanner_create_release)
+ADD_SUBDIRECTORY(fido_config_create_release)
 ADD_SUBDIRECTORY(fido_scanner_peek_token)
 ADD_SUBDIRECTORY(fido_scanner_peek_token_shadow)
 ADD_SUBDIRECTORY(fido_scanner_read_token)
