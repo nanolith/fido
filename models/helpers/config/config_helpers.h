@@ -18,4 +18,7 @@ int FN_DECL_MUST_CHECK
 fido_config_command_argument_create_random(fido_config_command_argument** arg);
 
 int FN_DECL_MUST_CHECK
+fido_config_command_create_random(fido_config_command** arg);
+
+int FN_DECL_MUST_CHECK
 fido_config_create_random(fido_config** conf);
