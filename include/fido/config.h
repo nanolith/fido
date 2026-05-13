@@ -191,13 +191,13 @@ property_fido_config_command_finalized(
 /**
  * \brief Valid add variable record.
  *
- * \param arg           The add variable record to check.
+ * \param var           The add variable record to check.
  *
  * \returns true if the add variable record is valid.
  */
 bool
 property_fido_config_add_variable_valid(
-    const fido_config_add_variable* arg);
+    const fido_config_add_variable* var);
 
 /**
  * \brief Valid role record.
