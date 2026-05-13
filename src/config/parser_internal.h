@@ -328,10 +328,6 @@ MODEL_CONTRACT_PRECONDITIONS_BEGIN(
         MODEL_CHECK_OBJECT_RW(role, sizeof(*role));
         /* name is valid. */
         MODEL_ASSERT(NULL != name);
-        /* as_user is valid. */
-        MODEL_ASSERT(NULL != as_user);
-        /* as_group is valid. */
-        MODEL_ASSERT(NULL != as_group);
 MODEL_CONTRACT_PRECONDITIONS_END(fido_config_role_create)
 
 /* function contract postconditions. */
