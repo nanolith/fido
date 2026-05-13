@@ -1,4 +1,5 @@
 SET(MC_SOURCES
+    ${CMAKE_SOURCE_DIR}/models/helpers/config/fido_config_permission_create_random.c
     ${CMAKE_SOURCE_DIR}/models/shadow/config/property_fido_config_permission_valid.c
     ${CMAKE_SOURCE_DIR}/src/config/fido_config_permission_create.c
     ${CMAKE_SOURCE_DIR}/src/config/fido_config_permission_release.c
