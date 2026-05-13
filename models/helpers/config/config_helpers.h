@@ -24,4 +24,7 @@ int FN_DECL_MUST_CHECK
 fido_config_add_variable_create_random(fido_config_add_variable** var);
 
 int FN_DECL_MUST_CHECK
+fido_config_role_create_random(fido_config_role** role);
+
+int FN_DECL_MUST_CHECK
 fido_config_create_random(fido_config** conf);
