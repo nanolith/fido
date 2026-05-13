@@ -15,14 +15,9 @@ int main(int argc, char* argv[])
 {
     int retval;
     fido_config_add_variable* var = NULL;
-    char name[8];
-
-    /* randomize name, and ensure it is ASCIIZ. */
-    __CPROVER_havoc_object(name);
-    name[sizeof(name)-1] = 0;
 
     /* create the variable instance. */
-    retval = fido_config_add_variable_create(&var, name);
+    retval = fido_config_add_variable_create_random(&var);
     if (0 != retval)
     {
         return 1;
