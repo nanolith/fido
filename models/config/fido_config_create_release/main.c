@@ -9,6 +9,7 @@
 
 #include <fido/config.h>
 
+#include "../../helpers/config/config_helpers.h"
 #include "config/parser_internal.h"
 
 int main(int argc, char* argv[])
@@ -17,7 +18,7 @@ int main(int argc, char* argv[])
     fido_config* config = NULL;
 
     /* create the config instance. */
-    retval = fido_config_create(&config);
+    retval = fido_config_create_random(&config);
     if (0 != retval)
     {
         return 1;
