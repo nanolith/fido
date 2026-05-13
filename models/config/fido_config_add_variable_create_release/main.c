@@ -9,6 +9,7 @@
 
 #include <fido/config.h>
 
+#include "../../helpers/config/config_helpers.h"
 #include "config/parser_internal.h"
 
 int main(int argc, char* argv[])
