@@ -1,5 +1,6 @@
 SET(MC_SOURCES
     ${CMAKE_SOURCE_DIR}/models/shadow/config/property_fido_config_add_variable_valid.c
+    ${CMAKE_SOURCE_DIR}/models/helpers/config/fido_config_add_variable_create_random.c
     ${CMAKE_SOURCE_DIR}/src/config/fido_config_add_variable_create.c
     ${CMAKE_SOURCE_DIR}/src/config/fido_config_add_variable_release.c
     main.c)
