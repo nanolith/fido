@@ -9,20 +9,16 @@
 
 #include <fido/config.h>
 
+#include "../../helpers/config/config_helpers.h"
 #include "config/parser_internal.h"
 
 int main(int argc, char* argv[])
 {
     int retval;
     fido_config_command* cmd = NULL;
-    char binary[8];
 
-    /* randomize binary, and ensure it is ASCIIZ. */
-    __CPROVER_havoc_object(binary);
-    binary[sizeof(binary)-1] = 0;
-
-    /* create the command instance. */
-    retval = fido_config_command_create(&cmd, binary);
+    /* create random command instance. */
+    retval = fido_config_command_create_random(&cmd);
     if (0 != retval)
     {
         return 1;
