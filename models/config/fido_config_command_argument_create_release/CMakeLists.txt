@@ -1,4 +1,5 @@
 SET(MC_SOURCES
+    ${CMAKE_SOURCE_DIR}/models/helpers/config/fido_config_command_argument_create_random.c
     ${CMAKE_SOURCE_DIR}/models/shadow/config/property_fido_config_command_argument_valid.c
     ${CMAKE_SOURCE_DIR}/src/config/fido_config_command_argument_create.c
     ${CMAKE_SOURCE_DIR}/src/config/fido_config_command_argument_release.c
