@@ -20,11 +20,12 @@ bool
 property_fido_config_valid(
     const fido_config* config)
 {
-    fido_config_role* x;
     MODEL_CHECK_OBJECT_READ(config, sizeof(*config));
 
-    x = config->head;
-    while (NULL != x)
+    for (
+        fido_config_role* x = config->head;
+        NULL != x;
+        x = x->next)
     {
         MODEL_ASSERT(property_fido_config_role_valid(x));
     }
