@@ -58,6 +58,9 @@ int main(int argc, char* argv[])
         perm[i] = NULL;
     }
 
+    /* finalize permissions. */
+    fido_config_role_permissions_finalize(role);
+
     /* clean up. */
     goto cleanup_permissions;
 
