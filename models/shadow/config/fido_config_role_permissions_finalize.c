@@ -1,7 +1,7 @@
 /**
- * \file models/shadow/config/fido_config_role_permissionss_finalize.c
+ * \file models/shadow/config/fido_config_role_permissions_finalize.c
  *
- * \brief This shadow form of \ref fido_config_role_permissionss_finalize is a
+ * \brief This shadow form of \ref fido_config_role_permissions_finalize is a
  * no-op.
  *
  * \copyright 2026 Justin Handville.  Please see license.txt in this
@@ -13,13 +13,13 @@
 #include "config/parser_internal.h"
 
 void
-fido_config_role_permissionss_finalize(fido_config_role* role)
+fido_config_role_permissions_finalize(fido_config_role* role)
 {
     MODEL_CONTRACT_CHECK_PRECONDITIONS(
-        fido_config_role_permissionss_finalize, role);
+        fido_config_role_permissions_finalize, role);
 
     role->permissions_finalized = true;
 
     MODEL_CONTRACT_CHECK_POSTCONDITIONS(
-        fido_config_role_permissionss_finalize, role);
+        fido_config_role_permissions_finalize, role);
 }
