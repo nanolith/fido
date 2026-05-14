@@ -514,7 +514,7 @@ MODEL_CONTRACT_PRECONDITIONS_BEGIN(
         /* role is valid. */
         MODEL_ASSERT(property_fido_config_role_valid(role));
         /* var is valid. */
-        MODEL_ASSERT(property_fido_config_role_valid(var));
+        MODEL_ASSERT(property_fido_config_add_variable_valid(var));
         /* var does not currently point to a next. */
         MODEL_ASSERT(NULL == var->next);
 MODEL_CONTRACT_PRECONDITIONS_END(fido_config_role_add_variable)
