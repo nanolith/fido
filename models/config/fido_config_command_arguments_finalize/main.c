@@ -58,6 +58,9 @@ int main(int argc, char* argv[])
         arg[i] = NULL;
     }
 
+    /* finalize arguments. */
+    fido_config_command_arguments_finalize(cmd);
+ 
     /* clean up. */
     goto cleanup_arguments;
 
