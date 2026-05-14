@@ -58,6 +58,9 @@ int main(int argc, char* argv[])
         role[i] = NULL;
     }
 
+    /* finalize roles. */
+    fido_config_roles_finalize(config);
+
     /* clean up. */
     goto cleanup_roles;
 
