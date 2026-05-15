@@ -13,20 +13,20 @@ SET(MC_SOURCES
     main.c)
 
 ADD_EXECUTABLE(
-    fido_config_parse_add_variable ${MC_SOURCES})
+    model_config_fido_config_parse_add_variable ${MC_SOURCES})
 SET_TARGET_PROPERTIES(
-    fido_config_parse_add_variable PROPERTIES
+    model_config_fido_config_parse_add_variable PROPERTIES
     C_COMPILER_LAUNCHER "${COMPILER_CHOOSER};goto-cc"
     C_LINKER_LAUNCHER "${LINKER_CHOOSER};goto-ld")
 TARGET_COMPILE_OPTIONS(
-    fido_config_parse_add_variable
+    model_config_fido_config_parse_add_variable
         PRIVATE ${CBMC_BUILD_OPTIONS})
 SET_PROPERTY(
-    TARGET fido_config_parse_add_variable
+    TARGET model_config_fido_config_parse_add_variable
     PROPERTY JOB_POOL_LINK console)
 
 ADD_CUSTOM_COMMAND(
-    TARGET fido_config_parse_add_variable
+    TARGET model_config_fido_config_parse_add_variable
     POST_BUILD
-    COMMAND cbmc ${CBMC_OPTIONS} fido_config_parse_add_variable
+    COMMAND cbmc ${CBMC_OPTIONS} model_config_fido_config_parse_add_variable
     USES_TERMINAL)
