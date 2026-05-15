@@ -88,7 +88,7 @@ done:
     }
 
     MODEL_CONTRACT_CHECK_POSTCONDITIONS(
-        fido_config_parse_add_variable, var, scanner);
+        fido_config_parse_add_variable, retval, var, scanner);
 
     return retval;
 }
