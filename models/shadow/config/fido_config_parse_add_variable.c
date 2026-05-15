@@ -17,7 +17,6 @@ fido_config_parse_add_variable(
 {
     int retval, token;
     fido_token_details details;
-    fido_config_add_variable* tmp_var = NULL;
     enum fido_error_code ec;
 
     MODEL_CONTRACT_CHECK_PRECONDITIONS(
@@ -31,13 +30,12 @@ fido_config_parse_add_variable(
     }
     else
     {
+        ec = (enum fido_error_code)retval;
+        MODEL_ASSUME(__CPROVER_enum_is_in_range(ec));
         goto done;
     }
 
 done:
-    ec = (enum fido_error_code)retval;
-    MODEL_ASSUME(__CPROVER_enum_is_in_range(ec));
-
     MODEL_CONTRACT_CHECK_POSTCONDITIONS(
         fido_config_parse_add_variable, retval, var, scanner);
 
