@@ -38,6 +38,9 @@ fido_config_parse_command_arguments(
     char* arg;
     bool has_wildcard = false;
 
+    MODEL_CONTRACT_CHECK_PRECONDITIONS(
+        fido_config_parse_command_arguments, cmd, str);
+
     while (NULL != str)
     {
         arg = strsep(&str, " ");
@@ -79,6 +82,9 @@ fido_config_parse_command_arguments(
     goto done;
 
 done:
+    MODEL_CONTRACT_CHECK_POSTCONDITIONS(
+        fido_config_parse_command_arguments, retval, cmd, str);
+
     return retval;
 }
 
