@@ -745,7 +745,7 @@ MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_parse_command)
  */
 int FN_DECL_MUST_CHECK
 fido_config_parse_command_arguments(
-    fido_config_command* cmd, const char* str);
+    fido_config_command* cmd, char* str);
 
 /* function contract preconditions. */
 MODEL_CONTRACT_PRECONDITIONS_BEGIN(
