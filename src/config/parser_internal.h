@@ -747,6 +747,14 @@ int FN_DECL_MUST_CHECK
 fido_config_parse_command_arguments(
     fido_config_command* cmd, const char* str);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_config_parse_command_arguments, fido_config_command* cmd,
+    const char* str)
+        /* the command is valid. */
+        MODEL_ASSERT(property_fido_config_command_valid(cmd));
+MODEL_CONTRACT_PRECONDITIONS_END(fido_config_parse_command_arguments)
+
 /**
  * \brief Parse an add_variable expression.
  *
