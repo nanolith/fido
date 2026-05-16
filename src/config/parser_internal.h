@@ -753,6 +753,8 @@ MODEL_CONTRACT_PRECONDITIONS_BEGIN(
     const char* str)
         /* the command is valid. */
         MODEL_ASSERT(property_fido_config_command_valid(cmd));
+        /* the command arguments have not yet been finalized. */
+        MODEL_ASSERT(!cmd->arguments_finalized);
 MODEL_CONTRACT_PRECONDITIONS_END(fido_config_parse_command_arguments)
 
 /* function contract postconditions. */
