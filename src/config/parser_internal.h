@@ -755,6 +755,26 @@ MODEL_CONTRACT_PRECONDITIONS_BEGIN(
         MODEL_ASSERT(property_fido_config_command_valid(cmd));
 MODEL_CONTRACT_PRECONDITIONS_END(fido_config_parse_command_arguments)
 
+/* function contract postconditions. */
+MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
+    fido_config_parse_command_arguments, int retval, fido_config_command* cmd,
+    const char* str)
+        /* on success... */
+        if (0 == retval)
+        {
+            /* the command is valid. */
+            MODEL_ASSERT(property_fido_config_command_valid(cmd));
+            /* the command arguments have been finalized. */
+            MODEL_ASSERT(cmd->arguments_finalized);
+        }
+        else
+        {
+            /* this is a defined error code. */
+            enum fido_error_code error = (enum fido_error_code)retval;
+            MODEL_ASSERT(__CPROVER_enum_is_in_range(error));
+        }
+MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_parse_command_arguments)
+
 /**
  * \brief Parse an add_variable expression.
  *
