@@ -437,6 +437,19 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_role_name_set)
 
 /**
+ * \brief Set the as user of the role to the given value.
+ *
+ * \param role              The role for this operation.
+ * \param as_user           The new as_user for this role.
+ *
+ * \returns a status code indicating success or failure.
+ *      - 0 on success.
+ *      - non-zero on failure.
+ */
+int FN_DECL_MUST_CHECK
+fido_config_role_as_user_set(fido_config_role* role, const char* as_user);
+
+/**
  * \brief Release a \ref fido_config_role instance.
  *
  * \param role          The role instance to release.
