@@ -379,6 +379,9 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
         {
             /* *role points to a valid role instance. */
             MODEL_ASSERT(property_fido_config_role_valid(*role));
+            /* the as_user and as_group overrides are NULL. */
+            MODEL_ASSERT(NULL == (*role)->as_user);
+            MODEL_ASSERT(NULL == (*role)->as_group);
         }
         else
         {
