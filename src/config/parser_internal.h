@@ -351,6 +351,19 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_role_create)
 
 /**
+ * \brief Create an empty \ref fido_config_role instance.
+ *
+ * \param role              Pointer to the role pointer to set to this
+ *                          created instance on success.
+ *
+ * \returns a status code indicating success or failure.
+ *      - 0 on success.
+ *      - non-zero on failure.
+ */
+int FN_DECL_MUST_CHECK
+fido_config_role_create_empty(fido_config_role** role);
+
+/**
  * \brief Release a \ref fido_config_role instance.
  *
  * \param role          The role instance to release.
