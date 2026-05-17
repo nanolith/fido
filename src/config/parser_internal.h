@@ -363,6 +363,14 @@ MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_role_create)
 int FN_DECL_MUST_CHECK
 fido_config_role_create_empty(fido_config_role** role);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_config_role_create_empty, fido_config_role** role)
+        /* role points to a region of memory large enough to hold a role */
+        /* pointer. */
+        MODEL_CHECK_OBJECT_RW(role, sizeof(*role));
+MODEL_CONTRACT_PRECONDITIONS_END(fido_config_role_create_empty)
+
 /**
  * \brief Release a \ref fido_config_role instance.
  *
