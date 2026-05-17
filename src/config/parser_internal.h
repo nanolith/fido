@@ -371,6 +371,25 @@ MODEL_CONTRACT_PRECONDITIONS_BEGIN(
         MODEL_CHECK_OBJECT_RW(role, sizeof(*role));
 MODEL_CONTRACT_PRECONDITIONS_END(fido_config_role_create_empty)
 
+/* function contract postconditions. */
+MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
+    fido_config_role_create_empty, int retval, fido_config_role** role)
+        /* on success... */
+        if (0 == retval)
+        {
+            /* *role points to a valid role instance. */
+            MODEL_ASSERT(property_fido_config_role_valid(*role));
+        }
+        else
+        {
+            /* *role is NULL. */
+            MODEL_ASSERT(NULL == (*role));
+            /* the error code belongs to the error enumeration. */
+            enum fido_error_code ec = (enum fido_error_code)retval;
+            MODEL_ASSERT(__CPROVER_enum_is_in_range(ec));
+        }
+MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_role_create_empty)
+
 /**
  * \brief Release a \ref fido_config_role instance.
  *
