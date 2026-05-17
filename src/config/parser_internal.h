@@ -394,6 +394,19 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_role_create_empty)
 
 /**
+ * \brief Set the name of the role to the given value.
+ *
+ * \param role              The role for this operation.
+ * \param name              The new name for this role.
+ *
+ * \returns a status code indicating success or failure.
+ *      - 0 on success.
+ *      - non-zero on failure.
+ */
+int FN_DECL_MUST_CHECK
+fido_config_role_name_set(fido_config_role* role, const char* name);
+
+/**
  * \brief Release a \ref fido_config_role instance.
  *
  * \param role          The role instance to release.
