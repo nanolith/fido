@@ -19,6 +19,8 @@ fido_config_parse_add_variable(
     fido_token_details details;
     enum fido_error_code ec;
 
+    *var = NULL;
+
     MODEL_CONTRACT_CHECK_PRECONDITIONS(
         fido_config_parse_add_variable, var, scanner);
 
