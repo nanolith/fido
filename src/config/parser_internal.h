@@ -1175,6 +1175,20 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
         }
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_parse_role_command)
 
+/**
+ * \brief Parse an environment variable clause and add it to this role.
+ *
+ * \param role          Role where this variable clause  is saved on success.
+ * \param scanner       The scanner to use to parse this as expression.
+ *
+ * \returns a status code indicating success or failure.
+ *      - 0 on success.
+ *      - a non-zero error code on failure.
+ */
+int FN_DECL_MUST_CHECK
+fido_config_parse_role_variable(
+    fido_config_role* role, fido_scanner* scanner);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
