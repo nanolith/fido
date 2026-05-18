@@ -23,6 +23,8 @@ fido_config_parse_command(
     MODEL_CONTRACT_CHECK_PRECONDITIONS(
         fido_config_parse_command, cmd, scanner);
 
+    *cmd = NULL;
+
     retval = nondet_retval();
     if (0 != retval)
     {
