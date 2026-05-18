@@ -449,6 +449,15 @@ MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_role_name_set)
 int FN_DECL_MUST_CHECK
 fido_config_role_as_user_set(fido_config_role* role, const char* as_user);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_config_role_as_user_set, fido_config_role* role, const char* as_user)
+        /* role is valid. */
+        MODEL_ASSERT(property_fido_config_role_valid(role));
+        /* as_user must be valid. */
+        MODEL_ASSERT(NULL != as_user);
+MODEL_CONTRACT_PRECONDITIONS_END(fido_config_role_as_user_set)
+
 /**
  * \brief Release a \ref fido_config_role instance.
  *
