@@ -1159,6 +1159,24 @@ MODEL_CONTRACT_PRECONDITIONS_BEGIN(
         MODEL_ASSERT(property_fido_scanner_valid(scanner));
 MODEL_CONTRACT_PRECONDITIONS_END(fido_config_parse_role_command)
 
+/* function contract postconditions. */
+MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
+    fido_config_parse_role_command, int retval, fido_config_role* role,
+    fido_scanner* scanner)
+        /* role is valid. */
+        MODEL_ASSERT(property_fido_config_role_valid(*role));
+        /* scanner is valid. */
+        MODEL_ASSERT(property_fido_scanner_valid(scanner));
+
+        /* on failure... */
+        if (0 != retval)
+        {
+            /* this is a defined error code. */
+            enum fido_error_code error = (enum fido_error_code)retval;
+            MODEL_ASSERT(__CPROVER_enum_is_in_range(error));
+        }
+MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_parse_role_command)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
