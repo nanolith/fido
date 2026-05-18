@@ -1105,6 +1105,16 @@ int FN_DECL_MUST_CHECK
 fido_config_parse_role_as_clause(
     fido_config_role* role, fido_scanner* scanner);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_config_parse_role_as_clause, fido_config_role* role,
+    fido_scanner* scanner)
+        /* role is valid. */
+        MODEL_ASSERT(property_fido_config_role_valid(role));
+        /* scanner is valid. */
+        MODEL_ASSERT(property_fido_scanner_valid(scanner));
+MODEL_CONTRACT_PRECONDITIONS_END(fido_config_parse_role_as_clause)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
