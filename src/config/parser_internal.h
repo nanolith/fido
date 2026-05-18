@@ -480,6 +480,19 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_role_as_user_set)
 
 /**
+ * \brief Set the as group of the role to the given value.
+ *
+ * \param role              The role for this operation.
+ * \param as_group          The new as_group for this role.
+ *
+ * \returns a status code indicating success or failure.
+ *      - 0 on success.
+ *      - non-zero on failure.
+ */
+int FN_DECL_MUST_CHECK
+fido_config_role_as_group_set(fido_config_role* role, const char* as_group);
+
+/**
  * \brief Release a \ref fido_config_role instance.
  *
  * \param role          The role instance to release.
