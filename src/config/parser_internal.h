@@ -501,6 +501,27 @@ MODEL_CONTRACT_PRECONDITIONS_BEGIN(
         MODEL_ASSERT(NULL != as_group);
 MODEL_CONTRACT_PRECONDITIONS_END(fido_config_role_as_group_set)
 
+/* function contract postconditions. */
+MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
+    fido_config_role_as_group_set, int retval, fido_config_role* role,
+    const char* as_group)
+        /* role remains valid. */
+        MODEL_ASSERT(property_fido_config_role_valid(role));
+
+        /* on success... */
+        if (0 == retval)
+        {
+            /* as_group is set. */
+            MODEL_ASSERT(NULL != role->as_group);
+        }
+        else
+        {
+            /* the error code belongs to the error enumeration. */
+            enum fido_error_code ec = (enum fido_error_code)retval;
+            MODEL_ASSERT(__CPROVER_enum_is_in_range(ec));
+        }
+MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_role_as_group_set)
+
 /**
  * \brief Release a \ref fido_config_role instance.
  *
