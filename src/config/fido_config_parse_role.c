@@ -12,23 +12,13 @@
 
 #include "parser_internal.h"
 
+/* TODO - move these to a configurable header option. */
+#define FIDO_DEFAULT_AS_USER "root"
+#define FIDO_DEFAULT_AS_GROUP "wheel"
+
 /* forward decls. */
 static int extract_name_from_string(
     char** name, fido_token_details* details, fido_scanner* scanner);
-static int create_role(
-    fido_config_role** role, const char* name,
-    const char* as_user, const char* as_group,
-    fido_config_command** command_head,
-    fido_config_add_variable** variable_head,
-    fido_config_permission** permission_head);
-static int parse_as(
-    fido_scanner* scanner, char** as_user, char** as_group);
-static int parse_command(
-    fido_scanner* scanner, fido_config_command** command_head);
-static int parse_env(
-    fido_scanner* scanner, fido_config_add_variable** variable_head);
-static int parse_permission(
-    fido_scanner* scanner, fido_config_permission** permission_head);
 
 /**
  * \brief Parse a role instance from a config stream.
@@ -49,12 +39,7 @@ fido_config_parse_role(
     fido_token_details details;
     fido_config_role* tmp_role = NULL;
     char* name = NULL;
-    char* as_user = NULL;
-    char* as_group = NULL;
     bool done_parsing = false;
-    fido_config_command* command_head = NULL;
-    fido_config_add_variable* variable_head = NULL;
-    fido_config_permission* permission_head = NULL;
 
     MODEL_CONTRACT_CHECK_PRECONDITIONS(
         fido_config_parse_role, role, scanner);
@@ -105,6 +90,13 @@ fido_config_parse_role(
         goto done;
     }
 
+    /* create a role. */
+    retval = fido_config_role_create(&tmp_role, name, NULL, NULL);
+    if (0 != retval)
+    {
+        goto done;
+    }
+
     /* begin parse loop. */
     while (!done_parsing)
     {
@@ -123,15 +115,11 @@ fido_config_parse_role(
                     retval = FIDO_ERROR_UNEXPECTED_TOKEN;
                     goto done;
                 }
-                retval =
-                    create_role(
-                        &tmp_role, name, as_user, as_group,
-                        &command_head, &variable_head, &permission_head);
                 done_parsing = true;
                 break;
 
             case FIDO_SCANNER_TOKEN_TYPE_KEYWORD_AS:
-                retval = parse_as(scanner, &as_user, &as_group);
+                retval = fido_config_parse_role_as_clause(tmp_role, scanner);
                 if (0 != retval)
                 {
                     goto done;
@@ -139,7 +127,7 @@ fido_config_parse_role(
                 break;
 
             case FIDO_SCANNER_TOKEN_TYPE_KEYWORD_CMD:
-                retval = parse_command(scanner, &command_head);
+                retval = fido_config_parse_role_command(tmp_role, scanner);
                 if (0 != retval)
                 {
                     goto done;
@@ -147,7 +135,7 @@ fido_config_parse_role(
                 break;
 
             case FIDO_SCANNER_TOKEN_TYPE_KEYWORD_ENV:
-                retval = parse_env(scanner, &variable_head);
+                retval = fido_config_parse_role_variable(tmp_role, scanner);
                 if (0 != retval)
                 {
                     goto done;
@@ -156,7 +144,7 @@ fido_config_parse_role(
 
             case FIDO_SCANNER_TOKEN_TYPE_KEYWORD_PERMIT:
             case FIDO_SCANNER_TOKEN_TYPE_KEYWORD_DENY:
-                retval = parse_permission(scanner, &permission_head);
+                retval = fido_config_parse_role_permission(tmp_role, scanner);
                 if (0 != retval)
                 {
                     goto done;
@@ -168,6 +156,29 @@ fido_config_parse_role(
                 goto done;
         }
     }
+
+    /* set root if as-user not set. */
+    if (NULL == tmp_role->as_user)
+    {
+        retval = fido_config_role_as_user_set(tmp_role, FIDO_DEFAULT_AS_USER);
+        if (0 != retval)
+        {
+            goto done;
+        }
+    }
+
+    /* set wheel if as-group not set. */
+    if (NULL == tmp_role->as_group)
+    {
+        retval = fido_config_role_as_group_set(tmp_role, FIDO_DEFAULT_AS_GROUP);
+        if (0 != retval)
+        {
+            goto done;
+        }
+    }
+
+    /* finalize permissions. */
+    fido_config_role_permissions_finalize(tmp_role);
 
     /* success. */
     retval = 0;
@@ -184,37 +195,6 @@ done:
     if (NULL != name)
     {
         free(name);
-    }
-
-    if (NULL != as_user)
-    {
-        free(as_user);
-    }
-
-    if (NULL != as_group)
-    {
-        free(as_group);
-    }
-
-    while (NULL != command_head)
-    {
-        fido_config_command* x = command_head->next;
-        fido_config_command_release(command_head);
-        command_head = x;
-    }
-
-    while (NULL != variable_head)
-    {
-        fido_config_add_variable* x = variable_head->next;
-        fido_config_add_variable_release(variable_head);
-        variable_head = x;
-    }
-
-    while (NULL != permission_head)
-    {
-        fido_config_permission* x = permission_head->next;
-        fido_config_permission_release(permission_head);
-        permission_head = x;
     }
 
     MODEL_CONTRACT_CHECK_POSTCONDITIONS(
@@ -274,237 +254,6 @@ static int extract_name_from_string(
 
     /* success. */
     *name = tmp;
-    retval = 0;
-    goto done;
-
-done:
-    return retval;
-}
-
-/**
- * \brief Parse an "as" expression, updating the appropriate string.
- *
- * \param scanner           The scanner for this operation.
- * \param as_user           Pointer to the user string pointer.
- * \param as_group          Pointer to the group string pointer.
- *
- * \returns a status code indicating success or failure.
- *      - 0 on success.
- *      - a non-zero error code on failure.
- */
-static int parse_as(
-    fido_scanner* scanner, char** as_user, char** as_group)
-{
-    int retval;
-    char* str = NULL;
-    int type;
-
-    /* attempt to parse the as expression. */
-    retval = fido_config_parse_as(&str, &type, scanner);
-    if (0 != retval)
-    {
-        goto done;
-    }
-
-    /* decode the type. */
-    switch (type)
-    {
-        case FIDO_CONFIG_AS_TYPE_USER:
-            if (NULL != *as_user)
-            {
-                retval = FIDO_ERROR_DUPLICATE_AS_USERNAME;
-                goto cleanup_str;
-            }
-            *as_user = str;
-            str = NULL;
-            goto done;
-
-        case FIDO_CONFIG_AS_TYPE_GROUP:
-            if (NULL != *as_group)
-            {
-                retval = FIDO_ERROR_DUPLICATE_AS_GROUP;
-                goto cleanup_str;
-            }
-            *as_group = str;
-            str = NULL;
-            goto done;
-
-        default:
-            retval = FIDO_ERROR_UNKNOWN_AS_TYPE;
-            goto cleanup_str;
-    }
-
-cleanup_str:
-    free(str);
-
-done:
-    return retval;
-}
-
-/**
- * \brief Parse command, adding this to the head of the command list.
- *
- * \param scanner               The scanner for this operation.
- * \param command_head          The head of the command list.
- *
- * \returns a status code indicating success or failure.
- *      - 0 on success.
- *      - non-zero on failure.
- */
-static int parse_command(
-    fido_scanner* scanner, fido_config_command** command_head)
-{
-    int retval;
-    fido_config_command* tmp;
-
-    /* parse the command. */
-    retval = fido_config_parse_command(&tmp, scanner);
-    if (0 != retval)
-    {
-        goto done;
-    }
-
-    /* Success: update the command list. */
-    tmp->next = *command_head;
-    *command_head = tmp;
-    retval = 0;
-    goto done;
-
-done:
-    return retval;
-}
-
-/**
- * \brief Parse a variable, adding this to the head of the variable list.
- *
- * \param scanner               The scanner for this operation.
- * \param variable_head         The head of the variable list.
- *
- * \returns a status code indicating success or failure.
- *      - 0 on success.
- *      - non-zero on failure.
- */
-static int parse_env(
-    fido_scanner* scanner, fido_config_add_variable** variable_head)
-{
-    int retval;
-    fido_config_add_variable* tmp;
-
-    /* parse the add variable. */
-    retval = fido_config_parse_add_variable(&tmp, scanner);
-    if (0 != retval)
-    {
-        goto done;
-    }
-
-    /* Success: update the variable list. */
-    tmp->next = *variable_head;
-    *variable_head = tmp;
-    retval = 0;
-    goto done;
-
-done:
-    return retval;
-}
-
-/**
- * \brief Parse a permission, adding this to the head of the permission list.
- *
- * \param scanner               The scanner for this operation.
- * \param permission_head       The head of the permission list.
- *
- * \returns a status code indicating success or failure.
- *      - 0 on success.
- *      - non-zero on failure.
- */
-static int parse_permission(
-    fido_scanner* scanner, fido_config_permission** permission_head)
-{
-    int retval;
-    fido_config_permission* tmp;
-
-    /* parse the permission. */
-    retval = fido_config_parse_permission(&tmp, scanner);
-    if (0 != retval)
-    {
-        goto done;
-    }
-
-    /* Success: update the permission list. */
-    tmp->next = *permission_head;
-    *permission_head = tmp;
-    retval = 0;
-    goto done;
-
-done:
-    return retval;
-}
-
-/* TODO - move these to a configurable header option. */
-#define FIDO_DEFAULT_AS_USER "root"
-#define FIDO_DEFAULT_AS_GROUP "wheel"
-
-/**
- * \brief Create a role instance with the given name, as_user, as_group,
- * commands, variables, and permissions.
- *
- * \param role              Pointer to the role pointer to update with the
- *                          created role instance on success.
- * \param name              The name of this role.
- * \param as_user           The as_user name for this instance or NULL.
- * \param as_group          The as_group name for this instance or NULL.
- * \param command_head      Head of the command list.
- * \param variable_head     Head of the variable list.
- * \param permission_head   Head of the reversed permission list.
- *
- * \returns a status code indicating success or failure.
- *      - 0 on success.
- *      - non-zero on failure.
- */
-static int create_role(
-    fido_config_role** role, const char* name,
-    const char* as_user, const char* as_group,
-    fido_config_command** command_head,
-    fido_config_add_variable** variable_head,
-    fido_config_permission** permission_head)
-{
-    int retval;
-    fido_config_role* tmp;
-
-    /* set the as_user to the default if unset. */
-    if (NULL == as_user)
-    {
-        as_user = FIDO_DEFAULT_AS_USER;
-    }
-
-    /* set the as_group to the default if unset. */
-    if (NULL == as_group)
-    {
-        as_group = FIDO_DEFAULT_AS_GROUP;
-    }
-
-    /* create the role. */
-    retval = fido_config_role_create(&tmp, name, as_user, as_group);
-    if (0 != retval)
-    {
-        goto done;
-    }
-
-    /* assign the commands. */
-    tmp->command_head = *command_head;
-    *command_head = NULL;
-
-    /* assign the variables. */
-    tmp->variable_head = *variable_head;
-    *variable_head = NULL;
-
-    /* assign the permissions. */
-    tmp->permission_head = *permission_head;
-    *permission_head = NULL;
-    fido_config_role_permissions_finalize(tmp);
-
-    /* success. */
-    *role = tmp;
     retval = 0;
     goto done;
 
