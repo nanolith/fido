@@ -19,6 +19,8 @@ fido_config_parse_permission(
     fido_token_details details;
     enum fido_error_code ec;
 
+    *perm = NULL;
+
     MODEL_CONTRACT_CHECK_PRECONDITIONS(
         fido_config_parse_permission, perm, scanner);
 
