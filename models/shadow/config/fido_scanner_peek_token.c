@@ -23,6 +23,8 @@ static int choose_enum()
     return retval;
 };
 
+int peek_tries = 10;
+
 int FN_DECL_MUST_CHECK
 fido_scanner_peek_token(
     fido_token_details* details, fido_scanner* scanner)
@@ -53,8 +55,16 @@ fido_scanner_peek_token(
         goto bad_input;
     }
 
-    retval = fido_scanner_token_details_end(details, scanner, choose_enum());
-    fido_scanner_next_character(scanner);
+    if (--peek_tries <= 0)
+    {
+        retval = FIDO_SCANNER_TOKEN_TYPE_EOF;
+    }
+    else
+    {
+        retval = fido_scanner_token_details_end(details, scanner, choose_enum());
+        fido_scanner_next_character(scanner);
+    }
+
     goto done;
 
 hit_eof:
