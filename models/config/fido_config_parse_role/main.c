@@ -1,0 +1,57 @@
+/**
+ * \file models/config/fido_config_parse_role/main.c
+ *
+ * \brief Model checks for \ref fido_config_parse_role.
+ *
+ * \copyright 2026 Justin Handville.  Please see license.txt in this
+ * distribution for the license terms under which this software is distributed.
+ */
+
+#include <fido/config.h>
+
+#include "../../helpers/config/config_helpers.h"
+#include "config/parser_internal.h"
+
+extern int peek_tries;
+
+int main(int argc, char* argv[])
+{
+    char input[10];
+    int retval;
+    fido_scanner* scanner = NULL;
+    fido_config_role* role = NULL;
+
+    /* only try for 4 peeks. */
+    peek_tries = 4;
+
+    /* randomize input, and ensure it is ASCIIZ. */
+    __CPROVER_havoc_object(input);
+    input[sizeof(input)-1] = 0;
+
+    /* create the scanner instance. */
+    retval = fido_scanner_create(&scanner, input);
+    if (0 != retval)
+    {
+        goto done;
+    }
+
+    /* parse role. */
+    retval = fido_config_parse_role(&role, scanner);
+    if (0 != retval)
+    {
+        goto cleanup_scanner;
+    }
+
+    /* clean up. */
+    retval = 0;
+    goto cleanup_role;
+
+cleanup_role:
+    fido_config_role_release(role);
+
+cleanup_scanner:
+    fido_scanner_release(scanner);
+
+done:
+    return retval;
+}
