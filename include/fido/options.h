@@ -45,6 +45,22 @@ bool
 property_fido_options_valid(
     const fido_options* opts);
 
+/******************************************************************************/
+/* Start of constructors.                                                     */
+/******************************************************************************/
+
+/**
+ * \brief Create a fido options record from command-line arguments.
+ *
+ * \param opts          Pointer to the options record pointer to populate with
+ *                      the created options record on success.
+ * \param argc          The argument count.
+ * \param argv          The argument vector.
+ *
+ * \returns 0 on success and non-zero on failure.
+ */
+int fido_options_create(fido_options* opts, int argc, const char** argv);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
