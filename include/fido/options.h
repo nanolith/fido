@@ -101,6 +101,13 @@ MODEL_CONTRACT_POSTCONDITIONS_END(fido_options_create)
  */
 void fido_options_release(fido_options* opts);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_options_release, fido_options* opts)
+        /* opts points to a region of memory large enough to hold it. */
+        MODEL_CHECK_OBJECT_RW(opts, sizeof(*opts));
+MODEL_CONTRACT_PRECONDITIONS_END(fido_options_release)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
