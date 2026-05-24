@@ -94,6 +94,13 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
         }
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_options_create)
 
+/**
+ * \brief Release a \ref fido_options instance.
+ *
+ * \param opts          The options record to release.
+ */
+void fido_options_release(fido_options* opts);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
