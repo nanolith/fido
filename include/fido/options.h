@@ -108,6 +108,11 @@ MODEL_CONTRACT_PRECONDITIONS_BEGIN(
         MODEL_CHECK_OBJECT_RW(opts, sizeof(*opts));
 MODEL_CONTRACT_PRECONDITIONS_END(fido_options_release)
 
+/* function contract postconditions. */
+MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
+    fido_options_release, fido_options* opts)
+MODEL_CONTRACT_POSTCONDITIONS_END(fido_options_release)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
