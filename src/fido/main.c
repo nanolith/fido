@@ -7,6 +7,7 @@
  * distribution for the license terms under which this software is distributed.
  */
 
+#include <fido/options.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
