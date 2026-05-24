@@ -10,6 +10,9 @@
 #pragma once
 
 #include <fido/error_codes.h>
+#include <fido/function_contracts.h>
+#include <fido/function_decl.h>
+#include <fido/model_assert.h>
 #include <stdbool.h>
 #include <stddef.h>
 
@@ -59,7 +62,8 @@ property_fido_options_valid(
  *
  * \returns 0 on success and non-zero on failure.
  */
-int fido_options_create(fido_options* opts, int argc, const char** argv);
+int FN_DECL_MUST_CHECK
+fido_options_create(fido_options* opts, int argc, const char** argv);
 
 /* C++ compatibility. */
 # ifdef   __cplusplus
