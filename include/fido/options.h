@@ -65,6 +65,15 @@ property_fido_options_valid(
 int FN_DECL_MUST_CHECK
 fido_options_create(fido_options** opts, int argc, const char** argv);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_options_create, fido_options** opts, int argc, const char** argv)
+        /* the options pointer is valid. */
+        MODEL_CHECK_OBJECT_RW(opts, sizeof(*opts));
+        /* the argument vector is valid. */
+        MODEL_CHECK_OBJECT_READ(argv, argc * sizeof(const char*));
+MODEL_CONTRACT_PRECONDITIONS_END(fido_options_create)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
