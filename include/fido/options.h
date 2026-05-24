@@ -63,7 +63,7 @@ property_fido_options_valid(
  * \returns 0 on success and non-zero on failure.
  */
 int FN_DECL_MUST_CHECK
-fido_options_create(fido_options* opts, int argc, const char** argv);
+fido_options_create(fido_options** opts, int argc, const char** argv);
 
 /* C++ compatibility. */
 # ifdef   __cplusplus
