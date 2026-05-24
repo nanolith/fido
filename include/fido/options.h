@@ -30,6 +30,21 @@ struct fido_options
     size_t arguments_count;
 };
 
+/******************************************************************************/
+/* Start of model checking properties.                                        */
+/******************************************************************************/
+
+/**
+ * \brief Valid options record property.
+ *
+ * \param opts          The options record to check.
+ *
+ * \returns true if the options record is valid.
+ */
+bool
+property_fido_options_valid(
+    const fido_options* opts);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
