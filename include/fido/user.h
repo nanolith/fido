@@ -31,6 +31,21 @@ struct fido_user
     char** groupnames;
 };
 
+/******************************************************************************/
+/* Start of model checking properties.                                        */
+/******************************************************************************/
+
+/**
+ * \brief Valid user record property.
+ *
+ * \param user          The user record to check.
+ *
+ * \returns true if the user record is valid.
+ */
+bool
+property_fido_user_valid(
+    const fido_user* user);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
