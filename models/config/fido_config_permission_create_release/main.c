@@ -14,7 +14,7 @@
 int main(int argc, char* argv[])
 {
     int retval;
-    fido_config_permission* perm = NULL;
+    fido_config_permission* perm;
 
     /* create the permission instance. */
     retval = fido_config_permission_create_random(&perm);
