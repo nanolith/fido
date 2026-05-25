@@ -46,6 +46,17 @@ bool
 property_fido_user_valid(
     const fido_user* user);
 
+/******************************************************************************/
+/* Start of constructors.                                                     */
+/******************************************************************************/
+
+/**
+ * \brief Release a \ref fido_user instance.
+ *
+ * \param user          The user record to release.
+ */
+void fido_user_release(fido_user* user);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
