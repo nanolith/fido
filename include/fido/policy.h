@@ -187,6 +187,12 @@ MODEL_CONTRACT_PRECONDITIONS_BEGIN(
         MODEL_ASSERT(NULL != arg);
 MODEL_CONTRACT_PRECONDITIONS_END(fido_policy_command_argument_match)
 
+/* function contract postconditions. */
+MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
+    fido_policy_command_argument_match, int retval,
+    const fido_config_command_argument* cmd_arg, const char* arg)
+MODEL_CONTRACT_POSTCONDITIONS_END(fido_policy_command_argument_match)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
