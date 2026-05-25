@@ -61,6 +61,13 @@ property_fido_user_valid(
 int FN_DECL_MUST_CHECK
 fido_user_create(fido_user** user);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_user_create, fido_user** user)
+        /* the user pointer is valid. */
+        MODEL_CHECK_OBJECT_RW(user, sizeof(*user));
+MODEL_CONTRACT_PRECONDITIONS_END(fido_user_create)
+
 /**
  * \brief Release a \ref fido_user instance.
  *
