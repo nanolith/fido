@@ -57,6 +57,13 @@ property_fido_user_valid(
  */
 void fido_user_release(fido_user* user);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_user_release, fido_user* user)
+        /* user points to a region of memory large enough to hold it. */
+        MODEL_CHECK_OBJECT_RW(user, sizeof(*user));
+MODEL_CONTRACT_PRECONDITIONS_END(fido_user_release)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
