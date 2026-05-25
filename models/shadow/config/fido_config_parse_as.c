@@ -41,6 +41,7 @@ fido_config_parse_as(
     MODEL_CONTRACT_CHECK_PRECONDITIONS(
         fido_config_parse_as, str, type, scanner);
 
+    *str = NULL;
     *type = 0;
 
     retval = nondet_retval();
