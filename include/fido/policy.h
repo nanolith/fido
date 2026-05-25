@@ -152,6 +152,16 @@ int FN_DECL_MUST_CHECK
 fido_policy_permission_match(
     const fido_config_permission* perm, const fido_user* user);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_policy_permission_match, const fido_config_permission* perm,
+    const fido_user* user)
+        /* perm is valid. */
+        MODEL_ASSERT(property_fido_config_permission_valid(perm));
+        /* user is valid. */
+        MODEL_ASSERT(property_fido_user_valid(user));
+MODEL_CONTRACT_PRECONDITIONS_END(fido_policy_permission_match)
+
 /**
  * \brief Check to see if a given command matches the provided options.
  *
