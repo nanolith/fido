@@ -1,0 +1,1 @@
+ADD_SUBDIRECTORY(fido_options_release)
