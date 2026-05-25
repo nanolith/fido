@@ -26,7 +26,7 @@ size_t perm_count()
 int main(int argc, char* argv[])
 {
     int retval;
-    fido_config_role* role = NULL;
+    fido_config_role* role;
     fido_config_permission* perm[2] = { NULL, NULL };
 
     /* create role. */
