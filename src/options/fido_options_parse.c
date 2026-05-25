@@ -48,6 +48,7 @@ fido_options_parse(fido_options** opts, int argc, const char** argv)
                 if (NULL != config_file_override)
                 {
                     fprintf(stderr, "error: -C provided multiple times.\n");
+                    *opts = NULL;
                     retval = FIDO_ERROR_INVALID_OPTION;
                     goto done;
                 }
@@ -56,6 +57,7 @@ fido_options_parse(fido_options** opts, int argc, const char** argv)
                 if (NULL == config_file_override)
                 {
                     fprintf(stderr, "Out of memory.\n");
+                    *opts = NULL;
                     retval = FIDO_ERROR_OUT_OF_MEMORY;
                     goto done;
                 }
@@ -63,6 +65,7 @@ fido_options_parse(fido_options** opts, int argc, const char** argv)
 
             default:
                 fprintf(stderr, "Unsupported option '%c'\n", ch);
+                    *opts = NULL;
                 retval = FIDO_ERROR_INVALID_OPTION;
                 goto done;
         }
@@ -74,6 +77,7 @@ fido_options_parse(fido_options** opts, int argc, const char** argv)
     if (argc < 1)
     {
         fprintf(stderr, "Missing command.\n");
+        *opts = NULL;
         retval = FIDO_ERROR_OPTION_MISSING_COMMAND;
         goto done;
     }
@@ -82,6 +86,7 @@ fido_options_parse(fido_options** opts, int argc, const char** argv)
     *opts = (fido_options*)malloc(sizeof(fido_options));
     if (NULL == (*opts))
     {
+        *opts = NULL;
         retval = FIDO_ERROR_OUT_OF_MEMORY;
         goto done;
     }
