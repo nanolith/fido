@@ -26,7 +26,7 @@ size_t arg_count()
 int main(int argc, char* argv[])
 {
     int retval;
-    fido_config_command* cmd = NULL;
+    fido_config_command* cmd;
     fido_config_command_argument* arg[2] = { NULL, NULL };
 
     /* create command. */
