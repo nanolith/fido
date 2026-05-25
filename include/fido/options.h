@@ -54,7 +54,7 @@ property_fido_options_valid(
 /******************************************************************************/
 
 /**
- * \brief Create a fido options record from command-line arguments.
+ * \brief Parse command-line arguments to produce a fido options record.
  *
  * \param opts          Pointer to the options record pointer to populate with
  *                      the created options record on success.
@@ -64,20 +64,20 @@ property_fido_options_valid(
  * \returns 0 on success and non-zero on failure.
  */
 int FN_DECL_MUST_CHECK
-fido_options_create(fido_options** opts, int argc, const char** argv);
+fido_options_parse(fido_options** opts, int argc, const char** argv);
 
 /* function contract preconditions. */
 MODEL_CONTRACT_PRECONDITIONS_BEGIN(
-    fido_options_create, fido_options** opts, int argc, const char** argv)
+    fido_options_parse, fido_options** opts, int argc, const char** argv)
         /* the options pointer is valid. */
         MODEL_CHECK_OBJECT_RW(opts, sizeof(*opts));
         /* the argument vector is valid. */
         MODEL_CHECK_OBJECT_READ(argv, argc * sizeof(const char*));
-MODEL_CONTRACT_PRECONDITIONS_END(fido_options_create)
+MODEL_CONTRACT_PRECONDITIONS_END(fido_options_parse)
 
 /* function contract postconditions. */
 MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
-    fido_options_create, int retval, fido_options** opts, int argc,
+    fido_options_parse, int retval, fido_options** opts, int argc,
     const char** argv)
         /* on success... */
         if (0 == retval)
@@ -93,7 +93,7 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
             /* opts is set to NULL. */
             MODEL_ASSERT(NULL == *opts);
         }
-MODEL_CONTRACT_POSTCONDITIONS_END(fido_options_create)
+MODEL_CONTRACT_POSTCONDITIONS_END(fido_options_parse)
 
 /**
  * \brief Release a \ref fido_options instance.
