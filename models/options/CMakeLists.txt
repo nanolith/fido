@@ -1,2 +1,3 @@
 ADD_SUBDIRECTORY(fido_options_parse)
+ADD_SUBDIRECTORY(fido_options_parse_shadow)
 ADD_SUBDIRECTORY(fido_options_release)
