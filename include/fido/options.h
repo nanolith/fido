@@ -28,6 +28,7 @@ typedef struct fido_options fido_options;
 struct fido_options
 {
     bool dry_run;
+    char* config_file_override;
     char* binary_name;
     char** arguments;
     size_t arguments_count;
@@ -109,8 +110,7 @@ MODEL_CONTRACT_PRECONDITIONS_BEGIN(
 MODEL_CONTRACT_PRECONDITIONS_END(fido_options_release)
 
 /* function contract postconditions. */
-MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
-    fido_options_release, fido_options* opts)
+MODEL_CONTRACT_POSTCONDITIONS_BEGIN(fido_options_release, fido_options* opts)
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_options_release)
 
 /* C++ compatibility. */
