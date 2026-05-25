@@ -95,6 +95,22 @@ fido_policy_role_match(
     const char** as_user, const char** as_group, const fido_config_role* role,
     const fido_options* opts, const fido_user* user);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_policy_role_match, const char** as_user, const char** as_group,
+    const fido_config* config, const fido_options* opts, const fido_user* user)
+        /* the as_user pointer is valid. */
+        MODEL_CHECK_OBJECT_RW(as_user, sizeof(*as_user));
+        /* the as_group pointer is valid. */
+        MODEL_CHECK_OBJECT_RW(as_group, sizeof(*as_group));
+        /* config is valid. */
+        MODEL_ASSERT(property_fido_config_valid(config));
+        /* options is valid. */
+        MODEL_ASSERT(property_fido_options_valid(options));
+        /* user is valid. */
+        MODEL_ASSERT(property_fido_user_valid(user));
+MODEL_CONTRACT_PRECONDITIONS_END(fido_policy_role_match)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
