@@ -15,7 +15,7 @@
 int main(int argc, char* argv[])
 {
     int retval;
-    fido_config_command_argument* arg = NULL;
+    fido_config_command_argument* arg;
 
     /* create the command argument instance. */
     retval = fido_config_command_argument_create_random(&arg);
