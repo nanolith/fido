@@ -11,6 +11,7 @@
 
 #include <fido/config.h>
 #include <fido/options.h>
+#include <fido/user.h>
 
 /* C++ compatibility. */
 # ifdef   __cplusplus
@@ -28,13 +29,14 @@ extern "C" {
  *                      who should execute this command.
  * \param config        The configuration used for making policy decisions.
  * \param opts          The options for this policy check.
+ * \param user          The user for this policy check.
  *
  * \returns 0 on success (authorized) and non-zero on failure (not authorized).
  */
 int FN_DECL_MUST_CHECK
 fido_policy_check(
     const char** as_user, const char** as_group, const fido_config* config,
-    const fido_options* opts);
+    const fido_options* opts, const fido_user* user);
 
 /* function contract preconditions. */
 MODEL_CONTRACT_PRECONDITIONS_BEGIN(
