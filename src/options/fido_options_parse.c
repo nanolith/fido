@@ -1,5 +1,5 @@
 /**
- * \file config/fido_options_parse.c
+ * \file options/fido_options_parse.c
  *
  * \brief Parse command-line options and create an options instance.
  *
