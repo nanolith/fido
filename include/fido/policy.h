@@ -32,9 +32,23 @@ extern "C" {
  * \returns 0 on success (authorized) and non-zero on failure (not authorized).
  */
 int FN_DECL_MUST_CHECK
-policy_check(
-    const char** as_user, const char** as_group, fido_config* config,
-    fido_options* opts);
+fido_policy_check(
+    const char** as_user, const char** as_group, const fido_config* config,
+    const fido_options* opts);
+
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_policy_check, const char** as_user, const char** as_group,
+    const fido_config* config, const fido_options* opts)
+        /* the as_user pointer is valid. */
+        MODEL_CHECK_OBJECT_RW(as_user, sizeof(*as_user));
+        /* the as_group pointer is valid. */
+        MODEL_CHECK_OBJECT_RW(as_group, sizeof(*as_group));
+        /* config is valid. */
+        MODEL_ASSERT(property_fido_config_valid(config));
+        /* options is valid. */
+        MODEL_ASSERT(property_fido_options_valid(options));
+MODEL_CONTRACT_PRECONDITIONS_END(fido_policy_check)
 
 /* C++ compatibility. */
 # ifdef   __cplusplus
