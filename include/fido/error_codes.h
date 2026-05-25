@@ -46,6 +46,8 @@ enum fido_error_code
     FIDO_ERROR_UNKNOWN_AS_TYPE = 14,
     /** \brief Invalid command-line option. */
     FIDO_ERROR_INVALID_OPTION = 15,
+    /** \brief Missing command. */
+    FIDO_ERROR_OPTION_MISSING_COMMAND = 16,
 };
 
 /* C++ compatibility. */
