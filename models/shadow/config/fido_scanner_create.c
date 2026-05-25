@@ -20,6 +20,8 @@ fido_scanner_create(fido_scanner** scanner, const char* input)
 
     MODEL_CONTRACT_CHECK_PRECONDITIONS(fido_scanner_create, scanner, input);
 
+    *scanner = NULL;
+
     fido_scanner* tmp = (fido_scanner*)malloc(sizeof(fido_scanner));
     if (NULL == tmp)
     {
