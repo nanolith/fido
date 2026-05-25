@@ -20,7 +20,7 @@ static char* argvec[3] = {argument0, argument1, argument2};
 int main(int argc, char* argv[])
 {
     int retval;
-    fido_options* opts = NULL;
+    fido_options* opts;
 
     __CPROVER_havoc_object(argument0);
     argument0[sizeof(argument0)-1] = 0;
