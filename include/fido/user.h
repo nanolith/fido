@@ -51,6 +51,17 @@ property_fido_user_valid(
 /******************************************************************************/
 
 /**
+ * \brief Create a \ref fido_user instance by examining the system.
+ *
+ * \param user          Pointer to the user record pointer to populate with
+ *                      the created user record on success.
+ *
+ * \returns 0 on success and non-zero on failure.
+ */
+int FN_DECL_MUST_CHECK
+fido_user_create(fido_user** user);
+
+/**
  * \brief Release a \ref fido_user instance.
  *
  * \param user          The user record to release.
