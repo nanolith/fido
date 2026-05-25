@@ -18,8 +18,8 @@ int main(int argc, char* argv[])
 {
     char input[10];
     int retval;
-    fido_scanner* scanner = NULL;
-    fido_config_role* role = NULL;
+    fido_scanner* scanner;
+    fido_config_role* role;
 
     /* only try for 4 peeks. */
     peek_tries = 4;
