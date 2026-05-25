@@ -162,6 +162,12 @@ MODEL_CONTRACT_PRECONDITIONS_BEGIN(
         MODEL_ASSERT(property_fido_user_valid(user));
 MODEL_CONTRACT_PRECONDITIONS_END(fido_policy_permission_match)
 
+/* function contract postconditions. */
+MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
+    fido_policy_permission_match, int retval,
+    const fido_config_permission* perm, const fido_user* user)
+MODEL_CONTRACT_POSTCONDITIONS_END(fido_policy_permission_match)
+
 /**
  * \brief Check to see if a given command matches the provided options.
  *
