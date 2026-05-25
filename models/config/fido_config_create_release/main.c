@@ -15,7 +15,7 @@
 int main(int argc, char* argv[])
 {
     int retval;
-    fido_config* config = NULL;
+    fido_config* config;
 
     /* create the config instance. */
     retval = fido_config_create_random(&config);
