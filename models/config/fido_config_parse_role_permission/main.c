@@ -16,8 +16,8 @@ int main(int argc, char* argv[])
 {
     char input[10];
     int retval;
-    fido_scanner* scanner = NULL;
-    fido_config_role* role = NULL;
+    fido_scanner* scanner;
+    fido_config_role* role;
 
     /* randomize input, and ensure it is ASCIIZ. */
     __CPROVER_havoc_object(input);
