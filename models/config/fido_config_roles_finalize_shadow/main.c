@@ -26,7 +26,7 @@ size_t role_count()
 int main(int argc, char* argv[])
 {
     int retval;
-    fido_config* config = NULL;
+    fido_config* config;
     fido_config_role* role[2] = { NULL, NULL };
 
     /* create config. */
