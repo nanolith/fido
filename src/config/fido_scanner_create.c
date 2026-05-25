@@ -52,6 +52,11 @@ fido_scanner_create(fido_scanner** scanner, const char* input)
     goto done;
 
 done:
+    if (0 != retval)
+    {
+        *scanner = NULL;
+    }
+
     MODEL_CONTRACT_CHECK_POSTCONDITIONS(
         fido_scanner_create, retval, scanner, input);
 
