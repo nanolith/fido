@@ -50,6 +50,29 @@ MODEL_CONTRACT_PRECONDITIONS_BEGIN(
         MODEL_ASSERT(property_fido_options_valid(options));
 MODEL_CONTRACT_PRECONDITIONS_END(fido_policy_check)
 
+/* function contract postconditions. */
+MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
+    fido_policy_check, int retval, const char** as_user, const char** as_group,
+    const fido_config* config, const fido_options* opts)
+        /* on success... */
+        if (0 == retval)
+        {
+            /* as_user is populated. */
+            MODEL_ASSERT(NULL != *as_user);
+            /* as_group is populated. */
+            MODEL_ASSERT(NULL != *as_group);
+        }
+        else
+        {
+            /* this is a defined error code. */
+            enum fido_error_code error = (enum fido_error_code)retval;
+            MODEL_ASSERT(__CPROVER_enum_is_in_range(error));
+            /* both as_user and as_group are NULL. */
+            MODEL_ASSERT(NULL == *as_user);
+            MODEL_ASSERT(NULL == *as_group);
+        }
+MODEL_CONTRACT_POSTCONDITIONS_END(fido_policy_check)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
