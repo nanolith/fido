@@ -137,6 +137,22 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_policy_role_match)
 
 /**
+ * \brief Check to see if a given permission matches the user details.
+ *
+ * \note This does NOT evaluate whether this permission is a PERMIT or DENY, but
+ * only whether the user matches. The caller must make the appropriate policy
+ * decision based on the match and the permission type.
+ *
+ * \param perm          The permission to match.
+ * \param user          The user for this match.
+ *
+ * \returns 0 on success (matched) and non-zero on failure (not matched).
+ */
+int FN_DECL_MUST_CHECK
+fido_policy_permission_match(
+    const fido_config_permission* perm, const fido_user* user);
+
+/**
  * \brief Check to see if a given command matches the provided options.
  *
  * \param cmd           The command to match.
