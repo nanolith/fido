@@ -16,7 +16,7 @@ int main(int argc, char* argv[])
 {
     char input[10];
     int retval;
-    fido_config_command* cmd = NULL;
+    fido_config_command* cmd;
 
     /* randomize input, and ensure it is ASCIIZ. */
     __CPROVER_havoc_object(input);
