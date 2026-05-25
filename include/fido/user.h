@@ -64,6 +64,10 @@ MODEL_CONTRACT_PRECONDITIONS_BEGIN(
         MODEL_CHECK_OBJECT_RW(user, sizeof(*user));
 MODEL_CONTRACT_PRECONDITIONS_END(fido_user_release)
 
+/* function contract postconditions. */
+MODEL_CONTRACT_POSTCONDITIONS_BEGIN(fido_user_release, fido_user* user)
+MODEL_CONTRACT_POSTCONDITIONS_END(fido_user_release)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
