@@ -197,6 +197,11 @@ done:
         free(name);
     }
 
+    if (0 != retval)
+    {
+        *role = NULL;
+    }
+
     MODEL_CONTRACT_CHECK_POSTCONDITIONS(
         fido_config_parse_role, retval, role, scanner);
 
