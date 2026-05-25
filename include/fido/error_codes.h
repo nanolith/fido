@@ -44,6 +44,8 @@ enum fido_error_code
     FIDO_ERROR_DUPLICATE_AS_GROUP = 13,
     /** \brief Unknown as type. */
     FIDO_ERROR_UNKNOWN_AS_TYPE = 14,
+    /** \brief Invalid command-line option. */
+    FIDO_ERROR_INVALID_OPTION = 15,
 };
 
 /* C++ compatibility. */
