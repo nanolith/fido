@@ -13,7 +13,7 @@ int main(int argc, char* argv[])
 {
     char input[100];
     int retval;
-    fido_scanner* scanner = NULL;
+    fido_scanner* scanner;
 
     /* randomize input, and ensure it is ASCIIZ. */
     __CPROVER_havoc_object(input);
