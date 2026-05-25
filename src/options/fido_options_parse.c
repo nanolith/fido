@@ -45,6 +45,13 @@ fido_options_parse(fido_options** opts, int argc, const char** argv)
                 break;
 
             case 'C':
+                if (NULL != config_file_override)
+                {
+                    fprintf(stderr, "error: -C provided multiple times.\n");
+                    retval = FIDO_ERROR_INVALID_OPTION;
+                    goto done;
+                }
+
                 config_file_override = strdup(optarg);
                 if (NULL == config_file_override)
                 {
