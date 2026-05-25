@@ -16,9 +16,9 @@ int main(int argc, char* argv[])
 {
     int retval;
     char input[10];
-    char* str = NULL;
-    int type = -1;
-    fido_scanner* scanner = NULL;
+    char* str;
+    int type;
+    fido_scanner* scanner;
 
     /* randomize input, and ensure it is ASCIIZ. */
     __CPROVER_havoc_object(input);
