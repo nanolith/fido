@@ -164,6 +164,19 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
     const fido_options* opts)
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_policy_command_match)
 
+/**
+ * \brief Check to see if a given command argument matches the provided
+ * argument.
+ *
+ * \param cmd_arg       The command argument to match.
+ * \param arg           The argument for this match.
+ *
+ * \returns 0 on success (matched) and non-zero on failure (not matched).
+ */
+int FN_DECL_MUST_CHECK
+fido_policy_command_argument_match(
+    const fido_config_command_argument* cmd_arg, const char* arg);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
