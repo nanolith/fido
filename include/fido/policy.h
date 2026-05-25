@@ -77,6 +77,24 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
         }
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_policy_check)
 
+/**
+ * \brief Check to see if a given role matches the command and user details.
+ *
+ * \param as_user       String pointer pointer updated to the user name who
+ *                      should execute this command.
+ * \param as_group      String pointer pointer updated to the group group name
+ *                      who should execute this command.
+ * \param role          The role to match.
+ * \param opts          The options for this match.
+ * \param user          The user for this match.
+ *
+ * \returns 0 on success (authorized) and non-zero on failure (not authorized).
+ */
+int FN_DECL_MUST_CHECK
+fido_policy_role_match(
+    const char** as_user, const char** as_group, const fido_config_role* role,
+    const fido_options* opts, const fido_user* user);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
