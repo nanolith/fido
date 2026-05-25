@@ -25,26 +25,6 @@ void fido_options_release(fido_options* opts)
         free(opts->config_file_override);
     }
 
-    /* free binary name if set. */
-    if (NULL != opts->binary_name)
-    {
-        free(opts->binary_name);
-    }
-
-    /* free arguments if set. */
-    if (NULL != opts->arguments)
-    {
-        for (size_t i = 0; i < opts->arguments_count; ++i)
-        {
-            if (NULL != opts->arguments[i])
-            {
-                free(opts->arguments[i]);
-            }
-        }
-
-        free(opts->arguments);
-    }
-
     /* free options instance. */
     free(opts);
 
