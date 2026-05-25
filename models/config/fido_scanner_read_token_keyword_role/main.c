@@ -15,7 +15,7 @@ int main(int argc, char* argv[])
 {
     char input[10];
     int retval;
-    fido_scanner* scanner = NULL;
+    fido_scanner* scanner;
     fido_token_details details;
 
     /* randomize input, and ensure it is ASCIIZ. */
