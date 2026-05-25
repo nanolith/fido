@@ -15,7 +15,7 @@
 int main(int argc, char* argv[])
 {
     int retval;
-    fido_config_role* role = NULL;
+    fido_config_role* role;
 
     /* create the role instance. */
     retval = fido_config_role_create_random(&role);
