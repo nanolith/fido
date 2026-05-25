@@ -147,6 +147,16 @@ int FN_DECL_MUST_CHECK
 fido_policy_command_match(
     const fido_config_command* cmd, const fido_options* opts);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_policy_command_match, const fido_config_command* cmd,
+    const fido_options* opts)
+        /* command is valid. */
+        MODEL_ASSERT(property_fido_config_command_valid(cmd));
+        /* options is valid. */
+        MODEL_ASSERT(property_fido_options_valid(options));
+MODEL_CONTRACT_PRECONDITIONS_END(fido_policy_command_match)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
