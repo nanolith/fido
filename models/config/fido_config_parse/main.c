@@ -18,7 +18,7 @@ int main(int argc, char* argv[])
 {
     char input[3];
     int retval;
-    fido_config* config = NULL;
+    fido_config* config;
 
     /* limit peek tries. */
     peek_tries = 2;
