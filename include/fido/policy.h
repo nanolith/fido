@@ -135,6 +135,18 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
         }
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_policy_role_match)
 
+/**
+ * \brief Check to see if a given command matches the provided options.
+ *
+ * \param cmd           The command to match.
+ * \param opts          The options for this match.
+ *
+ * \returns 0 on success (matched) and non-zero on failure (not matched).
+ */
+int FN_DECL_MUST_CHECK
+fido_policy_command_match(
+    const fido_config_command* cmd, const fido_options* opts);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
