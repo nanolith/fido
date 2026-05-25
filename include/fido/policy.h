@@ -57,7 +57,7 @@ MODEL_CONTRACT_PRECONDITIONS_END(fido_policy_check)
 /* function contract postconditions. */
 MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
     fido_policy_check, int retval, const char** as_user, const char** as_group,
-    const fido_config* config, const fido_options* opts)
+    const fido_config* config, const fido_options* opts, const fido_user* user)
         /* on success... */
         if (0 == retval)
         {
