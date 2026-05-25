@@ -88,7 +88,7 @@ MODEL_CONTRACT_POSTCONDITIONS_END(fido_policy_check)
  * \param opts          The options for this match.
  * \param user          The user for this match.
  *
- * \returns 0 on success (authorized) and non-zero on failure (not authorized).
+ * \returns 0 on success (matched) and non-zero on failure (not matched).
  */
 int FN_DECL_MUST_CHECK
 fido_policy_role_match(
