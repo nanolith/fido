@@ -15,7 +15,7 @@
 int main(int argc, char* argv[])
 {
     int retval;
-    fido_config_add_variable* var = NULL;
+    fido_config_add_variable* var;
 
     /* create the variable instance. */
     retval = fido_config_add_variable_create_random(&var);
