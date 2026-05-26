@@ -8,6 +8,7 @@
  */
 
 #include <fido/options.h>
+#include <fido/user.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -26,13 +27,23 @@ static int setup_process(void);
 int main(int argc, char* argv[])
 {
     int retval;
+    fido_user* user = NULL;
     (void)argc;
     (void)argv;
 
+    /* basic program setup. */
     retval = setup_process();
     if (0 != retval)
     {
-        fprintf(stderr, "setup_process failed.\n");
+        fprintf(stderr, "error: setup_process failed.\n");
+        goto done;
+    }
+
+    /* get the user details. */
+    retval = fido_user_create(&user);
+    if (0 != retval)
+    {
+        fprintf(stderr, "error: could not get user details.\n");
         goto done;
     }
 
@@ -41,6 +52,11 @@ int main(int argc, char* argv[])
     goto done;
 
 done:
+    if (NULL != user)
+    {
+        fido_user_release(user);
+    }
+
     if (0 != retval)
         return 1;
     else
