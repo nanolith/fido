@@ -9,6 +9,11 @@
 
 #pragma once
 
+#include <fido/error_codes.h>
+#include <fido/function_contracts.h>
+#include <fido/function_decl.h>
+#include <fido/model_assert.h>
+#include <stdbool.h>
 #include <stddef.h>
 #include <unistd.h>
 
