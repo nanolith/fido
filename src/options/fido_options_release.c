@@ -1,5 +1,5 @@
 /**
- * \file config/fido_options_release.c
+ * \file options/fido_options_release.c
  *
  * \brief Release an options instance.
  *
