@@ -5,6 +5,7 @@ SET(MC_SOURCES
     ${CMAKE_SOURCE_DIR}/models/shadow/unix/getpwuid_r.c
     ${CMAKE_SOURCE_DIR}/models/shadow/unix/getuid.c
     ${CMAKE_SOURCE_DIR}/models/shadow/unix/sysconf.c
+    ${CMAKE_SOURCE_DIR}/models/shadow/user/property_fido_user_valid.c
     ${CMAKE_SOURCE_DIR}/src/user/fido_user_create.c
     ${CMAKE_SOURCE_DIR}/src/user/fido_user_release.c
     main.c)
