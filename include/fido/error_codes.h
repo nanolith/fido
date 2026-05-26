@@ -48,6 +48,8 @@ enum fido_error_code
     FIDO_ERROR_INVALID_OPTION = 15,
     /** \brief Missing command. */
     FIDO_ERROR_OPTION_MISSING_COMMAND = 16,
+    /** \brief Bad system configuration. */
+    FIDO_ERROR_BAD_SYSCONF = 17,
 };
 
 /* C++ compatibility. */
