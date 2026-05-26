@@ -1,2 +1,3 @@
 ADD_SUBDIRECTORY(fido_user_release)
 ADD_SUBDIRECTORY(fido_user_create)
+ADD_SUBDIRECTORY(fido_user_create_shadow)
