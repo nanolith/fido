@@ -43,8 +43,7 @@ fido_user_create(fido_user** user)
     long getgr_size_max = sysconf(_SC_GETGR_R_SIZE_MAX);
     if (getgr_size_max < 0)
     {
-        retval = FIDO_ERROR_BAD_SYSCONF;
-        goto done;
+        getgr_size_max = 16384;
     }
 
     /* allocate the group buffer. */
