@@ -52,6 +52,8 @@ enum fido_error_code
     FIDO_ERROR_BAD_SYSCONF = 17,
     /** \brief Bad call to getgroups. */
     FIDO_ERROR_BAD_GETGROUPS = 18,
+    /** \brief Bad call to getpwd. */
+    FIDO_ERROR_BAD_GETPWD = 19,
 };
 
 /* C++ compatibility. */
