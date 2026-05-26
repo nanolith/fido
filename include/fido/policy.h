@@ -27,6 +27,8 @@ extern "C" {
  *                      should execute this command.
  * \param as_group      String pointer pointer updated to the group group name
  *                      who should execute this command.
+ * \param env_head      Head of the environment variable list to add from the
+ *                      current environment to this one on success.
  * \param config        The configuration used for making policy decisions.
  * \param opts          The options for this policy check.
  * \param user          The user for this policy check.
@@ -35,7 +37,8 @@ extern "C" {
  */
 int FN_DECL_MUST_CHECK
 fido_policy_check(
-    const char** as_user, const char** as_group, const fido_config* config,
+    const char** as_user, const char** as_group,
+    const fido_config_add_variable** env_head, const fido_config* config,
     const fido_options* opts, const fido_user* user);
 
 /* function contract preconditions. */
