@@ -44,11 +44,14 @@ fido_policy_check(
 /* function contract preconditions. */
 MODEL_CONTRACT_PRECONDITIONS_BEGIN(
     fido_policy_check, const char** as_user, const char** as_group,
-    const fido_config* config, const fido_options* opts, const fido_user* user)
+    const fido_config_add_variable** env_head, const fido_config* config,
+    const fido_options* opts, const fido_user* user)
         /* the as_user pointer is valid. */
         MODEL_CHECK_OBJECT_RW(as_user, sizeof(*as_user));
         /* the as_group pointer is valid. */
         MODEL_CHECK_OBJECT_RW(as_group, sizeof(*as_group));
+        /* the env_head pointer is valid. */
+        MODEL_CHECK_OBJECT_RW(env_head, sizeof(*env_head));
         /* config is valid. */
         MODEL_ASSERT(property_fido_config_valid(config));
         /* options is valid. */
