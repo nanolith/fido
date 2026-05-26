@@ -78,6 +78,10 @@ fido_user_create(fido_user** user)
         goto done;
     }
     memset(tmp, 0, sizeof(*tmp));
+    /* TODO - CBMC requires these redundant assignments. */
+    tmp->username = NULL;
+    tmp->groupnames = NULL;
+    tmp->gids = NULL;
 
     /* get the user id. */
     tmp->uid = getuid();
@@ -115,6 +119,9 @@ fido_user_create(fido_user** user)
         goto done;
     }
     memset(tmp->groupnames, 0, groupnames_size);
+    /* TODO - CBMC requires this redundant loop to initialize groupnames. */
+    for (size_t i = 0; i < tmp->group_count; ++i)
+        tmp->groupnames[i] = NULL;
 
     /* get the group name for each group id. */
     for (size_t i = 0; i < tmp->group_count; ++i)
