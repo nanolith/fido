@@ -10,6 +10,7 @@
 #include <fido/user.h>
 #include <grp.h>
 #include <limits.h>
+#include <pwd.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
@@ -30,6 +31,8 @@ fido_user_create(fido_user** user)
     char* grbuffer = NULL;
     struct group grp;
     struct group* gr_result;
+    struct passwd pwd;
+    struct passwd* pw_result;
 
     /* get the max number of supplementary groups. */
     long ngroups_max = sysconf(_SC_NGROUPS_MAX);
@@ -44,6 +47,19 @@ fido_user_create(fido_user** user)
     if (getgr_size_max < 0)
     {
         getgr_size_max = 16384;
+    }
+
+    /* get the maximum password buffer size. */
+    long getpw_size_max = sysconf(_SC_GETPW_R_SIZE_MAX);
+    if (getpw_size_max < 0)
+    {
+        getpw_size_max = 16384;
+    }
+
+    /* if the password size is greater, use it. */
+    if (getpw_size_max > getgr_size_max)
+    {
+        getgr_size_max = getpw_size_max;
     }
 
     /* allocate the group buffer. */
@@ -120,6 +136,22 @@ fido_user_create(fido_user** user)
         }
 
         tmp->groupnames[i] = groupname;
+    }
+
+    /* get the password entry. */
+    retval = getpwuid_r(tmp->uid, &pwd, grbuffer, getgr_size_max, &pw_result);
+    if (0 != retval || NULL == pw_result)
+    {
+        retval = FIDO_ERROR_BAD_GETPWD;
+        goto done;
+    }
+
+    /* save the username. */
+    tmp->username = strdup(pw_result->pw_name);
+    if (NULL == tmp->username)
+    {
+        retval = FIDO_ERROR_OUT_OF_MEMORY;
+        goto done;
     }
 
     /* success. */
