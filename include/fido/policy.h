@@ -127,8 +127,9 @@ MODEL_CONTRACT_PRECONDITIONS_END(fido_policy_role_match)
 /* function contract postconditions. */
 MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
     fido_policy_role_match, int retval, const char** as_user,
-    const char** as_group, const fido_config_role* role,
-    const fido_options* opts, const fido_user* user)
+    const char** as_group, const fido_config_add_variable** env_head,
+    const fido_config_role* role, const fido_options* opts,
+    const fido_user* user)
         /* on success... */
         if (0 == retval)
         {
