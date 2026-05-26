@@ -50,6 +50,8 @@ enum fido_error_code
     FIDO_ERROR_OPTION_MISSING_COMMAND = 16,
     /** \brief Bad system configuration. */
     FIDO_ERROR_BAD_SYSCONF = 17,
+    /** \brief Bad call to getgroups. */
+    FIDO_ERROR_BAD_GETGROUPS = 18,
 };
 
 /* C++ compatibility. */
