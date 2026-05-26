@@ -34,6 +34,8 @@ fido_user_create(fido_user** user)
     struct passwd pwd;
     struct passwd* pw_result;
 
+    MODEL_CONTRACT_CHECK_PRECONDITIONS(fido_user_create, user);
+
     /* get the max number of supplementary groups. */
     long ngroups_max = sysconf(_SC_NGROUPS_MAX);
     if (ngroups_max < 0 || ngroups_max > INT_MAX)
@@ -182,6 +184,8 @@ done:
     {
         *user = NULL;
     }
+
+    MODEL_CONTRACT_CHECK_POSTCONDITIONS(fido_user_create, retval, user);
 
     return retval;
 }
