@@ -41,3 +41,30 @@ TEST(exact_argument)
     /* clean up. */
     fido_config_release(config);
 }
+
+/**
+ * \brief Test that we can match a wildcard argument.
+ */
+TEST(wildcard_argument)
+{
+    fido_config* config = nullptr;
+    const char* TEST_INPUT = R"(
+        role "foo" {
+            cmd "/sbin/mount *"
+        }
+    )";
+
+    TEST_ASSERT(0 == fido_config_parse(&config, TEST_INPUT));
+    TEST_ASSERT(nullptr != config);
+    TEST_ASSERT(nullptr != config->head);
+    TEST_ASSERT(nullptr != config->head->command_head);
+    TEST_ASSERT(nullptr != config->head->command_head->head);
+
+    fido_config_command_argument* arg = config->head->command_head->head;
+
+    /* test that anything matches. */
+    TEST_ASSERT(0 == fido_policy_command_argument_match(arg, "anything"));
+
+    /* clean up. */
+    fido_config_release(config);
+}
