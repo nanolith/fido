@@ -171,3 +171,35 @@ TEST(match_wildcard)
     fido_config_release(config);
     fido_options_release(opts);
 }
+
+/**
+ * \brief Test that no arguments match a command with a wildcard.
+ */
+TEST(match_no_args_wildcard)
+{
+    fido_options* opts = nullptr;
+    fido_config* config = nullptr;
+    const char* TEST_INPUT = R"(
+        role "foo" {
+            cmd "/sbin/mount *"
+        }
+    )";
+    const char** ARGS = nullptr;
+    size_t ARGS_COUNT = 0;
+
+    TEST_ASSERT(
+        0 == fido_options_create_test(&opts, "/sbin/mount", ARGS_COUNT, ARGS));
+    TEST_ASSERT(0 == fido_config_parse(&config, TEST_INPUT));
+    TEST_ASSERT(nullptr != config);
+    TEST_ASSERT(nullptr != config->head);
+    TEST_ASSERT(nullptr != config->head->command_head);
+
+    fido_config_command* cmd = config->head->command_head;
+
+    /* test that we can match a command with no arguments. */
+    TEST_ASSERT(0 == fido_policy_command_match(cmd, opts));
+
+    /* clean up. */
+    fido_config_release(config);
+    fido_options_release(opts);
+}
