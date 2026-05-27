@@ -54,6 +54,8 @@ enum fido_error_code
     FIDO_ERROR_BAD_GETGROUPS = 18,
     /** \brief Bad call to getpwd. */
     FIDO_ERROR_BAD_GETPWD = 19,
+    /** \brief The given policy filter does not match. */
+    FIDO_ERROR_POLICY_MATCH = 20,
 };
 
 /* C++ compatibility. */
