@@ -16,3 +16,6 @@
 int fido_options_create_test(
     fido_options** opts, const char* binary_name, size_t arguments_count,
     const char** arguments);
+int fido_user_create_test(
+    fido_user** user, const char* username, const char* group1,
+    const char* group2);
