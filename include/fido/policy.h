@@ -200,7 +200,7 @@ MODEL_CONTRACT_PRECONDITIONS_BEGIN(
         /* command is valid. */
         MODEL_ASSERT(property_fido_config_command_valid(cmd));
         /* options is valid. */
-        MODEL_ASSERT(property_fido_options_valid(options));
+        MODEL_ASSERT(property_fido_options_valid(opts));
 MODEL_CONTRACT_PRECONDITIONS_END(fido_policy_command_match)
 
 /* function contract postconditions. */
