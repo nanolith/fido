@@ -259,3 +259,32 @@ TEST(match_permit_second_group)
     fido_config_release(config);
     fido_user_release(user);
 }
+
+/**
+ * \brief Test that we can match a deny group permission.
+ */
+TEST(match_deny_group)
+{
+    fido_user* user = nullptr;
+    fido_config* config = nullptr;
+    const char* TEST_INPUT = R"(
+        role "foo" {
+            deny :wheel
+        }
+    )";
+
+    TEST_ASSERT(0 == fido_user_create_test(&user, "bob", "wheel", "bob"));
+    TEST_ASSERT(0 == fido_config_parse(&config, TEST_INPUT));
+    TEST_ASSERT(nullptr != config);
+    TEST_ASSERT(nullptr != config->head);
+    TEST_ASSERT(nullptr != config->head->permission_head);
+
+    fido_config_permission* perm = config->head->permission_head;
+
+    /* test that we can match a permit user. */
+    TEST_ASSERT(0 == fido_policy_permission_match(perm, user));
+
+    /* clean up. */
+    fido_config_release(config);
+    fido_user_release(user);
+}
