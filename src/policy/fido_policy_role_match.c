@@ -67,6 +67,13 @@ fido_policy_role_match(
     goto done;
 
 done:
+    if (0 != retval)
+    {
+        *as_user = NULL;
+        *as_group = NULL;
+        *env_head = NULL;
+    }
+
     MODEL_CONTRACT_CHECK_POSTCONDITIONS(
         fido_policy_role_match, retval, as_user, as_group, env_head, role,
         opts, user);
