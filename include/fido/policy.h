@@ -55,7 +55,7 @@ MODEL_CONTRACT_PRECONDITIONS_BEGIN(
         /* config is valid. */
         MODEL_ASSERT(property_fido_config_valid(config));
         /* options is valid. */
-        MODEL_ASSERT(property_fido_options_valid(options));
+        MODEL_ASSERT(property_fido_options_valid(opts));
         /* user is valid. */
         MODEL_ASSERT(property_fido_user_valid(user));
 MODEL_CONTRACT_PRECONDITIONS_END(fido_policy_check)
