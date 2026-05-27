@@ -11,19 +11,6 @@
 
 int nondet_int();
 
-/* return the input string or NULL. */
-static const char* optional_string(const char* input)
-{
-    if (0 == nondet_int())
-    {
-        return input;
-    }
-    else
-    {
-        return NULL;
-    }
-}
-
 int FN_DECL_MUST_CHECK
 fido_config_role_create_random(fido_config_role** role)
 {
@@ -42,5 +29,5 @@ fido_config_role_create_random(fido_config_role** role)
     /* create the role instance. */
     return
         fido_config_role_create(
-            role, name, optional_string(as_user), optional_string(as_group));
+            role, name, as_user, as_group);
 }
