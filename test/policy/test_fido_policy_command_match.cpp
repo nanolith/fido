@@ -267,3 +267,35 @@ TEST(nomatch_one_exact_argument)
     fido_config_release(config);
     fido_options_release(opts);
 }
+
+/**
+ * \brief Test that we can fail a match due to cardinality.
+ */
+TEST(nomatch_cardinality_opts)
+{
+    fido_options* opts = nullptr;
+    fido_config* config = nullptr;
+    const char* TEST_INPUT = R"(
+        role "foo" {
+            cmd "/sbin/mount -f /dev/sd1c"
+        }
+    )";
+    const char* ARGS[] = { "-f" };
+    size_t ARGS_COUNT = sizeof(ARGS) / sizeof(ARGS[0]);
+
+    TEST_ASSERT(
+        0 == fido_options_create_test(&opts, "/sbin/mount", ARGS_COUNT, ARGS));
+    TEST_ASSERT(0 == fido_config_parse(&config, TEST_INPUT));
+    TEST_ASSERT(nullptr != config);
+    TEST_ASSERT(nullptr != config->head);
+    TEST_ASSERT(nullptr != config->head->command_head);
+
+    fido_config_command* cmd = config->head->command_head;
+
+    /* test that match fails. */
+    TEST_ASSERT(0 != fido_policy_command_match(cmd, opts));
+
+    /* clean up. */
+    fido_config_release(config);
+    fido_options_release(opts);
+}
