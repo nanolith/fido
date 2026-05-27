@@ -439,3 +439,49 @@ TEST(nomatch_role_with_cmd)
     fido_options_release(opts);
     fido_user_release(user);
 }
+
+/**
+ * \brief Test that the role can add environment variables on match.
+ */
+TEST(match_add_environment_variable)
+{
+    fido_config* config = nullptr;
+    fido_options* opts = nullptr;
+    fido_user* user = nullptr;
+    const char* as_user = nullptr;
+    const char* as_group = nullptr;
+    const fido_config_add_variable* env_head = nullptr;
+    const char* TEST_INPUT = R"(
+        role "foo" {
+            env +PKG_CONFIG_PATH
+        }
+    )";
+    const char** ARGS = nullptr;
+    size_t ARGS_COUNT = 0;
+
+    TEST_ASSERT(0 == fido_user_create_test(&user, "bob", "wheel", "bob"));
+    TEST_ASSERT(
+        0
+            == fido_options_create_test(
+                    &opts, "/sbin/shutdown", ARGS_COUNT, ARGS));
+    TEST_ASSERT(0 == fido_config_parse(&config, TEST_INPUT));
+    TEST_ASSERT(nullptr != config);
+    TEST_ASSERT(nullptr != config->head);
+
+    fido_config_role* role = config->head;
+
+    /* test that we can match this role. */
+    TEST_ASSERT(
+        0
+            == fido_policy_role_match(
+                    &as_user, &as_group, &env_head, role, opts, user));
+    TEST_ASSERT(!strcmp("root", as_user));
+    TEST_ASSERT(!strcmp("wheel", as_group));
+    TEST_ASSERT(nullptr != env_head);
+    TEST_ASSERT(!strcmp("PKG_CONFIG_PATH", env_head->name));
+
+    /* clean up. */
+    fido_config_release(config);
+    fido_options_release(opts);
+    fido_user_release(user);
+}
