@@ -119,7 +119,7 @@ MODEL_CONTRACT_PRECONDITIONS_BEGIN(
         /* role is valid. */
         MODEL_ASSERT(property_fido_config_role_valid(role));
         /* options is valid. */
-        MODEL_ASSERT(property_fido_options_valid(options));
+        MODEL_ASSERT(property_fido_options_valid(opts));
         /* user is valid. */
         MODEL_ASSERT(property_fido_user_valid(user));
 MODEL_CONTRACT_PRECONDITIONS_END(fido_policy_role_match)
