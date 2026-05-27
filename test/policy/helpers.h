@@ -9,6 +9,10 @@
 
 #pragma once
 
+#include <fido/config.h>
+#include <fido/options.h>
+#include <fido/policy.h>
+
 int fido_options_create_test(
     fido_options** opts, const char* binary_name, size_t arguments_count,
     const char** arguments);
