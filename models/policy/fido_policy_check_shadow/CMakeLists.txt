@@ -35,6 +35,4 @@ ADD_CUSTOM_COMMAND(
     COMMAND cbmc ${CBMC_OPTIONS}
                   --unwindset main.0:4,fido_user_release.0:4,fido_config_role_release.0:1,fido_config_role_release.1:1,fido_config_role_release.2:1,fido_config_release.0:4,property_fido_config_role_valid.0:1,property_fido_config_role_valid.1:1,property_fido_config_role_valid.2:1,property_fido_config_valid.0:4,fido_user_create_random.0:4
                   model_policy_fido_policy_check_shadow
-
-    #COMMAND cbmc ${CBMC_OPTIONS} --show-loops model_policy_fido_policy_check_shadow
     USES_TERMINAL)
