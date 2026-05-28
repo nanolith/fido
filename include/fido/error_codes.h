@@ -56,6 +56,8 @@ enum fido_error_code
     FIDO_ERROR_BAD_GETPWD = 19,
     /** \brief The given policy filter does not match. */
     FIDO_ERROR_POLICY_MATCH = 20,
+    /** \brief There was an error resolving the binary name. */
+    FIDO_ERROR_OPTION_BINARY_RESOLVE = 21,
 };
 
 /* C++ compatibility. */
