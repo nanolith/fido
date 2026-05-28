@@ -1,4 +1,5 @@
 ADD_SUBDIRECTORY(fido_policy_check)
+ADD_SUBDIRECTORY(fido_policy_check_shadow)
 ADD_SUBDIRECTORY(fido_policy_command_argument_match)
 ADD_SUBDIRECTORY(fido_policy_command_argument_match_shadow)
 ADD_SUBDIRECTORY(fido_policy_command_match)
