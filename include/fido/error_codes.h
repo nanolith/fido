@@ -66,6 +66,8 @@ enum fido_error_code
     FIDO_ERROR_CONFIG_FILE_PERMISSIONS = 24,
     /** \brief There was an error reading from the config file. */
     FIDO_ERROR_CONFIG_FILE_READ = 25,
+    /** \brief There was an error sandboxing. */
+    FIDO_ERROR_SANDBOX = 26,
 };
 
 /* C++ compatibility. */
