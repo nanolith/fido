@@ -62,6 +62,8 @@ enum fido_error_code
     FIDO_ERROR_CONFIG_FILE_OPEN = 22,
     /** \brief There was an error stating the config file. */
     FIDO_ERROR_CONFIG_FILE_STAT = 23,
+    /** \brief The config file permissions were wrong. */
+    FIDO_ERROR_CONFIG_FILE_PERMISSIONS = 24,
 };
 
 /* C++ compatibility. */
