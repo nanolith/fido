@@ -60,6 +60,8 @@ enum fido_error_code
     FIDO_ERROR_OPTION_BINARY_RESOLVE = 21,
     /** \brief There was an error opening the config file. */
     FIDO_ERROR_CONFIG_FILE_OPEN = 22,
+    /** \brief There was an error stating the config file. */
+    FIDO_ERROR_CONFIG_FILE_STAT = 23,
 };
 
 /* C++ compatibility. */
