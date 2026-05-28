@@ -7,6 +7,7 @@
  * distribution for the license terms under which this software is distributed.
  */
 
+#include <errno.h>
 #include <fcntl.h>
 #include <fido/config.h>
 #include <fido/options.h>
@@ -22,6 +23,10 @@
 /* forward decls. */
 static int setup_process(void);
 static int policy_check(const fido_user* user, const fido_options* opts);
+static int policy_check_with_string(
+    const fido_user* user, const fido_options* opts, const char* config_str);
+static int policy_check_fd_config(
+    int fd, const fido_user* user, const fido_options* opts, bool checkperms);
 
 /**
  * \brief Entry point for fido.
@@ -112,49 +117,77 @@ static int setup_process(void)
  */
 static int policy_check(const fido_user* user, const fido_options* opts)
 {
-    int retval = 0, fd;
-    bool checkperms = true;
-    struct stat st;
-    char* buffer = NULL;
-    const char* as_user;
-    const char* as_group;
-    const fido_config_add_variable* env_head;
-    fido_config* config;
+    int retval, fd;
 
     /* TODO - add support for config file override. */
 
     /* open the file for reading. */
     fd = open("/etc/fido.conf", O_RDONLY);
-    if (fd < 0)
+    if (fd < 0 && ENOENT == errno)
+    {
+        retval = policy_check_with_string(user, opts, "");
+        goto done;
+    }
+    else if (fd < 0)
     {
         fprintf(stderr, "error: could not open config file.\n");
         retval = FIDO_ERROR_CONFIG_FILE_OPEN;
         goto done;
     }
+    else
+    {
+        retval = policy_check_fd_config(fd, user, opts, true);
+        goto cleanup_fd;
+    }
 
-    /* ensure that this file is writeable only by root. */
+cleanup_fd:
+    close(fd);
+
+done:
+    return retval;
+}
+
+/**
+ * \brief Perform a policy check backed by the given config file descriptor.
+ *
+ * \param fd            The descriptor of the config file.
+ * \param user          The user for this policy check.
+ * \param opts          The options for this policy check.
+ * \param checkperms    Set to true to verify permissions.
+ *
+ * \returns 0 on success and non-zero on error.
+ */
+static int policy_check_fd_config(
+    int fd, const fido_user* user, const fido_options* opts, bool checkperms)
+{
+    int retval = 0;
+    struct stat st;
+    char* buffer = NULL;
+
     retval = fstat(fd, &st);
     if (0 != retval)
     {
         fprintf(stderr, "error: could not stat config file.\n");
         retval = FIDO_ERROR_CONFIG_FILE_STAT;
-        goto cleanup_fd;
+        goto done;
     }
 
     if (checkperms)
     {
+        /* ensure that this file is owned by root. */
         if (0 != st.st_uid)
         {
             fprintf(stderr, "error: config file is not owned by root.\n");
             retval = FIDO_ERROR_CONFIG_FILE_PERMISSIONS;
-            goto cleanup_fd;
+            goto done;
         }
 
+        /* ensure that this file is writeable only by root. */
         if (0 != (st.st_mode & (S_IWGRP | S_IWOTH)))
         {
             fprintf(stderr, "error: config file is writeable by non-root.\n");
             retval = FIDO_ERROR_CONFIG_FILE_PERMISSIONS;
-            goto cleanup_fd;
+            goto done;
         }
     }
 
@@ -164,7 +197,7 @@ static int policy_check(const fido_user* user, const fido_options* opts)
     {
         fprintf(stderr, "error: invalid config file size.\n");
         retval = FIDO_ERROR_CONFIG_FILE_READ;
-        goto cleanup_fd;
+        goto done;
     }
 
     /* allocate a buffer large enough to hold the config. */
@@ -172,18 +205,9 @@ static int policy_check(const fido_user* user, const fido_options* opts)
     if (NULL == buffer)
     {
         retval = FIDO_ERROR_OUT_OF_MEMORY;
-        goto cleanup_fd;
+        goto done;
     }
     memset(buffer, 0, filesize+1);
-
-    /* enter capsicum sandbox. */
-    retval = cap_enter();
-    if (0 != retval)
-    {
-        fprintf(stderr, "error: could not enter sandbox.\n");
-        retval = FIDO_ERROR_SANDBOX;
-        goto cleanup_buffer;
-    }
 
     /* read config data. */
     ssize_t size = read(fd, buffer, filesize);
@@ -195,12 +219,50 @@ static int policy_check(const fido_user* user, const fido_options* opts)
     }
     buffer[filesize] = 0;
 
+    /* perform the policy check. */
+    retval = policy_check_with_string(user, opts, buffer);
+    goto cleanup_buffer;
+
+cleanup_buffer:
+    free(buffer);
+
+done:
+    return retval;
+}
+
+/**
+ * \brief Perform a policy check backed by the given string.
+ *
+ * \param user          The user for this policy check.
+ * \param opts          The options for this policy check.
+ * \param config_str    The configuration string for this check.
+ *
+ * \returns 0 on success and non-zero on error.
+ */
+static int policy_check_with_string(
+    const fido_user* user, const fido_options* opts, const char* config_str)
+{
+    int retval;
+    const char* as_user;
+    const char* as_group;
+    const fido_config_add_variable* env_head;
+    fido_config* config;
+
+    /* enter capsicum sandbox. */
+    retval = cap_enter();
+    if (0 != retval)
+    {
+        fprintf(stderr, "error: could not enter sandbox.\n");
+        retval = FIDO_ERROR_SANDBOX;
+        goto done;
+    }
+
     /* parse config data. */
-    retval = fido_config_parse(&config, buffer);
+    retval = fido_config_parse(&config, config_str);
     if (0 != retval)
     {
         fprintf(stderr, "error: config file parse failed.\n");
-        goto cleanup_buffer;
+        goto done;
     }
 
     /* perform policy check. */
@@ -233,12 +295,6 @@ static int policy_check(const fido_user* user, const fido_options* opts)
 
 cleanup_config:
     fido_config_release(config);
-
-cleanup_buffer:
-    free(buffer);
-
-cleanup_fd:
-    close(fd);
 
 done:
     return retval;
