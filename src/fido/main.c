@@ -28,8 +28,7 @@ int main(int argc, char* argv[])
 {
     int retval;
     fido_user* user = NULL;
-    (void)argc;
-    (void)argv;
+    fido_options* opts = NULL;
 
     /* basic program setup. */
     retval = setup_process();
@@ -47,11 +46,23 @@ int main(int argc, char* argv[])
         goto done;
     }
 
+    /* parse the command line options. */
+    retval = fido_options_parse(&opts, argc, (const char**)argv);
+    if (0 != retval)
+    {
+        goto done;
+    }
+
     printf("Not yet implemented.\n");
     retval = 1;
     goto done;
 
 done:
+    if (NULL != opts)
+    {
+        fido_options_release(opts);
+    }
+
     if (NULL != user)
     {
         fido_user_release(user);
