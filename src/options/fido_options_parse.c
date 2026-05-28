@@ -29,6 +29,7 @@ fido_options_parse(fido_options** opts, int argc, const char** argv)
     int retval;
     bool dry_run = false;
     char* config_file_override = NULL;
+    char* binary_name = NULL;
     int ch;
 
     MODEL_CONTRACT_CHECK_PRECONDITIONS(fido_options_parse, opts, argc, argv);
@@ -82,6 +83,15 @@ fido_options_parse(fido_options** opts, int argc, const char** argv)
         goto done;
     }
 
+    /* resolve the binary name. */
+    binary_name = realpath(argv[0], NULL);
+    if (NULL == binary_name)
+    {
+        fprintf(stderr, "error: Could not resolve binary name %s.\n", argv[0]);
+        retval = FIDO_ERROR_OPTION_BINARY_RESOLVE;
+        goto done;
+    }
+
     /* Create the options instance. */
     *opts = (fido_options*)malloc(sizeof(fido_options));
     if (NULL == (*opts))
@@ -95,7 +105,7 @@ fido_options_parse(fido_options** opts, int argc, const char** argv)
     memset(*opts, 0, sizeof(fido_options));
     (*opts)->dry_run = dry_run;
     (*opts)->config_file_override = config_file_override;
-    (*opts)->binary_name = argv[0];
+    (*opts)->binary_name = binary_name;
     (*opts)->arguments_count = argc - 1;
     if ((*opts)->arguments_count > 0)
     {
@@ -106,15 +116,26 @@ fido_options_parse(fido_options** opts, int argc, const char** argv)
         (*opts)->arguments = NULL;
     }
     config_file_override = NULL;
+    binary_name = NULL;
 
     /* success. */
     retval = 0;
     goto done;
 
 done:
+    if (NULL != binary_name)
+    {
+        free(binary_name);
+    }
+
     if (NULL != config_file_override)
     {
         free(config_file_override);
+    }
+
+    if (0 != retval)
+    {
+        *opts = NULL;
     }
 
     MODEL_CONTRACT_CHECK_POSTCONDITIONS(

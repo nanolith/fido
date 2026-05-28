@@ -1,5 +1,6 @@
 SET(MC_SOURCES
     ${CMAKE_SOURCE_DIR}/models/shadow/unix/getopt_fido.c
+    ${CMAKE_SOURCE_DIR}/models/shadow/unix/realpath.c
     ${CMAKE_SOURCE_DIR}/models/shadow/options/property_fido_options_valid.c
     ${CMAKE_SOURCE_DIR}/src/options/fido_options_parse.c
     ${CMAKE_SOURCE_DIR}/src/options/fido_options_release.c

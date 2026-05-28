@@ -72,9 +72,17 @@ fido_options_create_random(fido_options** opts)
     __CPROVER_havoc_object(argument2);
     argument2[sizeof(argument2)-1] = 0;
 
+    char* bin = strdup(binary_name);
+    if (NULL == bin)
+    {
+        free(tmp);
+        *opts = NULL;
+        return FIDO_ERROR_OUT_OF_MEMORY;
+    }
+
     tmp->dry_run = nondet_bool();
     tmp->config_file_override = choose_config_file_override();
-    tmp->binary_name = binary_name;
+    tmp->binary_name = bin;
     tmp->arguments_count = choose_arguments_count();
     if (tmp->arguments_count > 0)
     {

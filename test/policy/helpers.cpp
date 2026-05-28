@@ -28,7 +28,7 @@ int fido_options_create_test(
 
     /* set up tmp. */
     memset(tmp, 0, sizeof(*tmp));
-    tmp->binary_name = binary_name;
+    tmp->binary_name = strdup(binary_name);
     tmp->arguments_count = arguments_count;
     tmp->arguments = arguments;
 
