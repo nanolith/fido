@@ -24,9 +24,11 @@
 static int setup_process(void);
 static int policy_check(const fido_user* user, const fido_options* opts);
 static int policy_check_with_string(
-    const fido_user* user, const fido_options* opts, const char* config_str);
+    const fido_user* user, const fido_options* opts, const char* config_str,
+    bool authoritative);
 static int policy_check_fd_config(
-    int fd, const fido_user* user, const fido_options* opts, bool checkperms);
+    int fd, const fido_user* user, const fido_options* opts, bool checkperms,
+    bool authoritative);
 
 /**
  * \brief Entry point for fido.
@@ -66,7 +68,7 @@ int main(int argc, char* argv[])
     }
 
     /* should we perform a policy check? */
-    if (opts->dry_run)
+    if (opts->dry_run || NULL != opts->config_file_override)
     {
         retval = policy_check(user, opts);
         goto done;
@@ -118,14 +120,26 @@ static int setup_process(void)
 static int policy_check(const fido_user* user, const fido_options* opts)
 {
     int retval, fd;
+    bool authoritative;
+    const char* confname;
 
-    /* TODO - add support for config file override. */
+    /* are we testing a new configuration file? */
+    if (NULL != opts->config_file_override)
+    {
+        confname = opts->config_file_override;
+        authoritative = false;
+    }
+    else
+    {
+        confname = "/etc/fido.conf";
+        authoritative = true;
+    }
 
     /* open the file for reading. */
-    fd = open("/etc/fido.conf", O_RDONLY);
+    fd = open(confname, O_RDONLY);
     if (fd < 0 && ENOENT == errno)
     {
-        retval = policy_check_with_string(user, opts, "");
+        retval = policy_check_with_string(user, opts, "", true);
         goto done;
     }
     else if (fd < 0)
@@ -136,7 +150,9 @@ static int policy_check(const fido_user* user, const fido_options* opts)
     }
     else
     {
-        retval = policy_check_fd_config(fd, user, opts, true);
+        retval =
+            policy_check_fd_config(
+                fd, user, opts, authoritative, authoritative);
         goto cleanup_fd;
     }
 
@@ -154,11 +170,13 @@ done:
  * \param user          The user for this policy check.
  * \param opts          The options for this policy check.
  * \param checkperms    Set to true to verify permissions.
+ * \param authoritative Set to true if the policy decision is authoritative.
  *
  * \returns 0 on success and non-zero on error.
  */
 static int policy_check_fd_config(
-    int fd, const fido_user* user, const fido_options* opts, bool checkperms)
+    int fd, const fido_user* user, const fido_options* opts, bool checkperms,
+    bool authoritative)
 {
     int retval = 0;
     struct stat st;
@@ -220,7 +238,7 @@ static int policy_check_fd_config(
     buffer[filesize] = 0;
 
     /* perform the policy check. */
-    retval = policy_check_with_string(user, opts, buffer);
+    retval = policy_check_with_string(user, opts, buffer, authoritative);
     goto cleanup_buffer;
 
 cleanup_buffer:
@@ -236,11 +254,13 @@ done:
  * \param user          The user for this policy check.
  * \param opts          The options for this policy check.
  * \param config_str    The configuration string for this check.
+ * \param authoritative Set to true if the policy decision is authoritative.
  *
  * \returns 0 on success and non-zero on error.
  */
 static int policy_check_with_string(
-    const fido_user* user, const fido_options* opts, const char* config_str)
+    const fido_user* user, const fido_options* opts, const char* config_str,
+    bool authoritative)
 {
     int retval;
     const char* as_user;
@@ -271,12 +291,12 @@ static int policy_check_with_string(
             &as_user, &as_group, &env_head, config, opts, user);
     if (0 != retval)
     {
-        printf("deny\n");
+        printf("deny%s\n", authoritative ? "" : "*");
         goto cleanup_config;
     }
 
     /* We are authorized; share details. */
-    printf("permit:%s:%s:", as_user, as_group);
+    printf("permit%s:%s:%s:", authoritative ? "" : "*", as_user, as_group);
 
     /* print any variables. */
     size_t var_count = 0;
