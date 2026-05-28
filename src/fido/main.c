@@ -271,12 +271,12 @@ static int policy_check_with_string(
             &as_user, &as_group, &env_head, config, opts, user);
     if (0 != retval)
     {
-        printf("UNAUTH\n");
+        printf("deny\n");
         goto cleanup_config;
     }
 
     /* We are authorized; share details. */
-    printf("AUTH:%s:%s:", as_user, as_group);
+    printf("permit:%s:%s:", as_user, as_group);
 
     /* print any variables. */
     size_t var_count = 0;
