@@ -81,6 +81,7 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
             /* both as_user and as_group are NULL. */
             MODEL_ASSERT(NULL == *as_user);
             MODEL_ASSERT(NULL == *as_group);
+            MODEL_ASSERT(NULL == *env_head);
         }
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_policy_check)
 
