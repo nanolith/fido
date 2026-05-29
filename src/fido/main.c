@@ -143,18 +143,20 @@ static int policy_check(const fido_user* user, const fido_options* opts)
         goto done;
     }
 
-    /* check the status of opening the file. */
+    /* if the file does not exist, then fall back to our default policy. */
     if (fd < 0 && ENOENT == open_errno)
     {
         retval = fido_policy_check_from_string(user, opts, "", true);
         goto done;
     }
+    /* if we failed to open the file for any other reason, report the error. */
     else if (fd < 0)
     {
         fprintf(stderr, "error: could not open config file.\n");
         retval = FIDO_ERROR_CONFIG_FILE_OPEN;
         goto done;
     }
+    /* otherwise, use this file descriptor to derive our policy. */
     else
     {
         retval =
