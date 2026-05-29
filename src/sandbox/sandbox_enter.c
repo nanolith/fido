@@ -36,8 +36,8 @@ int FN_DECL_MUST_CHECK sandbox_enter(void)
         goto done;
     }
 #elif defined(__OpenBSD__)
-    /* set an empty unveil policy. */
-    retval = unveil("", "");
+    /* Set a dummy unveil policy for /tmp. */
+    retval = unveil("/tmp", "");
     if (0 != retval)
     {
         retval = FIDO_ERROR_SANDBOX;
