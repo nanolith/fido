@@ -8,3 +8,5 @@ typedef struct shadow_file_descriptor shadow_file_descriptor
 };
 
 extern shadow_file_descriptor* shadow_descriptors[MAX_SHADOW_DESCRIPTORS];
+
+void unix_init();
