@@ -30,6 +30,13 @@ int FN_DECL_MUST_CHECK sandbox_enter(void);
 MODEL_CONTRACT_PRECONDITIONS_BEGIN(sandbox_enter, void)
 MODEL_CONTRACT_PRECONDITIONS_END(sandbox_enter)
 
+/* function contract postconditions. */
+MODEL_CONTRACT_POSTCONDITIONS_BEGIN(sandbox_enter, int retval)
+        /* this is a defined error code. */
+        enum fido_error_code error = (enum fido_error_code)retval;
+        MODEL_ASSERT(0 == retval || __CPROVER_enum_is_in_range(error));
+MODEL_CONTRACT_POSTCONDITIONS_END(sandbox_enter)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
