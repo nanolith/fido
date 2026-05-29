@@ -12,11 +12,30 @@
 #include <fido/config.h>
 #include <fido/options.h>
 #include <fido/user.h>
+#include <stdbool.h>
 
 /* C++ compatibility. */
 # ifdef   __cplusplus
 extern "C" {
 # endif /*__cplusplus*/
+
+/**
+ * \brief Perform a policy check from the configuration stored in a string.
+ *
+ * \note The output for this check is written to standard output.
+ *
+ * \param user          The user for this policy check.
+ * \param opts          The options for this policy check.
+ * \param config_str    The configuration string for this policy check.
+ * \param authoritative A flag to indicate whether the policy decision is
+ *                      authoritative.
+ *
+ * \returns 0 on success (authorized) and non-zero on failure (not authorized).
+ */
+int FN_DECL_MUST_CHECK
+fido_policy_check_from_string(
+    const fido_user* user, const fido_options* opts, const char* config_str,
+    bool authoritative);
 
 /**
  * \brief Check the given options against the given configuration file to return
