@@ -24,7 +24,7 @@ int FN_DECL_MUST_CHECK sandbox_enter(void)
 {
     int retval;
 
-    MODEL_CONTRACT_CHECK_PRECONDITIONS(sandbox_enter, void);
+    MODEL_CONTRACT_CHECK_PRECONDITIONS(sandbox_enter, );
 
 #if defined(__FreeBSD__)
     /* enter capsicum; no other policy is set so only I/O on existing
