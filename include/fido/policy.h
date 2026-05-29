@@ -264,6 +264,9 @@ MODEL_CONTRACT_PRECONDITIONS_END(fido_policy_permission_match)
 MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
     fido_policy_permission_match, int retval,
     const fido_config_permission* perm, const fido_user* user)
+        /* this is a defined error code. */
+        enum fido_error_code error = (enum fido_error_code)retval;
+        MODEL_ASSERT(0 == retval || __CPROVER_enum_is_in_range(error));
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_policy_permission_match)
 
 /**
