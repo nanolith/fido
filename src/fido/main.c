@@ -12,11 +12,11 @@
 #include <fido/config.h>
 #include <fido/options.h>
 #include <fido/policy.h>
+#include <fido/sandbox.h>
 #include <fido/user.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/capsicum.h>
 #include <sys/stat.h>
 #include <unistd.h>
 
@@ -139,12 +139,11 @@ static int policy_check(const fido_user* user, const fido_options* opts)
     fd = open(confname, O_RDONLY);
     int open_errno = errno;
 
-    /* After opening the file, enter the capsicum sandbox. */
-    retval = cap_enter();
+    /* After opening the file, enter our sandbox. */
+    retval = sandbox_enter();
     if (0 != retval)
     {
         fprintf(stderr, "error: could not enter sandbox.\n");
-        retval = FIDO_ERROR_SANDBOX;
         goto done;
     }
 
