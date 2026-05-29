@@ -11,6 +11,7 @@
 
 #include <fido/config.h>
 #include <fido/options.h>
+#include <fido/properties/unix.h>
 #include <fido/user.h>
 #include <stdbool.h>
 
