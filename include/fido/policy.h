@@ -49,6 +49,12 @@ MODEL_CONTRACT_PRECONDITIONS_BEGIN(
         MODEL_ASSERT(NULL != config_str);
 MODEL_CONTRACT_PRECONDITIONS_END(fido_policy_check_from_string)
 
+/* function contract postconditions. */
+MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
+    fido_policy_check_from_string, int retval, const fido_user* user,
+    const fido_options* opts, const char* config_str, bool authoritative)
+MODEL_CONTRACT_POSTCONDITIONS_END(fido_policy_check_from_string)
+
 /**
  * \brief Check the given options against the given configuration file to return
  * a policy decision about whether this command should be executed, and as which
