@@ -132,6 +132,7 @@ static int policy_check(const fido_user* user, const fido_options* opts)
     }
 
     /* open the file for reading. */
+    errno = 0;
     fd = open(confname, O_RDONLY);
     int open_errno = errno;
 
