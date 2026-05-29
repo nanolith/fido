@@ -137,7 +137,19 @@ static int policy_check(const fido_user* user, const fido_options* opts)
 
     /* open the file for reading. */
     fd = open(confname, O_RDONLY);
-    if (fd < 0 && ENOENT == errno)
+    int open_errno = errno;
+
+    /* After opening the file, enter the capsicum sandbox. */
+    retval = cap_enter();
+    if (0 != retval)
+    {
+        fprintf(stderr, "error: could not enter sandbox.\n");
+        retval = FIDO_ERROR_SANDBOX;
+        goto done;
+    }
+
+    /* check the status of opening the file. */
+    if (fd < 0 && ENOENT == open_errno)
     {
         retval = policy_check_with_string(user, opts, "", true);
         goto done;
@@ -267,15 +279,6 @@ static int policy_check_with_string(
     const char* as_group;
     const fido_config_add_variable* env_head;
     fido_config* config;
-
-    /* enter capsicum sandbox. */
-    retval = cap_enter();
-    if (0 != retval)
-    {
-        fprintf(stderr, "error: could not enter sandbox.\n");
-        retval = FIDO_ERROR_SANDBOX;
-        goto done;
-    }
 
     /* parse config data. */
     retval = fido_config_parse(&config, config_str);
