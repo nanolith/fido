@@ -26,6 +26,10 @@ extern "C" {
  */
 int FN_DECL_MUST_CHECK sandbox_enter(void);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(sandbox_enter, void)
+MODEL_CONTRACT_PRECONDITIONS_END(sandbox_enter)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
