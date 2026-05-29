@@ -23,9 +23,6 @@
 /* forward decls. */
 static int setup_process(void);
 static int policy_check(const fido_user* user, const fido_options* opts);
-static int policy_check_with_string(
-    const fido_user* user, const fido_options* opts, const char* config_str,
-    bool authoritative);
 static int policy_check_fd_config(
     int fd, const fido_user* user, const fido_options* opts, bool checkperms,
     bool authoritative);
@@ -150,7 +147,7 @@ static int policy_check(const fido_user* user, const fido_options* opts)
     /* check the status of opening the file. */
     if (fd < 0 && ENOENT == open_errno)
     {
-        retval = policy_check_with_string(user, opts, "", true);
+        retval = fido_policy_check_from_string(user, opts, "", true);
         goto done;
     }
     else if (fd < 0)
@@ -249,74 +246,11 @@ static int policy_check_fd_config(
     buffer[filesize] = 0;
 
     /* perform the policy check. */
-    retval = policy_check_with_string(user, opts, buffer, authoritative);
+    retval = fido_policy_check_from_string(user, opts, buffer, authoritative);
     goto cleanup_buffer;
 
 cleanup_buffer:
     free(buffer);
-
-done:
-    return retval;
-}
-
-/**
- * \brief Perform a policy check backed by the given string.
- *
- * \param user          The user for this policy check.
- * \param opts          The options for this policy check.
- * \param config_str    The configuration string for this check.
- * \param authoritative Set to true if the policy decision is authoritative.
- *
- * \returns 0 on success and non-zero on error.
- */
-static int policy_check_with_string(
-    const fido_user* user, const fido_options* opts, const char* config_str,
-    bool authoritative)
-{
-    int retval;
-    const char* as_user;
-    const char* as_group;
-    const fido_config_add_variable* env_head;
-    fido_config* config;
-
-    /* parse config data. */
-    retval = fido_config_parse(&config, config_str);
-    if (0 != retval)
-    {
-        fprintf(stderr, "error: config file parse failed.\n");
-        goto done;
-    }
-
-    /* perform policy check. */
-    retval =
-        fido_policy_check(
-            &as_user, &as_group, &env_head, config, opts, user);
-    if (0 != retval)
-    {
-        printf("deny%s\n", authoritative ? "" : "*");
-        goto cleanup_config;
-    }
-
-    /* We are authorized; share details. */
-    printf("permit%s:%s:%s:", authoritative ? "" : "*", as_user, as_group);
-
-    /* print any variables. */
-    size_t var_count = 0;
-    while (NULL != env_head)
-    {
-        printf("%s%s", (var_count ? "," : ""), env_head->name);
-        env_head = env_head->next;
-    }
-
-    /* complete auth line. */
-    printf("\n");
-
-    /* success. */
-    retval = 0;
-    goto cleanup_config;
-
-cleanup_config:
-    fido_config_release(config);
 
 done:
     return retval;
