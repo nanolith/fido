@@ -56,6 +56,27 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_policy_check_from_string)
 
 /**
+ * \brief Perform a policy check from the given config file descriptor.
+ *
+ * \note Authoritative policy decisions will additionally check file ownership
+ * and permission metadata to ensure that it is only root writeable; the policy
+ * check automatically fails if the file backing this descriptor can be modified
+ * by anyone other than root.
+ *
+ * \param user          The user for this policy check.
+ * \param opts          The options for this policy check.
+ * \param fd            The descriptor of the config file.
+ * \param authoritative A flag to indicate whether the policy decision is
+ *                      authoritative.
+ *
+ * \returns 0 on success and non-zero on error.
+ */
+int FN_DECL_MUST_CHECK
+fido_policy_check_from_descriptor(
+    const fido_user* user, const fido_options* opts, int fd,
+    bool authoritative);
+
+/**
  * \brief Check the given options against the given configuration file to return
  * a policy decision about whether this command should be executed, and as which
  * user and group
