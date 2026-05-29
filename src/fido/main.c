@@ -98,6 +98,8 @@ done:
 static int setup_process(void)
 {
     setprogname("fido");
+
+    /* make sure we aren't holding onto any other descriptors. */
     closefrom(STDERR_FILENO + 1);
 
     return 0;
