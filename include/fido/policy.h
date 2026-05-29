@@ -37,6 +37,18 @@ fido_policy_check_from_string(
     const fido_user* user, const fido_options* opts, const char* config_str,
     bool authoritative);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_policy_check_from_string, const fido_user* user,
+    const fido_options* opts, const char* config_str, bool authoritative)
+        /* user is valid. */
+        MODEL_ASSERT(property_fido_user_valid(user));
+        /* options is valid. */
+        MODEL_ASSERT(property_fido_options_valid(opts));
+        /* config_str is valid. */
+        MODEL_ASSERT(NULL != config_str);
+MODEL_CONTRACT_PRECONDITIONS_END(fido_policy_check_from_string)
+
 /**
  * \brief Check the given options against the given configuration file to return
  * a policy decision about whether this command should be executed, and as which
