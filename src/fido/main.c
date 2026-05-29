@@ -23,9 +23,6 @@
 /* forward decls. */
 static int setup_process(void);
 static int policy_check(const fido_user* user, const fido_options* opts);
-static int policy_check_fd_config(
-    int fd, const fido_user* user, const fido_options* opts, bool checkperms,
-    bool authoritative);
 
 /**
  * \brief Entry point for fido.
@@ -159,98 +156,12 @@ static int policy_check(const fido_user* user, const fido_options* opts)
     else
     {
         retval =
-            policy_check_fd_config(
-                fd, user, opts, authoritative, authoritative);
+            fido_policy_check_from_descriptor(user, opts, fd, authoritative);
         goto cleanup_fd;
     }
 
 cleanup_fd:
     close(fd);
-
-done:
-    return retval;
-}
-
-/**
- * \brief Perform a policy check backed by the given config file descriptor.
- *
- * \param fd            The descriptor of the config file.
- * \param user          The user for this policy check.
- * \param opts          The options for this policy check.
- * \param checkperms    Set to true to verify permissions.
- * \param authoritative Set to true if the policy decision is authoritative.
- *
- * \returns 0 on success and non-zero on error.
- */
-static int policy_check_fd_config(
-    int fd, const fido_user* user, const fido_options* opts, bool checkperms,
-    bool authoritative)
-{
-    int retval = 0;
-    struct stat st;
-    char* buffer = NULL;
-
-    retval = fstat(fd, &st);
-    if (0 != retval)
-    {
-        fprintf(stderr, "error: could not stat config file.\n");
-        retval = FIDO_ERROR_CONFIG_FILE_STAT;
-        goto done;
-    }
-
-    if (checkperms)
-    {
-        /* ensure that this file is owned by root. */
-        if (0 != st.st_uid)
-        {
-            fprintf(stderr, "error: config file is not owned by root.\n");
-            retval = FIDO_ERROR_CONFIG_FILE_PERMISSIONS;
-            goto done;
-        }
-
-        /* ensure that this file is writeable only by root. */
-        if (0 != (st.st_mode & (S_IWGRP | S_IWOTH)))
-        {
-            fprintf(stderr, "error: config file is writeable by non-root.\n");
-            retval = FIDO_ERROR_CONFIG_FILE_PERMISSIONS;
-            goto done;
-        }
-    }
-
-    /* calculate file size. */
-    ssize_t filesize = st.st_size;
-    if (filesize < 0)
-    {
-        fprintf(stderr, "error: invalid config file size.\n");
-        retval = FIDO_ERROR_CONFIG_FILE_READ;
-        goto done;
-    }
-
-    /* allocate a buffer large enough to hold the config. */
-    buffer = (char*)malloc(filesize + 1);
-    if (NULL == buffer)
-    {
-        retval = FIDO_ERROR_OUT_OF_MEMORY;
-        goto done;
-    }
-    memset(buffer, 0, filesize+1);
-
-    /* read config data. */
-    ssize_t size = read(fd, buffer, filesize);
-    if (size != filesize)
-    {
-        fprintf(stderr, "error: config file read failed.\n");
-        retval = FIDO_ERROR_CONFIG_FILE_READ;
-        goto cleanup_buffer;
-    }
-    buffer[filesize] = 0;
-
-    /* perform the policy check. */
-    retval = fido_policy_check_from_string(user, opts, buffer, authoritative);
-    goto cleanup_buffer;
-
-cleanup_buffer:
-    free(buffer);
 
 done:
     return retval;
