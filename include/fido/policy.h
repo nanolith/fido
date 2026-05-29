@@ -54,6 +54,9 @@ MODEL_CONTRACT_PRECONDITIONS_END(fido_policy_check_from_string)
 MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
     fido_policy_check_from_string, int retval, const fido_user* user,
     const fido_options* opts, const char* config_str, bool authoritative)
+        /* this is a defined error code. */
+        enum fido_error_code error = (enum fido_error_code)retval;
+        MODEL_ASSERT(0 == retval || __CPROVER_enum_is_in_range(error));
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_policy_check_from_string)
 
 /**
