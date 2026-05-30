@@ -31,5 +31,7 @@ SET_PROPERTY(
 ADD_CUSTOM_COMMAND(
     TARGET model_config_fido_config_parse_role_command
     POST_BUILD
-    COMMAND cbmc ${CBMC_OPTIONS} model_config_fido_config_parse_role_command
+    COMMAND cbmc ${CBMC_OPTIONS}
+                 --unwindset fido_config_role_release.0:1,fido_config_role_release.1:1,fido_config_role_release.2:1,property_fido_config_role_valid.0:1,property_fido_config_role_valid.1:1,property_fido_config_role_valid.2:1,property_fido_config_command_valid.0:1
+                 model_config_fido_config_parse_role_command
     USES_TERMINAL)
