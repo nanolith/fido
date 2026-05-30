@@ -25,5 +25,7 @@ SET_PROPERTY(
 ADD_CUSTOM_COMMAND(
     TARGET model_config_fido_config_add_role_shadow_sink
     POST_BUILD
-    COMMAND cbmc ${CBMC_OPTIONS} model_config_fido_config_add_role_shadow_sink
+    COMMAND cbmc ${CBMC_OPTIONS}
+                 --unwindset fido_config_role_release.0:1,fido_config_role_release.1:1,fido_config_role_release.2:1,fido_config_release.0:1,property_fido_config_role_valid.0:1,property_fido_config_role_valid.1:1,property_fido_config_role_valid.2:1,property_fido_config_valid.0:1
+                 model_config_fido_config_add_role_shadow_sink
     USES_TERMINAL)
