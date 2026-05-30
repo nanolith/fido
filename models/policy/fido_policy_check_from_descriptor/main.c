@@ -1,5 +1,5 @@
 /**
- * \file models/policy/fido_policy_check_from_string/main.c
+ * \file models/policy/fido_policy_check_from_descriptor/main.c
  *
  * \brief Model checks for * \ref fido_policy_check_from_descriptor.
  *
