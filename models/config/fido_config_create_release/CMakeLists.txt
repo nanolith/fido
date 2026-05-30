@@ -20,5 +20,7 @@ SET_PROPERTY(
 ADD_CUSTOM_COMMAND(
     TARGET model_config_fido_config_create_release
     POST_BUILD
-    COMMAND cbmc ${CBMC_OPTIONS} model_config_fido_config_create_release
+    COMMAND cbmc ${CBMC_OPTIONS}
+                 --unwindset fido_config_release.0:1,property_fido_config_valid.0:1
+                 model_config_fido_config_create_release
     USES_TERMINAL)
