@@ -28,5 +28,6 @@ ADD_CUSTOM_COMMAND(
     TARGET model_config_fido_config_command_aguments_finalize_shadow
     POST_BUILD
     COMMAND cbmc ${CBMC_OPTIONS}
+                 --unwindset main.0:4,fido_config_command_release.0:4,property_fido_config_command_valid.0:4
                  model_config_fido_config_command_aguments_finalize_shadow
     USES_TERMINAL)
