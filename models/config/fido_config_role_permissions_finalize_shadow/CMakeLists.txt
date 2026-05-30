@@ -28,5 +28,6 @@ ADD_CUSTOM_COMMAND(
     TARGET model_config_fido_config_role_permissions_finalize_shadow
     POST_BUILD
     COMMAND cbmc ${CBMC_OPTIONS}
+                 --unwindset main.0:4,fido_config_role_release.0:1,fido_config_role_release.1:1,fido_config_role_release.2:4,property_fido_config_role_valid.0:1,property_fido_config_role_valid.1:1,property_fido_config_role_valid.2:4
                  model_config_fido_config_role_permissions_finalize_shadow
     USES_TERMINAL)
