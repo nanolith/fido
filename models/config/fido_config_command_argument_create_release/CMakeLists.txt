@@ -22,5 +22,6 @@ ADD_CUSTOM_COMMAND(
     TARGET model_config_fido_config_command_argument_create_release
     POST_BUILD
     COMMAND cbmc ${CBMC_OPTIONS}
+                 ##--unwindset
                  model_config_fido_config_command_argument_create_release
     USES_TERMINAL)
