@@ -64,6 +64,7 @@ fido_policy_check_from_string(
     {
         printf("%s%s", (var_count ? "," : ""), env_head->name);
         env_head = env_head->next;
+        ++var_count;
     }
 
     /* complete auth line. */
