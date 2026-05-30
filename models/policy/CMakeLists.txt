@@ -1,4 +1,5 @@
 ADD_SUBDIRECTORY(fido_policy_check)
+ADD_SUBDIRECTORY(fido_policy_check_from_descriptor)
 ADD_SUBDIRECTORY(fido_policy_check_from_string)
 ADD_SUBDIRECTORY(fido_policy_check_from_string_shadow)
 ADD_SUBDIRECTORY(fido_policy_check_shadow)
