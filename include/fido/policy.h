@@ -20,6 +20,9 @@
 extern "C" {
 # endif /*__cplusplus*/
 
+/* A 10MB policy file is a more than reasonable upper limit. */
+#define MAX_CONFIG_FILE_SIZE (1024 * 1024 * 10)
+
 /**
  * \brief Perform a policy check from the configuration stored in a string.
  *

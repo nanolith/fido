@@ -73,7 +73,7 @@ fido_policy_check_from_descriptor(
 
     /* calculate file size. */
     ssize_t filesize = st.st_size;
-    if (filesize < 0)
+    if (filesize < 0 || filesize > MAX_CONFIG_FILE_SIZE)
     {
         fprintf(stderr, "error: invalid config file size.\n");
         retval = FIDO_ERROR_CONFIG_FILE_READ;
