@@ -31,5 +31,6 @@ ADD_CUSTOM_COMMAND(
     TARGET model_config_fido_config_parse_command
     POST_BUILD
     COMMAND cbmc ${CBMC_OPTIONS}
+                 --unwindset extract_command_string.0:9,fido_config_command_release.0:4,property_fido_config_command_valid.0:4
                  model_config_fido_config_parse_command
     USES_TERMINAL)
