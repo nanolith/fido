@@ -29,5 +29,6 @@ ADD_CUSTOM_COMMAND(
     TARGET model_config_fido_config_parse_add_variable_shadow
     POST_BUILD
     COMMAND cbmc ${CBMC_OPTIONS}
+                 #--unwindset
                  model_config_fido_config_parse_add_variable_shadow
     USES_TERMINAL)
