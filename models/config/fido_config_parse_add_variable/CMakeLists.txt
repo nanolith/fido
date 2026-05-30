@@ -28,5 +28,7 @@ SET_PROPERTY(
 ADD_CUSTOM_COMMAND(
     TARGET model_config_fido_config_parse_add_variable
     POST_BUILD
-    COMMAND cbmc ${CBMC_OPTIONS} model_config_fido_config_parse_add_variable
+    COMMAND cbmc ${CBMC_OPTIONS}
+                 #--unwindset
+                 model_config_fido_config_parse_add_variable
     USES_TERMINAL)
