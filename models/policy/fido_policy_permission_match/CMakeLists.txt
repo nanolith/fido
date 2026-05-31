@@ -24,5 +24,7 @@ SET_PROPERTY(
 ADD_CUSTOM_COMMAND(
     TARGET model_policy_fido_policy_permission_match
     POST_BUILD
-    COMMAND cbmc ${CBMC_OPTIONS} model_policy_fido_policy_permission_match
+    COMMAND cbmc ${CBMC_OPTIONS}
+                 --unwindset fido_user_release.0:4,match_group_permission.0:4,fido_user_create_random.0:4
+                 model_policy_fido_policy_permission_match
     USES_TERMINAL)
