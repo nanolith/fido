@@ -19,5 +19,7 @@ SET_PROPERTY(
 ADD_CUSTOM_COMMAND(
     TARGET model_config_scanner_create_release
     POST_BUILD
-    COMMAND cbmc ${CBMC_OPTIONS} model_config_scanner_create_release
+    COMMAND cbmc ${CBMC_OPTIONS}
+                 #--unwindset
+                 model_config_scanner_create_release
     USES_TERMINAL)
