@@ -23,5 +23,6 @@ ADD_CUSTOM_COMMAND(
     TARGET model_policy_fido_policy_command_argument_match_shadow
     POST_BUILD
     COMMAND cbmc ${CBMC_OPTIONS}
+                 #--unwindset
                  model_policy_fido_policy_command_argument_match_shadow
     USES_TERMINAL)
