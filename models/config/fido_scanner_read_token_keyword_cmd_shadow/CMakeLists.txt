@@ -26,5 +26,6 @@ ADD_CUSTOM_COMMAND(
     TARGET model_config_fido_scanner_read_token_keyword_cmd_shadow
     POST_BUILD
     COMMAND cbmc ${CBMC_OPTIONS}
+                 #--unwindset
                  model_config_fido_scanner_read_token_keyword_cmd_shadow
     USES_TERMINAL)
