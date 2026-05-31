@@ -78,6 +78,8 @@ enum fido_error_code
     FIDO_ERROR_FORK = 30,
     /** \brief There was an error waiting on a child process. */
     FIDO_ERROR_WAITPID = 31,
+    /** \brief The child fido process exited abnormally. */
+    FIDO_ERROR_CHILD = 32,
 };
 
 /* C++ compatibility. */
