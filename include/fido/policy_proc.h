@@ -25,6 +25,8 @@ enum policy_decision
 {
     /** \brief Deny is the default. Don't allow this action. */
     FIDO_POLICY_DECISION_DENY,
+    /** \brief Permit the action. */
+    FIDO_POLICY_DECISION_PERMIT,
 };
 
 /* C++ compatibility. */
