@@ -58,6 +58,18 @@ bool
 property_fido_policy_decision_valid(
     const fido_policy_decision* dec);
 
+/******************************************************************************/
+/* Start of constructors.                                                     */
+/******************************************************************************/
+
+/**
+ * \brief Release a \ref fido_policy_decision instance.
+ *
+ * \param dec           The policy decision record to release.
+ */
+void
+fido_policy_decision_release(fido_policy_decision* dec);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
