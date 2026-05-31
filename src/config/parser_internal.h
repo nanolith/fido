@@ -237,25 +237,6 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_command_release)
 
 /**
- * \brief Release a \ref fido_config_add_variable instance.
- *
- * \param var           The add variable instance to release.
- */
-void fido_config_add_variable_release(fido_config_add_variable* var);
-
-/* function contract preconditions. */
-MODEL_CONTRACT_PRECONDITIONS_BEGIN(
-    fido_config_add_variable_release, fido_config_add_variable* var)
-        /* var points to a region of memory large enough to hold it. */
-        MODEL_CHECK_OBJECT_RW(var, sizeof(*var));
-MODEL_CONTRACT_PRECONDITIONS_END(fido_config_add_variable_release)
-
-/* function contract postconditions. */
-MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
-    fido_config_add_variable_release, fido_config_add_variable* var)
-MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_add_variable_release)
-
-/**
  * \brief Create a \ref fido_config_role instance.
  *
  * \param role              Pointer to the role pointer to set to this
