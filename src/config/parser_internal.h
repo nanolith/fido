@@ -237,52 +237,6 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_command_release)
 
 /**
- * \brief Create a \ref fido_config_add_variable instance.
- *
- * \param var               Pointer to the variable pointer to set to this
- *                          created instance on success.
- * \param name              The name of the variable to add.
- *
- * \returns a status code indicating success or failure.
- *      - 0 on success.
- *      - non-zero on failure.
- */
-int FN_DECL_MUST_CHECK
-fido_config_add_variable_create(
-    fido_config_add_variable** var, const char* name);
-
-/* function contract preconditions. */
-MODEL_CONTRACT_PRECONDITIONS_BEGIN(
-    fido_config_add_variable_create, fido_config_add_variable** var,
-    const char* name)
-        /* var points to a region of memory large enough to hold a var */
-        /* pointer. */
-        MODEL_CHECK_OBJECT_RW(var, sizeof(*var));
-        /* name is valid. */
-        MODEL_ASSERT(NULL != name);
-MODEL_CONTRACT_PRECONDITIONS_END(fido_config_add_variable_create)
-
-/* function contract postconditions. */
-MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
-    fido_config_add_variable_create, int retval, fido_config_add_variable** var,
-    const char* name)
-        /* on success... */
-        if (0 == retval)
-        {
-            /* *var points to a valid add variable instance. */
-            MODEL_ASSERT(property_fido_config_add_variable_valid(*var));
-        }
-        else
-        {
-            /* *var is NULL. */
-            MODEL_ASSERT(NULL == (*var));
-            /* the error code belongs to the error enumeration. */
-            enum fido_error_code ec = (enum fido_error_code)retval;
-            MODEL_ASSERT(__CPROVER_enum_is_in_range(ec));
-        }
-MODEL_CONTRACT_POSTCONDITIONS_END(fido_config_add_variable_create)
-
-/**
  * \brief Release a \ref fido_config_add_variable instance.
  *
  * \param var           The add variable instance to release.
