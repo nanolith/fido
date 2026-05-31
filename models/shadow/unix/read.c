@@ -27,8 +27,7 @@ ssize_t read(int fd, void *buf, size_t nbytes)
     if (retval < 0)
     {
         errno = nondet_errno();
-        MODEL_ASSUME(EBADF == errno || EINTR == errno || EISDIR == errno ||
-                     EINTEGRITY == errno);
+        MODEL_ASSUME(EBADF == errno || EINTR == errno || EISDIR == errno);
     }
 
     return retval;
