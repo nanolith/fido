@@ -106,3 +106,22 @@ TEST(permit_no_variables)
     /* clean up */
     fido_policy_decision_release(dec);
 }
+
+/**
+ * \brief Test that a permit with an empty variables field passes.
+ */
+TEST(permit_empty_variables)
+{
+    fido_policy_decision* dec = nullptr;
+    char DECISION[] = "permit:foo:bar:";
+
+    TEST_ASSERT(0 == fido_policy_decision_parse_from_string(&dec, DECISION));
+    TEST_ASSERT(nullptr != dec);
+    TEST_ASSERT(FIDO_POLICY_DECISION_PERMIT == dec->policy_decision);
+    TEST_ASSERT(!strcmp("foo", dec->as_user));
+    TEST_ASSERT(!strcmp("bar", dec->as_group));
+    TEST_ASSERT(nullptr == dec->variable_head);
+
+    /* clean up */
+    fido_policy_decision_release(dec);
+}
