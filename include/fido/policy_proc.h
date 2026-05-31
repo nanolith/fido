@@ -110,7 +110,8 @@ MODEL_CONTRACT_POSTCONDITIONS_END(fido_policy_decision_parse_from_descriptor)
 /**
  * \brief Parse a \ref fido_policy_decision instance from a string.
  *
- * \note The parsing process is destructive to the decision string.
+ * \note The parsing process is modifies the decision string. The caller is
+ * still responsible for freeing it if necessary.
  *
  * \param dec           Pointer to the \ref fido_policy_decision pointer to
  *                      receive the created policy decision on success.
