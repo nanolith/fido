@@ -1,0 +1,32 @@
+/**
+ * \file test/policy_proc/test_fido_policy_decision_parse_from_string.cpp
+ *
+ * \brief Unit tests for \ref fido_policy_decision_parse_from_string.
+ *
+ * \copyright 2026 Justin Handville.  Please see license.txt in this
+ * distribution for the license terms under which this software is distributed.
+ */
+
+#include <fido/policy_proc.h>
+#include <minunit/minunit.h>
+
+TEST_SUITE(fido_policy_decision_parse_from_string);
+
+/**
+ * \brief Test that we can parse a deny.
+ */
+TEST(deny)
+{
+    fido_policy_decision* dec = nullptr;
+    char DECISION[] = "deny";
+
+    TEST_ASSERT(0 == fido_policy_decision_parse_from_string(&dec, DECISION));
+    TEST_ASSERT(nullptr != dec);
+    TEST_ASSERT(FIDO_POLICY_DECISION_DENY == dec->policy_decision);
+    TEST_ASSERT(nullptr == dec->as_user);
+    TEST_ASSERT(nullptr == dec->as_group);
+    TEST_ASSERT(nullptr == dec->variable_head);
+
+    /* clean up */
+    fido_policy_decision_release(dec);
+}
