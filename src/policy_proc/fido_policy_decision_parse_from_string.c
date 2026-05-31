@@ -119,6 +119,12 @@ fido_policy_decision_parse_from_string(
     char* add_variable_list = strsep(&str, ":");
     while (NULL != add_variable_list)
     {
+        /* we can stop if the variable list is empty. */
+        if (!strcmp("", add_variable_list))
+        {
+            break;
+        }
+
         const char* var = strsep(&add_variable_list, ",");
         retval = validate_string(var, VARIABLE_CHARSET);
         if (0 != retval)
