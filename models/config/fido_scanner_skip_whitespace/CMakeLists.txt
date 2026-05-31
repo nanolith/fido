@@ -21,5 +21,7 @@ SET_PROPERTY(
 ADD_CUSTOM_COMMAND(
     TARGET model_config_fido_scanner_skip_whitespace
     POST_BUILD
-    COMMAND cbmc ${CBMC_OPTIONS} model_config_fido_scanner_skip_whitespace
+    COMMAND cbmc ${CBMC_OPTIONS}
+                 --unwindset fido_scanner_skip_whitespace.0:10
+                 model_config_fido_scanner_skip_whitespace
     USES_TERMINAL)
