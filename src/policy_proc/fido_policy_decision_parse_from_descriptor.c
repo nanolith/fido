@@ -1,5 +1,5 @@
 /**
- * \file policy_proc/fido_policy_decision_parse.c
+ * \file policy_proc/fido_policy_decision_parse_from_descriptor.c
  *
  * \brief Parse a policy decision from the policy decision process.
  *
@@ -37,14 +37,15 @@ static int validate_string(const char* str, const char* allowed_set);
  *      - non-zero on failure.
  */
 int FN_DECL_MUST_CHECK
-fido_policy_decision_parse(fido_policy_decision** dec, int fd)
+fido_policy_decision_parse_from_descriptor(fido_policy_decision** dec, int fd)
 {
     int retval;
     fido_policy_decision* tmp;
     char buffer[MAX_BUFFER_SIZE];
     char* str = buffer;
 
-    MODEL_CONTRACT_CHECK_PRECONDITIONS(fido_policy_decision_parse, dec, fd);
+    MODEL_CONTRACT_CHECK_PRECONDITIONS(
+        fido_policy_decision_parse_from_descriptor, dec, fd);
 
     /* allocate memory for this policy decision. */
     tmp = (fido_policy_decision*)malloc(sizeof(*tmp));
@@ -161,7 +162,7 @@ done:
     }
 
     MODEL_CONTRACT_CHECK_POSTCONDITIONS(
-        fido_policy_decision_parse, retval, dec, fd);
+        fido_policy_decision_parse_from_descriptor, retval, dec, fd);
 
     return retval;
 }

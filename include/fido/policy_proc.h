@@ -75,20 +75,22 @@ property_fido_policy_decision_valid(
  *      - non-zero on failure.
  */
 int FN_DECL_MUST_CHECK
-fido_policy_decision_parse(fido_policy_decision** dec, int fd);
+fido_policy_decision_parse_from_descriptor(fido_policy_decision** dec, int fd);
 
 /* function contract preconditions. */
 MODEL_CONTRACT_PRECONDITIONS_BEGIN(
-    fido_policy_decision_parse, fido_policy_decision** dec, int fd)
+    fido_policy_decision_parse_from_descriptor, fido_policy_decision** dec,
+    int fd)
         /* the decision pointer is valid. */
         MODEL_CHECK_OBJECT_RW(dec, sizeof(*dec));
         /* the descriptor is open. */
         MODEL_ASSERT(property_file_descriptor_open(fd));
-MODEL_CONTRACT_PRECONDITIONS_END(fido_policy_decision_parse)
+MODEL_CONTRACT_PRECONDITIONS_END(fido_policy_decision_parse_from_descriptor)
 
 /* function contract postconditions. */
 MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
-    fido_policy_decision_parse, int retval, fido_policy_decision** dec, int fd)
+    fido_policy_decision_parse_from_descriptor, int retval,
+    fido_policy_decision** dec, int fd)
         /* on success... */
         if (0 == retval)
         {
@@ -103,7 +105,7 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
             /* dec is set to NULL. */
             MODEL_ASSERT(NULL == *dec);
         }
-MODEL_CONTRACT_POSTCONDITIONS_END(fido_policy_decision_parse)
+MODEL_CONTRACT_POSTCONDITIONS_END(fido_policy_decision_parse_from_descriptor)
 
 /**
  * \brief Release a \ref fido_policy_decision instance.
