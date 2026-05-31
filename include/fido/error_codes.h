@@ -76,6 +76,8 @@ enum fido_error_code
     FIDO_ERROR_PIPE = 29,
     /** \brief There was an error forking fido. */
     FIDO_ERROR_FORK = 30,
+    /** \brief There was an error waiting on a child process. */
+    FIDO_ERROR_WAITPID = 31,
 };
 
 /* C++ compatibility. */
