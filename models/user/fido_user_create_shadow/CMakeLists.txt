@@ -20,5 +20,7 @@ SET_PROPERTY(
 ADD_CUSTOM_COMMAND(
     TARGET model_user_fido_user_create_shadow
     POST_BUILD
-    COMMAND cbmc ${CBMC_OPTIONS} model_user_fido_user_create_shadow
+    COMMAND cbmc ${CBMC_OPTIONS}
+                 --unwindset fido_user_release.0:4,fido_user_create_random.0:4
+                 model_user_fido_user_create_shadow
     USES_TERMINAL)
