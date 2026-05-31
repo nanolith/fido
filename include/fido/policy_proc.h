@@ -20,7 +20,7 @@ extern "C" {
 # endif /*__cplusplus*/
 
 /**
- * \brief Policy decision enumeration.
+ * \brief Policy decision type enumeration.
  */
 enum policy_decision_type
 {
