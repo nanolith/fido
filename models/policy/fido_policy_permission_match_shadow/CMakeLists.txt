@@ -25,5 +25,6 @@ ADD_CUSTOM_COMMAND(
     TARGET model_policy_fido_policy_permission_match_shadow
     POST_BUILD
     COMMAND cbmc ${CBMC_OPTIONS}
+                 --unwindset fido_user_release.0:4,fido_user_create_random.0:4
                  model_policy_fido_policy_permission_match_shadow
     USES_TERMINAL)
