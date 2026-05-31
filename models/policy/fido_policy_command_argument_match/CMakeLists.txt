@@ -21,5 +21,7 @@ SET_PROPERTY(
 ADD_CUSTOM_COMMAND(
     TARGET model_policy_fido_policy_command_argument_match
     POST_BUILD
-    COMMAND cbmc ${CBMC_OPTIONS} model_policy_fido_policy_command_argument_match
+    COMMAND cbmc ${CBMC_OPTIONS}
+                 #--unwindset
+                 model_policy_fido_policy_command_argument_match
     USES_TERMINAL)
