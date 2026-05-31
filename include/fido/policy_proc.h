@@ -134,6 +134,26 @@ MODEL_CONTRACT_PRECONDITIONS_BEGIN(
         MODEL_ASSERT(NULL != dec_str);
 MODEL_CONTRACT_PRECONDITIONS_END(fido_policy_decision_parse_from_string)
 
+/* function contract postconditions. */
+MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
+    fido_policy_decision_parse_from_string, int retval,
+    fido_policy_decision** dec, char* dec_str)
+        /* on success... */
+        if (0 == retval)
+        {
+            /* the decision is valid. */
+            MODEL_ASSERT(property_fido_policy_decision_valid(*dec));
+        }
+        else
+        {
+            /* this is a defined error code. */
+            enum fido_error_code error = (enum fido_error_code)retval;
+            MODEL_ASSERT(__CPROVER_enum_is_in_range(error));
+            /* dec is set to NULL. */
+            MODEL_ASSERT(NULL == *dec);
+        }
+MODEL_CONTRACT_POSTCONDITIONS_END(fido_policy_decision_parse_from_string)
+
 /**
  * \brief Release a \ref fido_policy_decision instance.
  *
