@@ -169,7 +169,7 @@ TEST(permit_one_variable_trailing_comma)
 }
 
 /**
- * \brief Test that a permit with multiples variables passes.
+ * \brief Test that a permit with multiple variables passes.
  */
 TEST(permit_multiple_variables)
 {
