@@ -13,6 +13,7 @@
 #include <fido/function_contracts.h>
 #include <fido/function_decl.h>
 #include <fido/model_assert.h>
+#include <fido/options.h>
 #include <fido/properties/unix.h>
 #include <stdbool.h>
 
@@ -62,6 +63,21 @@ property_fido_policy_decision_valid(
 /******************************************************************************/
 /* Start of constructors.                                                     */
 /******************************************************************************/
+
+/**
+ * \brief Spawn a fido policy process to get a decision about the given options.
+ *
+ * \param dec           Pointer to the \ref fido_policy_decision pointer to
+ *                      receive the created policy decision on success.
+ * \param opts          The options used for this decision process.
+ *
+ * \returns a status code indicating success or failure.
+ *      - 0 on success.
+ *      - non-zero on failure.
+ */
+int FN_DECL_MUST_CHECK
+fido_policy_decision_parse_from_proc(
+    fido_policy_decision** dec, const fido_options* opts);
 
 /**
  * \brief Parse a \ref fido_policy_decision instance from a descriptor.
