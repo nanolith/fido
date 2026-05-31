@@ -79,6 +79,16 @@ int FN_DECL_MUST_CHECK
 fido_policy_decision_parse_from_proc(
     fido_policy_decision** dec, const fido_options* opts);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_policy_decision_parse_from_proc, fido_policy_decision** dec,
+    const fido_options* opts)
+        /* the decision pointer is valid. */
+        MODEL_CHECK_OBJECT_RW(dec, sizeof(*dec));
+        /* the options record is valid. */
+        MODEL_ASSERT(property_fido_options_valid(opts));
+MODEL_CONTRACT_PRECONDITIONS_END(fido_policy_decision_parse_from_proc)
+
 /**
  * \brief Parse a \ref fido_policy_decision instance from a descriptor.
  *
