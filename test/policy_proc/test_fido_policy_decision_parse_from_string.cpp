@@ -75,3 +75,14 @@ TEST(permit_missing_data_failure3)
 
     TEST_ASSERT(0 != fido_policy_decision_parse_from_string(&dec, DECISION));
 }
+
+/**
+ * \brief Test that a permit with an empty group field causes an error.
+ */
+TEST(permit_missing_data_failure4)
+{
+    fido_policy_decision* dec = nullptr;
+    char DECISION[] = "permit:foo:";
+
+    TEST_ASSERT(0 != fido_policy_decision_parse_from_string(&dec, DECISION));
+}
