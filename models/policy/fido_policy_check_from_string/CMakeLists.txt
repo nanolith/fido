@@ -30,6 +30,6 @@ ADD_CUSTOM_COMMAND(
     TARGET model_policy_fido_policy_check_from_string
     POST_BUILD
     COMMAND cbmc ${CBMC_OPTIONS}
-                 --unwindset fido_config_release.0:1,property_fido_config_valid.0:1,fido_user_release.0:4
+                 --unwindset fido_user_release.0:4,fido_policy_check_from_string.0:1,fido_config_release.0:1,property_fido_config_valid.0:1,fido_user_create_random.0:4
                  model_policy_fido_policy_check_from_string
     USES_TERMINAL)
