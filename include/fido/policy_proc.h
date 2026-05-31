@@ -124,6 +124,16 @@ int FN_DECL_MUST_CHECK
 fido_policy_decision_parse_from_string(
     fido_policy_decision** dec, char* dec_str);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_policy_decision_parse_from_string, fido_policy_decision** dec,
+    char* dec_str)
+        /* the decision pointer is valid. */
+        MODEL_CHECK_OBJECT_RW(dec, sizeof(*dec));
+        /* the decision string is valid. */
+        MODEL_ASSERT(NULL != dec_str);
+MODEL_CONTRACT_PRECONDITIONS_END(fido_policy_decision_parse_from_string)
+
 /**
  * \brief Release a \ref fido_policy_decision instance.
  *
