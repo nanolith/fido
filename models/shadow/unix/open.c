@@ -53,26 +53,3 @@ int open(const char *path, int flags, ...)
 
     return retval;
 }
-
-int fstat(int fd, struct stat *sb)
-{
-    MODEL_ASSERT(property_file_descriptor_open(fd));
-    MODEL_CHECK_OBJECT_RW(sb, sizeof(struct stat));
-
-    int retval = nondet_retval();
-    MODEL_ASSUME(0 == retval || -1 == retval);
-
-    if (0 == retval)
-    {
-        __CPROVER_havoc_object(sb);
-        sb->st_dev = nondet_dev();
-        sb->st_ino = nondet_inode();
-        sb->st_nlink = nondet_nlink();
-        sb->st_mode = nondet_mode();
-        sb->st_bsdflags = nondet_int16();
-        sb->st_uid = nondet_uid();
-        sb->st_gid = nondet_gid();
-    }
-
-    return retval;
-}
