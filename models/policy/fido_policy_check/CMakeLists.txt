@@ -33,5 +33,7 @@ SET_PROPERTY(
 ADD_CUSTOM_COMMAND(
     TARGET model_policy_fido_policy_check
     POST_BUILD
-    COMMAND cbmc ${CBMC_OPTIONS} --unwindset match_group_by_name.0:4,main.0:4,fido_config_role_release.0:1,fido_config_role_release.1:1,fido_config_role_release.2:1,property_fido_config_role_valid.0:1,property_fido_config_role_valid.1:1,property_fido_config_role_valid.2:1,fido_policy_check.0:4,fido_user_release.0:4,fido_config_release.0:4,property_fido_config_valid.0:4 model_policy_fido_policy_check
+    COMMAND cbmc ${CBMC_OPTIONS}
+                 --unwindset match_group_by_name.0:4,main.0:4,fido_config_role_release.0:1,fido_config_role_release.1:1,fido_config_role_release.2:1,property_fido_config_role_valid.0:1,property_fido_config_role_valid.1:1,property_fido_config_role_valid.2:1,fido_policy_check.0:4,fido_user_release.0:4,fido_config_release.0:4,property_fido_config_valid.0:4
+                 model_policy_fido_policy_check
     USES_TERMINAL)
