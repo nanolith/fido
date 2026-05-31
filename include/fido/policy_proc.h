@@ -30,6 +30,18 @@ enum policy_decision_type
     FIDO_POLICY_DECISION_PERMIT,
 };
 
+/**
+ * \brief Policy decision.
+ */
+typedef struct policy_decision policy_decision;
+struct policy_decision
+{
+    int policy_decision;
+    char* as_user;
+    char* as_group;
+    fido_config_add_variable* variable_head;
+};
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
