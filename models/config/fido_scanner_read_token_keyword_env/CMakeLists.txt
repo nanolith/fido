@@ -26,5 +26,6 @@ ADD_CUSTOM_COMMAND(
     TARGET model_config_fido_scanner_read_token_keyword_env
     POST_BUILD
     COMMAND cbmc ${CBMC_OPTIONS}
+                 --unwindset fido_scanner_complete_token_identifier.0:9
                  model_config_fido_scanner_read_token_keyword_env
     USES_TERMINAL)
