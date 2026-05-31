@@ -146,3 +146,24 @@ TEST(permit_one_variable)
     /* clean up */
     fido_policy_decision_release(dec);
 }
+
+/**
+ * \brief Test that a permit with a single variable and a trailing comma passes.
+ */
+TEST(permit_one_variable_trailing_comma)
+{
+    fido_policy_decision* dec = nullptr;
+    char DECISION[] = "permit:foo:bar:baz,";
+
+    TEST_ASSERT(0 == fido_policy_decision_parse_from_string(&dec, DECISION));
+    TEST_ASSERT(nullptr != dec);
+    TEST_ASSERT(FIDO_POLICY_DECISION_PERMIT == dec->policy_decision);
+    TEST_ASSERT(!strcmp("foo", dec->as_user));
+    TEST_ASSERT(!strcmp("bar", dec->as_group));
+    TEST_ASSERT(nullptr != dec->variable_head);
+    TEST_ASSERT(!strcmp("baz", dec->variable_head->name));
+    TEST_ASSERT(nullptr == dec->variable_head->next);
+
+    /* clean up */
+    fido_policy_decision_release(dec);
+}
