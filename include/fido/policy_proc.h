@@ -70,6 +70,13 @@ property_fido_policy_decision_valid(
 void
 fido_policy_decision_release(fido_policy_decision* dec);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_policy_decision_release, fido_policy_decision* dec)
+        /* dec points to a region of memory large enough to hold it. */
+        MODEL_CHECK_OBJECT_RW(dec, sizeof(*dec));
+MODEL_CONTRACT_PRECONDITIONS_END(fido_policy_decision_release)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
