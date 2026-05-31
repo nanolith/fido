@@ -30,5 +30,7 @@ SET_PROPERTY(
 ADD_CUSTOM_COMMAND(
     TARGET model_config_fido_scanner_read_token
     POST_BUILD
-    COMMAND cbmc ${CBMC_OPTIONS} model_config_fido_scanner_read_token
+    COMMAND cbmc ${CBMC_OPTIONS}
+                 #--unwindset
+                 model_config_fido_scanner_read_token
     USES_TERMINAL)
