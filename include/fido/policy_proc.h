@@ -13,6 +13,7 @@
 #include <fido/function_contracts.h>
 #include <fido/function_decl.h>
 #include <fido/model_assert.h>
+#include <stdbool.h>
 
 /* C++ compatibility. */
 # ifdef   __cplusplus
@@ -41,6 +42,21 @@ struct policy_decision
     char* as_group;
     fido_config_add_variable* variable_head;
 };
+
+/******************************************************************************/
+/* Start of model checking properties.                                        */
+/******************************************************************************/
+
+/**
+ * \brief Valid policy decision record property.
+ *
+ * \param dec           The policy decision record to check.
+ *
+ * \returns true if the policy decision record is valid.
+ */
+bool
+property_fido_policy_decision_valid(
+    const policy_decision* dec);
 
 /* C++ compatibility. */
 # ifdef   __cplusplus
