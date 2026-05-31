@@ -167,3 +167,44 @@ TEST(permit_one_variable_trailing_comma)
     /* clean up */
     fido_policy_decision_release(dec);
 }
+
+/**
+ * \brief Test that a permit with multiples variables passes.
+ */
+TEST(permit_multiple_variables)
+{
+    fido_policy_decision* dec = nullptr;
+    char DECISION[] = "permit:foo:bar:baz,three,two,one";
+
+    TEST_ASSERT(0 == fido_policy_decision_parse_from_string(&dec, DECISION));
+    TEST_ASSERT(nullptr != dec);
+    TEST_ASSERT(FIDO_POLICY_DECISION_PERMIT == dec->policy_decision);
+    TEST_ASSERT(!strcmp("foo", dec->as_user));
+    TEST_ASSERT(!strcmp("bar", dec->as_group));
+
+    /* one. */
+    fido_config_add_variable* var = dec->variable_head;
+    TEST_ASSERT(nullptr != var);
+    TEST_ASSERT(!strcmp("one", var->name));
+
+    /* two. */
+    var = var->next;
+    TEST_ASSERT(nullptr != var);
+    TEST_ASSERT(!strcmp("two", var->name));
+
+    /* three. */
+    var = var->next;
+    TEST_ASSERT(nullptr != var);
+    TEST_ASSERT(!strcmp("three", var->name));
+
+    /* baz. */
+    var = var->next;
+    TEST_ASSERT(nullptr != var);
+    TEST_ASSERT(!strcmp("baz", var->name));
+
+    /* no more. */
+    TEST_ASSERT(nullptr == var->next);
+
+    /* clean up */
+    fido_policy_decision_release(dec);
+}
