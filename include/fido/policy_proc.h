@@ -63,6 +63,20 @@ property_fido_policy_decision_valid(
 /******************************************************************************/
 
 /**
+ * \brief Parse a \ref fido_policy_decision instance from a descriptor.
+ *
+ * \param dec           Pointer to the \ref fido_policy_decision pointer to
+ *                      receive the created policy decision on success.
+ * \param fd            The descriptor from which the policy decision is read.
+ *
+ * \returns a status code indicating success or failure.
+ *      - 0 on success.
+ *      - non-zero on failure.
+ */
+int FN_DECL_MUST_CHECK
+fido_policy_decision_parse(fido_policy_decision** dec, int fd);
+
+/**
  * \brief Release a \ref fido_policy_decision instance.
  *
  * \param dec           The policy decision record to release.
