@@ -77,6 +77,11 @@ MODEL_CONTRACT_PRECONDITIONS_BEGIN(
         MODEL_CHECK_OBJECT_RW(dec, sizeof(*dec));
 MODEL_CONTRACT_PRECONDITIONS_END(fido_policy_decision_release)
 
+/* function contract postconditions. */
+MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
+    fido_policy_decision_release, fido_policy_decision* dec)
+MODEL_CONTRACT_POSTCONDITIONS_END(fido_policy_decision_release)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
