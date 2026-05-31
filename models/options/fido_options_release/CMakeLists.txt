@@ -19,5 +19,7 @@ SET_PROPERTY(
 ADD_CUSTOM_COMMAND(
     TARGET model_options_fido_options_release
     POST_BUILD
-    COMMAND cbmc ${CBMC_OPTIONS} model_options_fido_options_release
+    COMMAND cbmc ${CBMC_OPTIONS}
+                 #--unwindset
+                 model_options_fido_options_release
     USES_TERMINAL)
