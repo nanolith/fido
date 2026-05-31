@@ -30,3 +30,14 @@ TEST(deny)
     /* clean up */
     fido_policy_decision_release(dec);
 }
+
+/**
+ * \brief Test that an asterisk deny causes a failure.
+ */
+TEST(deny_asterisk)
+{
+    fido_policy_decision* dec = nullptr;
+    char DECISION[] = "deny*";
+
+    TEST_ASSERT(0 != fido_policy_decision_parse_from_string(&dec, DECISION));
+}
