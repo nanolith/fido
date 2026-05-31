@@ -23,7 +23,7 @@ extern "C" {
 /**
  * \brief Policy decision type enumeration.
  */
-enum policy_decision_type
+enum fido_policy_decision_type
 {
     /** \brief Deny is the default. Don't allow this action. */
     FIDO_POLICY_DECISION_DENY,
