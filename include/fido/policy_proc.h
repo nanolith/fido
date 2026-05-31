@@ -34,8 +34,8 @@ enum fido_policy_decision_type
 /**
  * \brief Policy decision.
  */
-typedef struct policy_decision policy_decision;
-struct policy_decision
+typedef struct fido_policy_decision fido_policy_decision;
+struct fido_policy_decision
 {
     int policy_decision;
     char* as_user;
@@ -56,7 +56,7 @@ struct policy_decision
  */
 bool
 property_fido_policy_decision_valid(
-    const policy_decision* dec);
+    const fido_policy_decision* dec);
 
 /* C++ compatibility. */
 # ifdef   __cplusplus
