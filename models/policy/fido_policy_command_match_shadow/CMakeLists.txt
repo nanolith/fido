@@ -29,5 +29,7 @@ SET_PROPERTY(
 ADD_CUSTOM_COMMAND(
     TARGET model_policy_fido_policy_command_match_shadow
     POST_BUILD
-    COMMAND cbmc ${CBMC_OPTIONS} model_policy_fido_policy_command_match_shadow
+    COMMAND cbmc ${CBMC_OPTIONS}
+                 --unwindset fido_config_command_release.0:3,property_fido_config_command_valid.0:3
+                 model_policy_fido_policy_command_match_shadow
     USES_TERMINAL)
