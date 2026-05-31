@@ -70,6 +70,8 @@ enum fido_error_code
     FIDO_ERROR_SANDBOX = 26,
     /** \brief There was an error reading the policy response. */
     FIDO_ERROR_POLICY_READ = 27,
+    /** \brief The process was interrupted while reading the policy decision. */
+    FIDO_ERROR_INTERRUPTED = 28,
 };
 
 /* C++ compatibility. */
