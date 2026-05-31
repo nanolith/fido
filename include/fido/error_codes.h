@@ -75,7 +75,7 @@ enum fido_error_code
     /** \brief There was an error creating a pipe. */
     FIDO_ERROR_PIPE = 29,
     /** \brief There was an error forking fido. */
-    FIDO_ERROR_FORK = 29,
+    FIDO_ERROR_FORK = 30,
 };
 
 /* C++ compatibility. */
