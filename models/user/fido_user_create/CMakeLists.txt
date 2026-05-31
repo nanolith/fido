@@ -25,5 +25,7 @@ SET_PROPERTY(
 ADD_CUSTOM_COMMAND(
     TARGET model_user_fido_user_create
     POST_BUILD
-    COMMAND cbmc ${CBMC_OPTIONS} model_user_fido_user_create
+    COMMAND cbmc ${CBMC_OPTIONS}
+                 --unwindset fido_user_release.0:5,fido_user_create.0:5,fido_user_create.1:5
+                 model_user_fido_user_create
     USES_TERMINAL)
