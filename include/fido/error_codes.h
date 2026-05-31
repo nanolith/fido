@@ -68,6 +68,8 @@ enum fido_error_code
     FIDO_ERROR_CONFIG_FILE_READ = 25,
     /** \brief There was an error sandboxing. */
     FIDO_ERROR_SANDBOX = 26,
+    /** \brief There was an error reading the policy response. */
+    FIDO_ERROR_POLICY_READ = 27,
 };
 
 /* C++ compatibility. */
