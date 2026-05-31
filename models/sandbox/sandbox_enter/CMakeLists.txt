@@ -20,5 +20,7 @@ SET_PROPERTY(
 ADD_CUSTOM_COMMAND(
     TARGET model_sandbox_sandbox_enter
     POST_BUILD
-    COMMAND cbmc ${CBMC_OPTIONS} model_sandbox_sandbox_enter
+    COMMAND cbmc ${CBMC_OPTIONS}
+                 #--unwindset
+                 model_sandbox_sandbox_enter
     USES_TERMINAL)
