@@ -13,6 +13,7 @@
 #include <fido/function_contracts.h>
 #include <fido/function_decl.h>
 #include <fido/model_assert.h>
+#include <fido/properties/unix.h>
 #include <stdbool.h>
 
 /* C++ compatibility. */
@@ -75,6 +76,15 @@ property_fido_policy_decision_valid(
  */
 int FN_DECL_MUST_CHECK
 fido_policy_decision_parse(fido_policy_decision** dec, int fd);
+
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_policy_decision_parse, fido_policy_decision** dec, int fd)
+        /* the decision pointer is valid. */
+        MODEL_CHECK_OBJECT_RW(dec, sizeof(*dec));
+        /* the descriptor is open. */
+        MODEL_ASSERT(property_file_descriptor_open(fd));
+MODEL_CONTRACT_PRECONDITIONS_END(fido_policy_decision_parse)
 
 /**
  * \brief Release a \ref fido_policy_decision instance.
