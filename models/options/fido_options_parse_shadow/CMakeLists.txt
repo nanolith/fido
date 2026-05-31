@@ -21,5 +21,7 @@ SET_PROPERTY(
 ADD_CUSTOM_COMMAND(
     TARGET model_options_fido_options_parse_shadow
     POST_BUILD
-    COMMAND cbmc ${CBMC_OPTIONS} model_options_fido_options_parse_shadow
+    COMMAND cbmc ${CBMC_OPTIONS}
+                 #--unwindset
+                 model_options_fido_options_parse_shadow
     USES_TERMINAL)
