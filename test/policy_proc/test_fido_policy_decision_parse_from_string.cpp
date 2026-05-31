@@ -64,3 +64,14 @@ TEST(permit_missing_data_failure2)
 
     TEST_ASSERT(0 != fido_policy_decision_parse_from_string(&dec, DECISION));
 }
+
+/**
+ * \brief Test that a permit with only a username field causes an error.
+ */
+TEST(permit_missing_data_failure3)
+{
+    fido_policy_decision* dec = nullptr;
+    char DECISION[] = "permit:foo";
+
+    TEST_ASSERT(0 != fido_policy_decision_parse_from_string(&dec, DECISION));
+}
