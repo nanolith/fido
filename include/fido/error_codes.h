@@ -72,6 +72,8 @@ enum fido_error_code
     FIDO_ERROR_POLICY_READ = 27,
     /** \brief The process was interrupted while reading the policy decision. */
     FIDO_ERROR_INTERRUPTED = 28,
+    /** \brief There was an error creating a pipe. */
+    FIDO_ERROR_PIPE = 29,
 };
 
 /* C++ compatibility. */
