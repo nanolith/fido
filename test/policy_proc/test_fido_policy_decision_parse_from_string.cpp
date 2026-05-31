@@ -34,10 +34,22 @@ TEST(deny)
 /**
  * \brief Test that an asterisk deny causes a failure.
  */
-TEST(deny_asterisk)
+TEST(deny_asterisk_failure)
 {
     fido_policy_decision* dec = nullptr;
     char DECISION[] = "deny*";
+
+    TEST_ASSERT(0 != fido_policy_decision_parse_from_string(&dec, DECISION));
+}
+
+/**
+ * \brief Test that a permit without any additional information causes a
+ * failure.
+ */
+TEST(permit_missing_data_failure1)
+{
+    fido_policy_decision* dec = nullptr;
+    char DECISION[] = "permit";
 
     TEST_ASSERT(0 != fido_policy_decision_parse_from_string(&dec, DECISION));
 }
