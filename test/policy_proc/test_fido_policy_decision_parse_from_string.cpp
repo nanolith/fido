@@ -53,3 +53,14 @@ TEST(permit_missing_data_failure1)
 
     TEST_ASSERT(0 != fido_policy_decision_parse_from_string(&dec, DECISION));
 }
+
+/**
+ * \brief Test that a permit with an empty username field cases an error.
+ */
+TEST(permit_missing_data_failure2)
+{
+    fido_policy_decision* dec = nullptr;
+    char DECISION[] = "permit:";
+
+    TEST_ASSERT(0 != fido_policy_decision_parse_from_string(&dec, DECISION));
+}
