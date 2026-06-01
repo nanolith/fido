@@ -13,6 +13,7 @@
 #include <fido/properties/unix.h>
 #include <stdbool.h>
 #include <stdint.h>
+#include <stdlib.h>
 #include <sys/stat.h>
 
 #include "unix_shadow.h"
