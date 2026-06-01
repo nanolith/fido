@@ -12,6 +12,7 @@
 #include <fido/config.h>
 #include <fido/options.h>
 #include <fido/policy.h>
+#include <fido/policy_proc.h>
 #include <fido/sandbox.h>
 #include <fido/user.h>
 #include <stdio.h>
@@ -37,6 +38,7 @@ int main(int argc, char* argv[])
     int retval;
     fido_user* user = NULL;
     fido_options* opts = NULL;
+    fido_policy_decision* dec = NULL;
 
     /* basic program setup. */
     retval = setup_process();
@@ -68,7 +70,15 @@ int main(int argc, char* argv[])
         goto done;
     }
 
-    printf("Not yet implemented.\n");
+    /* make an authorization decision. */
+    retval = fido_policy_decision_parse_from_proc(&dec, opts);
+    if (0 != retval || FIDO_POLICY_DECISION_DENY == dec->policy_decision)
+    {
+        fprintf(stderr, "error: not authorized.\n");
+        goto done;
+    }
+
+    printf("Authentication not yet implemented.\n");
     retval = 1;
     goto done;
 
@@ -81,6 +91,11 @@ done:
     if (NULL != user)
     {
         fido_user_release(user);
+    }
+
+    if (NULL != dec)
+    {
+        fido_policy_decision_release(dec);
     }
 
     if (0 != retval)
