@@ -1,3 +1,4 @@
+#include <fido/auth.h>
 #include <fido/config.h>
 #include <fido/policy.h>
 #include <fido/policy_proc.h>
