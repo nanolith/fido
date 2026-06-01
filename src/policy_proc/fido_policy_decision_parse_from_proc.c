@@ -50,7 +50,7 @@ fido_policy_decision_parse_from_proc(
     }
 
     /* initialize this argument vector. */
-    child_argv[0] = "/sbin/fido";
+    child_argv[0] = "/usr/local/bin/fido";
     child_argv[1] = "-n";
     for (size_t i = 0; i < opts->arguments_count; ++i)
     {
@@ -94,7 +94,7 @@ fido_policy_decision_parse_from_proc(
         pipefd[1] = -1;
 
         /* execute the process. */
-        execve("/sbin/fido", (char**)child_argv, empty_env);
+        execve("/usr/local/bin/fido", (char**)child_argv, empty_env);
 
         /* if execve returns, something went wrong. */
         _exit(1);
