@@ -10,15 +10,16 @@
 #include <string.h>
 
 size_t runs = 0;
+size_t strsep_max_runs = 2;
 
 size_t nondet_runs();
 
 size_t random_runs()
 {
     size_t val = nondet_runs();
-    if (val > 2)
+    if (val > strsep_max_runs)
     {
-        val = 2;
+        val = strsep_max_runs;
     }
 
     return val;
@@ -27,6 +28,12 @@ size_t random_runs()
 char* strsep(char **stringp, const char *delim)
 {
     char* str = *stringp;
+
+    if (NULL != str)
+    {
+        __CPROVER_havoc_object(str);
+        str[__CPROVER_OBJECT_SIZE(str)-1] = 0;
+    }
 
     if (runs++ >= random_runs())
     {
