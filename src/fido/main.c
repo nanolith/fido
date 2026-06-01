@@ -78,6 +78,13 @@ int main(int argc, char* argv[])
         goto done;
     }
 
+    /* from here on out, we must be running with an effective UID of root. */
+    if (0 != geteuid())
+    {
+        fprintf(stderr, "error: fido binary is not setuid root.\n");
+        goto done;
+    }
+
     printf("Authentication not yet implemented.\n");
     retval = 1;
     goto done;
