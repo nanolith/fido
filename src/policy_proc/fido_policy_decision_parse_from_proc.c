@@ -163,7 +163,7 @@ done:
         *dec = NULL;
     }
 
-    MODEL_CONTRACT_CHECK_PRECONDITIONS(
+    MODEL_CONTRACT_CHECK_POSTCONDITIONS(
         fido_policy_decision_parse_from_proc, retval, dec, opts);
 
     return retval;
