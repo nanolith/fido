@@ -65,8 +65,7 @@ fido_options_parse(fido_options** opts, int argc, const char** argv)
                 break;
 
             default:
-                fprintf(stderr, "Unsupported option '%c'\n", ch);
-                    *opts = NULL;
+                *opts = NULL;
                 retval = FIDO_ERROR_INVALID_OPTION;
                 goto done;
         }
