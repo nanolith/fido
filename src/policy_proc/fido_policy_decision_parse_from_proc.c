@@ -52,9 +52,10 @@ fido_policy_decision_parse_from_proc(
     /* initialize this argument vector. */
     child_argv[0] = "/usr/local/bin/fido";
     child_argv[1] = "-n";
+    child_argv[2] = opts->binary_name;
     for (size_t i = 0; i < opts->arguments_count; ++i)
     {
-        child_argv[2 + i] = opts->arguments[i];
+        child_argv[3 + i] = opts->arguments[i];
     }
 
     /* execve requires the argument list to be NULL terminated. */
