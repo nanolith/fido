@@ -97,7 +97,7 @@ static int read_policy_string(char* buffer, size_t buffer_size, int fd)
     }
 
     /* null terminate the read bytes. */
-    buffer[buffer_size] = 0;
+    buffer[buffer_size-1] = 0;
 
     /* make sure the buffer is a complete line. */
     char* eol = strchr(buffer, '\n');
