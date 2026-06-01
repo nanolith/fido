@@ -82,6 +82,8 @@ enum fido_error_code
     FIDO_ERROR_CHILD = 32,
     /** \brief There was an error setting up PAM. */
     FIDO_ERROR_PAM = 33,
+    /** \brief There was an error authenticating the user. */
+    FIDO_ERROR_AUTH = 34,
 };
 
 /* C++ compatibility. */
