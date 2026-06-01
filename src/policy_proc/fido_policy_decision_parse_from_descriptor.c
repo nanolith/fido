@@ -14,7 +14,12 @@
 #include <string.h>
 #include <unistd.h>
 
+/* use a smaller buffer in CBMC mode. */
+#ifdef CBMC
+#define MAX_BUFFER_SIZE 8
+#else
 #define MAX_BUFFER_SIZE (64 * 1024)
+#endif
 
 /* forward decls. */
 static int read_policy_string(char* buffer, size_t buffer_size, int fd);
