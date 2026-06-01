@@ -32,6 +32,13 @@ extern "C" {
 int FN_DECL_MUST_CHECK
 fido_auth_challenge(const fido_user* user);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_auth_challenge, const fido_user* user)
+        /* the user is valid. */
+        MODEL_ASSERT(property_fido_user_valid(user));
+MODEL_CONTRACT_PRECONDITIONS_END(fido_auth_challenge)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
