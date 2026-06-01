@@ -80,6 +80,8 @@ enum fido_error_code
     FIDO_ERROR_WAITPID = 31,
     /** \brief The child fido process exited abnormally. */
     FIDO_ERROR_CHILD = 32,
+    /** \brief There was an error setting up PAM. */
+    FIDO_ERROR_PAM = 33,
 };
 
 /* C++ compatibility. */
