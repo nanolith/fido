@@ -57,7 +57,7 @@ fido_options_parse(fido_options** opts, int argc, const char** argv)
                 config_file_override = strdup(optarg);
                 if (NULL == config_file_override)
                 {
-                    fprintf(stderr, "Out of memory.\n");
+                    fprintf(stderr, "error: out of memory.\n");
                     *opts = NULL;
                     retval = FIDO_ERROR_OUT_OF_MEMORY;
                     goto done;
@@ -76,7 +76,7 @@ fido_options_parse(fido_options** opts, int argc, const char** argv)
     argv += optind;
     if (argc < 1)
     {
-        fprintf(stderr, "Missing command.\n");
+        fprintf(stderr, "error: missing command.\n");
         *opts = NULL;
         retval = FIDO_ERROR_OPTION_MISSING_COMMAND;
         goto done;
@@ -86,7 +86,7 @@ fido_options_parse(fido_options** opts, int argc, const char** argv)
     binary_name = realpath(argv[0], NULL);
     if (NULL == binary_name)
     {
-        fprintf(stderr, "error: Could not resolve binary name %s.\n", argv[0]);
+        fprintf(stderr, "error: could not resolve binary name %s.\n", argv[0]);
         retval = FIDO_ERROR_OPTION_BINARY_RESOLVE;
         goto done;
     }
