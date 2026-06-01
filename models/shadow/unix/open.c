@@ -44,6 +44,10 @@ int open(const char *path, int flags, ...)
                 shadow_descriptors[retval]->mode = SHADOW_FILE_DESCRIPTOR_OPEN;
             }
         }
+        else
+        {
+            retval = -1;
+        }
     }
 
     if (retval < 0)
