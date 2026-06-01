@@ -1,1 +1,2 @@
 ADD_SUBDIRECTORY(fido_policy_decision_parse_from_string)
+ADD_SUBDIRECTORY(fido_policy_decision_parse_from_string_shadow)
