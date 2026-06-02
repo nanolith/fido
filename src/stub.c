@@ -5,6 +5,7 @@
 #include <fido/sandbox.h>
 #include <fido/scanner.h>
 #include <fido/user.h>
+#include <fido/user_context.h>
 #include <stdio.h>
 
 #include "config/parser_internal.h"
