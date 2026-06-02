@@ -16,6 +16,10 @@
 #include <security/openpam.h>
 #endif /*__FreeBSD__*/
 
+#ifdef __OpenBSD__
+#include <bsd_auth.h>
+#endif /*__OpenBSD__*/
+
 /* forward decls. */
 #ifdef   __FreeBSD__
 static int open_pam_auth_challenge(const fido_user* user);
@@ -39,8 +43,18 @@ fido_auth_challenge(const fido_user* user)
 
     MODEL_CONTRACT_CHECK_PRECONDITIONS(fido_auth_challenge, user);
 
-#ifdef __FreeBSD__
+#if   defined(__FreeBSD__)
     retval = open_pam_auth_challenge(user);
+#elif defined(__OpenBSD__)
+    retval = auth_userokay(user->username, NULL, NULL, NULL);
+    if (0 == retval)
+    {
+        retval = FIDO_ERROR_AUTH;
+    }
+    else
+    {
+        retval = 0;
+    }
 #else
     #error "Authentication Unsupported!"
 #endif
