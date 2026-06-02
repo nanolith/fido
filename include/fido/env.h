@@ -31,6 +31,21 @@ struct fido_env
     size_t count;
 };
 
+/******************************************************************************/
+/* Start of model checking properties.                                        */
+/******************************************************************************/
+
+/**
+ * \brief Valid \ref fido_env_node property.
+ *
+ * \param node          The node to check.
+ *
+ * \returns true if the node is valid.
+ */
+bool
+property_fido_env_node_valid(
+    const fido_env_node* node);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
