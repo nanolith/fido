@@ -84,6 +84,7 @@ int main(int argc, char* argv[])
     if (0 != geteuid())
     {
         fprintf(stderr, "error: fido binary is not setuid root.\n");
+        retval = FIDO_ERROR_SETUID;
         goto done;
     }
 
