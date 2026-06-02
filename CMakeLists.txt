@@ -31,7 +31,6 @@ ADD_EXECUTABLE(fido ${FIDO_SOURCES} ${FIDO_SOURCES_MAIN} ${FIDO_SOURCES_AUTH})
 TARGET_COMPILE_OPTIONS(
     fido PRIVATE -fPIC -O2
     -Wall -Werror -Wextra -Wpedantic)
-#TARGET_LINK_LIBRARIES(fido PRIVATE -static)
 
 #handle FreeBSD specific libraries.
 if(CMAKE_SYSTEM_NAME STREQUAL "FreeBSD")
