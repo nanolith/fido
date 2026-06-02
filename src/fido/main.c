@@ -9,6 +9,7 @@
 
 #include <errno.h>
 #include <fcntl.h>
+#include <fido/auth.h>
 #include <fido/config.h>
 #include <fido/options.h>
 #include <fido/policy.h>
@@ -85,7 +86,14 @@ int main(int argc, char* argv[])
         goto done;
     }
 
-    printf("Authentication not yet implemented.\n");
+    /* challenge the user. */
+    retval = fido_auth_challenge(user);
+    if (0 != retval)
+    {
+        goto done;
+    }
+
+    printf("Execution not yet implemented.\n");
     retval = 1;
     goto done;
 
