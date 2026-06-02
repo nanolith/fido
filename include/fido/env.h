@@ -46,6 +46,17 @@ bool
 property_fido_env_node_valid(
     const fido_env_node* node);
 
+/**
+ * \brief Valid \ref fido_env property.
+ *
+ * \param env           The env to check.
+ *
+ * \returns true if the env is valid.
+ */
+bool
+property_fido_env_valid(
+    const fido_env* env);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
