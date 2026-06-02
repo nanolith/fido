@@ -24,6 +24,13 @@ struct fido_env_node
     char* value;
 };
 
+typedef struct fido_env fido_env;
+struct fido_env
+{
+    RB_HEAD(fido_env_tree, fido_env_node) head;
+    size_t count;
+};
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
