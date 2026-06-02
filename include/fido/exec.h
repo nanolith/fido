@@ -30,6 +30,13 @@ extern "C" {
 int FN_DECL_MUST_CHECK
 fido_exec(const fido_options* opts);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_exec, const fido_options* opts)
+        /* opts is valid. */
+        MODEL_ASSERT(property_fido_options_valid(opts));
+MODEL_CONTRACT_PRECONDITIONS_END(fido_exec)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
