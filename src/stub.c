@@ -1,5 +1,6 @@
 #include <fido/auth.h>
 #include <fido/config.h>
+#include <fido/exec.h>
 #include <fido/policy.h>
 #include <fido/policy_proc.h>
 #include <fido/sandbox.h>
