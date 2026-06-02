@@ -86,6 +86,8 @@ enum fido_error_code
     FIDO_ERROR_AUTH = 34,
     /** \brief The user is unsuitable for authentication. */
     FIDO_ERROR_BAD_USER = 35,
+    /** \brief The fido binary is not setuid. */
+    FIDO_ERROR_SETUID = 36,
 };
 
 /* C++ compatibility. */
