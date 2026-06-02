@@ -88,6 +88,8 @@ enum fido_error_code
     FIDO_ERROR_BAD_USER = 35,
     /** \brief The fido binary is not setuid. */
     FIDO_ERROR_SETUID = 36,
+    /** \brief Set user context failed. */
+    FIDO_ERROR_SET_USER_CONTEXT = 37,
 };
 
 /* C++ compatibility. */
