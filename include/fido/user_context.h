@@ -34,6 +34,14 @@ extern "C" {
 int FN_DECL_MUST_CHECK
 fido_set_user_context(const char* username, const char* groupname);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_set_user_context, const char* username, const char* groupname)
+        /* username and groupname are not NULL. */
+        MODEL_ASSERT(NULL != username);
+        MODEL_ASSERT(NULL != groupname);
+MODEL_CONTRACT_PRECONDITIONS_END(fido_set_user_context)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
