@@ -24,22 +24,25 @@ extern "C" {
  * \brief Execute a binary using the given options.
  *
  * \param opts          The options to use for this binary.
+ * \param env           The environment to pass to this binary.
  *
  * \returns 0 on success and non-zero on failure.
  */
 int FN_DECL_MUST_CHECK
-fido_exec(const fido_options* opts);
+fido_exec(const fido_options* opts, const char** env);
 
 /* function contract preconditions. */
 MODEL_CONTRACT_PRECONDITIONS_BEGIN(
-    fido_exec, const fido_options* opts)
+    fido_exec, const fido_options* opts, const char** env)
         /* opts is valid. */
         MODEL_ASSERT(property_fido_options_valid(opts));
+        /* env is valid. */
+        MODEL_ASSERT(NULL != env);
 MODEL_CONTRACT_PRECONDITIONS_END(fido_exec)
 
 /* function contract postconditions. */
 MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
-    fido_exec, int retval, const fido_options* opts)
+    fido_exec, int retval, const fido_options* opts, const char** env)
         /* This function does not return on failure. */
         MODEL_ASSERT(0 != retval);
 
