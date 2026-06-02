@@ -16,6 +16,7 @@
 #include <fido/policy_proc.h>
 #include <fido/sandbox.h>
 #include <fido/user.h>
+#include <fido/user_context.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -90,6 +91,13 @@ int main(int argc, char* argv[])
 
     /* challenge the user. */
     retval = fido_auth_challenge(user);
+    if (0 != retval)
+    {
+        goto done;
+    }
+
+    /* set the user context. */
+    retval = fido_set_user_context(dec->as_user, dec->as_group);
     if (0 != retval)
     {
         goto done;
