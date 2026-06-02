@@ -42,6 +42,19 @@ MODEL_CONTRACT_PRECONDITIONS_BEGIN(
         MODEL_ASSERT(NULL != groupname);
 MODEL_CONTRACT_PRECONDITIONS_END(fido_set_user_context)
 
+/* function contract postconditions. */
+MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
+    fido_set_user_context, int retval, const char* username,
+    const char* groupname)
+        /* on failure... */
+        if (0 != retval)
+        {
+            /* this is a defined error code. */
+            enum fido_error_code error = (enum fido_error_code)retval;
+            MODEL_ASSERT(__CPROVER_enum_is_in_range(error));
+        }
+MODEL_CONTRACT_POSTCONDITIONS_END(fido_set_user_context)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
