@@ -17,8 +17,9 @@ SET(LINKER_CHOOSER ${CMAKE_SOURCE_DIR}/scripts/linker-chooser.sh)
 
 #source files
 file(GLOB_RECURSE FIDO_SOURCES src/*.c)
-list(FILTER FIDO_SOURCES EXCLUDE REGEX ".*/main[.]c")
+list(FILTER FIDO_SOURCES EXCLUDE REGEX ".*/main[.]c|.*/auth/.*[.]c")
 file(GLOB FIDO_SOURCES_MAIN src/fido/main.c)
+file(GLOB FIDO_SOURCES_AUTH src/auth/*.c)
 
 #test files
 file(GLOB_RECURSE FIDO_TEST_SOURCES test/*.cpp)
@@ -26,11 +27,17 @@ file(GLOB_RECURSE FIDO_TEST_SOURCES test/*.cpp)
 include_directories(include)
 include_directories(${CMAKE_BINARY_DIR}/include)
 
-ADD_EXECUTABLE(fido ${FIDO_SOURCES} ${FIDO_SOURCES_MAIN})
+ADD_EXECUTABLE(fido ${FIDO_SOURCES} ${FIDO_SOURCES_MAIN} ${FIDO_SOURCES_AUTH})
 TARGET_COMPILE_OPTIONS(
     fido PRIVATE -fPIC -O2
     -Wall -Werror -Wextra -Wpedantic)
-TARGET_LINK_LIBRARIES(fido -static)
+#TARGET_LINK_LIBRARIES(fido PRIVATE -static)
+
+#handle FreeBSD specific libraries.
+if(CMAKE_SYSTEM_NAME STREQUAL "FreeBSD")
+    find_library(PAM_LIBRARY NAMES pam REQUIRED)
+    target_link_libraries(fido PRIVATE ${PAM_LIBRARY})
+endif()
 
 ADD_EXECUTABLE(testfido
     ${FIDO_SOURCES} ${FIDO_TEST_SOURCES})
