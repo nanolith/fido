@@ -11,6 +11,7 @@
 #include <fcntl.h>
 #include <fido/auth.h>
 #include <fido/config.h>
+#include <fido/exec.h>
 #include <fido/options.h>
 #include <fido/policy.h>
 #include <fido/policy_proc.h>
@@ -103,7 +104,18 @@ int main(int argc, char* argv[])
         goto done;
     }
 
-    printf("Execution not yet implemented.\n");
+    /* TODO - merge the environment. */
+    const char* env[] = { NULL };
+
+    /* execute the command. */
+    retval = fido_exec(opts, env);
+    if (0 != retval)
+    {
+        goto done;
+    }
+
+    /* We will never get here. */
+    MODEL_ASSERT(false);
     retval = 1;
     goto done;
 
