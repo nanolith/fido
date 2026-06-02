@@ -76,6 +76,7 @@ int main(int argc, char* argv[])
     if (0 != retval || FIDO_POLICY_DECISION_DENY == dec->policy_decision)
     {
         fprintf(stderr, "error: not authorized.\n");
+        retval = FIDO_ERROR_AUTH;
         goto done;
     }
 
