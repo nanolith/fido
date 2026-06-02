@@ -84,6 +84,8 @@ enum fido_error_code
     FIDO_ERROR_PAM = 33,
     /** \brief There was an error authenticating the user. */
     FIDO_ERROR_AUTH = 34,
+    /** \brief The user is unsuitable for authentication. */
+    FIDO_ERROR_BAD_USER = 35,
 };
 
 /* C++ compatibility. */
