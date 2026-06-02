@@ -22,6 +22,7 @@ property_fido_options_valid(const fido_options* opts)
 {
     MODEL_CHECK_OBJECT_READ(opts, sizeof(*opts));
 
+    MODEL_ASSERT(NULL != opts->original_binary_name);
     MODEL_ASSERT(NULL != opts->binary_name);
     if (opts->arguments_count > 0)
     {

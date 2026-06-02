@@ -29,6 +29,7 @@ fido_options_parse(fido_options** opts, int argc, const char** argv)
     int retval;
     bool dry_run = false;
     char* config_file_override = NULL;
+    char* original_binary_name = NULL;
     char* binary_name = NULL;
     int ch;
 
@@ -82,6 +83,14 @@ fido_options_parse(fido_options** opts, int argc, const char** argv)
         goto done;
     }
 
+    /* preserve the original binary name. */
+    original_binary_name = strdup(argv[0]);
+    if (NULL == original_binary_name)
+    {
+        retval = FIDO_ERROR_OUT_OF_MEMORY;
+        goto done;
+    }
+
     /* resolve the binary name. */
     binary_name = realpath(argv[0], NULL);
     if (NULL == binary_name)
@@ -104,6 +113,7 @@ fido_options_parse(fido_options** opts, int argc, const char** argv)
     memset(*opts, 0, sizeof(fido_options));
     (*opts)->dry_run = dry_run;
     (*opts)->config_file_override = config_file_override;
+    (*opts)->original_binary_name = original_binary_name;
     (*opts)->binary_name = binary_name;
     (*opts)->arguments_count = argc - 1;
     if ((*opts)->arguments_count > 0)
@@ -115,6 +125,7 @@ fido_options_parse(fido_options** opts, int argc, const char** argv)
         (*opts)->arguments = NULL;
     }
     config_file_override = NULL;
+    original_binary_name = NULL;
     binary_name = NULL;
 
     /* success. */
@@ -122,6 +133,11 @@ fido_options_parse(fido_options** opts, int argc, const char** argv)
     goto done;
 
 done:
+    if (NULL != original_binary_name)
+    {
+        free(original_binary_name);
+    }
+
     if (NULL != binary_name)
     {
         free(binary_name);

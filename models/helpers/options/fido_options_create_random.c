@@ -80,8 +80,16 @@ fido_options_create_random(fido_options** opts)
         return FIDO_ERROR_OUT_OF_MEMORY;
     }
 
+    char* orig_bin = strdup(binary_name);
+    if (NULL == orig_bin)
+    {
+        /* trim this branch of the decision tree. */
+        MODEL_ASSUME(0);
+    }
+
     tmp->dry_run = nondet_bool();
     tmp->config_file_override = choose_config_file_override();
+    tmp->original_binary_name = orig_bin;
     tmp->binary_name = bin;
     tmp->arguments_count = choose_arguments_count();
     if (tmp->arguments_count > 0)

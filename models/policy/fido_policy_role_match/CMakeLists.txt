@@ -40,6 +40,6 @@ ADD_CUSTOM_COMMAND(
     TARGET model_policy_fido_policy_role_match
     POST_BUILD
     COMMAND cbmc ${CBMC_OPTIONS}
-                --unwindset match_group_by_name.0:4,role_permission_match.0:4,role_command_match.0:4,property_fido_config_role_valid.0:4,property_fido_config_role_valid.1:4,property_fido_config_role_valid.2:4,main.0:4
+                --unwindset main.0:4,fido_user_release.0:4,role_permission_match.0:4,match_group_by_name.0:4,role_command_match.0:4,fido_config_role_release.0:3,fido_config_role_release.1:1,fido_config_role_release.2:3,fido_config_command_release.0:1,property_fido_config_role_valid.0:4,property_fido_config_role_valid.1:4,property_fido_config_role_valid.2:4,property_fido_config_command_valid.0:1,fido_user_create_random.0:4
                 model_policy_fido_policy_role_match
     USES_TERMINAL)

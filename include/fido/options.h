@@ -29,6 +29,7 @@ struct fido_options
 {
     bool dry_run;
     char* config_file_override;
+    char* original_binary_name;
     char* binary_name;
     const char** arguments;
     size_t arguments_count;
