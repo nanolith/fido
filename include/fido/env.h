@@ -100,6 +100,13 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
         }
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_env_create)
 
+/**
+ * \brief Release a \ref fido_env instance.
+ *
+ * \param env           The instance to release.
+ */
+void fido_env_release(fido_env* env);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
