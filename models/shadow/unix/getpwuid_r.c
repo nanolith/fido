@@ -25,6 +25,8 @@ uid_t choose_uid()
 }
 
 char name[8];
+char home[8];
+char shell[8];
 
 int
 getpwuid_r(
@@ -39,11 +41,17 @@ getpwuid_r(
         {
             __CPROVER_havoc_object(name);
             name[sizeof(name)-1] = 0;
+            __CPROVER_havoc_object(home);
+            home[sizeof(home)-1] = 0;
+            __CPROVER_havoc_object(shell);
+            shell[sizeof(shell)-1] = 0;
 
             *result = pwd;
             memset(pwd, 0, sizeof(*pwd));
             pwd->pw_uid = choose_uid();
             pwd->pw_name = name;
+            pwd->pw_shell = shell;
+            pwd->pw_dir = home;
         }
         else
         {
