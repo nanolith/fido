@@ -135,6 +135,16 @@ MODEL_CONTRACT_POSTCONDITIONS_END(fido_env_release)
 int FN_DECL_MUST_CHECK
 fido_env_node_create(fido_env_node** node, const char* key, const char* value);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_env_node_create, fido_env_node** node, const char* key,
+    const char* value)
+        /* the node pointer is valid. */
+        MODEL_CHECK_OBJECT_RW(node, sizeof(*node));
+        /* key is not NULL. */
+        MODEL_ASSERT(NULL != key);
+MODEL_CONTRACT_PRECONDITIONS_END(fido_env_node_create)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
