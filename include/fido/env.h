@@ -201,6 +201,14 @@ MODEL_CONTRACT_POSTCONDITIONS_END(fido_env_node_release)
  */
 int fido_env_node_compare(const fido_env_node* lhs, const fido_env_node* rhs);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_env_node_compare, const fido_env_node* lhs, const fido_env_node* rhs)
+        /* lhs and rhs are valid. */
+        MODEL_ASSERT(property_fido_env_node_valid(lhs));
+        MODEL_ASSERT(property_fido_env_node_valid(rhs));
+MODEL_CONTRACT_PRECONDITIONS_END(fido_env_node_compare)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
