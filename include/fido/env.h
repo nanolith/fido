@@ -57,6 +57,23 @@ bool
 property_fido_env_valid(
     const fido_env* env);
 
+/******************************************************************************/
+/* Start of constructors.                                                     */
+/******************************************************************************/
+
+/**
+ * \brief Create an empty env instance.
+ *
+ * \param env           Pointer to the \ref fido_env pointer to
+ *                      receive the created environment instance on success.
+ *
+ * \returns a status code indicating success or failure.
+ *      - 0 on success.
+ *      - non-zero on failure.
+ */
+int FN_DECL_MUST_CHECK
+fido_env_create(fido_env** env);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
