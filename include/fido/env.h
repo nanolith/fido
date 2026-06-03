@@ -233,6 +233,14 @@ MODEL_CONTRACT_POSTCONDITIONS_END(fido_env_vararray_create)
 int FN_DECL_MUST_CHECK
 fido_env_vararray_release(char** varr);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_env_vararray_release, fido_env_node* node)
+        /* the variable array is not NULL. */
+        MODEL_ASSERT(NULL != varr);
+        /* TODO - sample an entry to show that it is allocated. */
+MODEL_CONTRACT_PRECONDITIONS_END(fido_env_vararray_release)
+
 /******************************************************************************/
 /* Public methods.                                                            */
 /******************************************************************************/
