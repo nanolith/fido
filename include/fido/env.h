@@ -179,6 +179,11 @@ MODEL_CONTRACT_PRECONDITIONS_BEGIN(
         MODEL_CHECK_OBJECT_RW(node, sizeof(*node));
 MODEL_CONTRACT_PRECONDITIONS_END(fido_env_node_release)
 
+/* function contract postconditions. */
+MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
+    fido_env_node_release, fido_env_node* node)
+MODEL_CONTRACT_POSTCONDITIONS_END(fido_env_node_release)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
