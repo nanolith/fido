@@ -119,6 +119,19 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
     fido_env_release, fido_env* env)
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_env_release)
 
+/**
+ * \brief Create a \ref fido_env_node instance.
+ *
+ * \param node          Pointer to the \ref fido_env_node pointer to
+ *                      receive the created node instance on success.
+ *
+ * \returns a status code indicating success or failure.
+ *      - 0 on success.
+ *      - non-zero on failure.
+ */
+int FN_DECL_MUST_CHECK
+fido_env_node_create(fido_env_node** node);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
