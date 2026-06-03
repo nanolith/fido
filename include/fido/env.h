@@ -184,6 +184,23 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
     fido_env_node_release, fido_env_node* node)
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_env_node_release)
 
+/******************************************************************************/
+/* Public methods.                                                            */
+/******************************************************************************/
+
+/**
+ * \brief Compare two nodes.
+ *
+ * \param lhs           The left-hand-side of the comparison.
+ * \param rhs           The right-hand-side of the comparison.
+ *
+ * \returns a comparison result
+ *      - < 0 if lhs < rhs
+ *      - > 0 if lhs > rhs
+ *      - 0 if lhs == rhs
+ */
+int fido_env_node_compare(const fido_env_node* lhs, const fido_env_node* rhs);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
