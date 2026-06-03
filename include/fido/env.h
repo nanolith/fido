@@ -81,6 +81,25 @@ MODEL_CONTRACT_PRECONDITIONS_BEGIN(
         MODEL_CHECK_OBJECT_RW(env, sizeof(*env));
 MODEL_CONTRACT_PRECONDITIONS_END(fido_env_create)
 
+/* function contract postconditions. */
+MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
+    fido_env_create, int retval, fido_env** env)
+        /* on success... */
+        if (0 == retval)
+        {
+            /* the environment is valid. */
+            MODEL_ASSERT(property_fido_env_valid(*env));
+        }
+        else
+        {
+            /* this is a defined error code. */
+            enum fido_error_code error = (enum fido_error_code)retval;
+            MODEL_ASSERT(__CPROVER_enum_is_in_range(error));
+            /* env is set to NULL. */
+            MODEL_ASSERT(NULL == *env);
+        }
+MODEL_CONTRACT_POSTCONDITIONS_END(fido_env_create)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
