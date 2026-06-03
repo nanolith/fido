@@ -172,6 +172,13 @@ MODEL_CONTRACT_POSTCONDITIONS_END(fido_env_node_create)
  */
 void fido_env_node_release(fido_env_node* node);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_env_node_release, fido_env_node* node)
+        /* node points to a region of memory large enough to hold it. */
+        MODEL_CHECK_OBJECT_RW(node, sizeof(*node));
+MODEL_CONTRACT_PRECONDITIONS_END(fido_env_node_release)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
