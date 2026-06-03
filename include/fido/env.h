@@ -124,13 +124,16 @@ MODEL_CONTRACT_POSTCONDITIONS_END(fido_env_release)
  *
  * \param node          Pointer to the \ref fido_env_node pointer to
  *                      receive the created node instance on success.
+ * \param key           The key for this node.
+ * \param value         The optional value for this node (set to NULL if not
+ *                      used).
  *
  * \returns a status code indicating success or failure.
  *      - 0 on success.
  *      - non-zero on failure.
  */
 int FN_DECL_MUST_CHECK
-fido_env_node_create(fido_env_node** node);
+fido_env_node_create(fido_env_node** node, const char* key, const char* value);
 
 /* C++ compatibility. */
 # ifdef   __cplusplus
