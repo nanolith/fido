@@ -165,6 +165,13 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
         }
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_env_node_create)
 
+/**
+ * \brief Release a \ref fido_node_env instance.
+ *
+ * \param node          The instance to release.
+ */
+void fido_env_node_release(fido_env_node* node);
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
