@@ -171,6 +171,14 @@ fido_user_create(fido_user** user)
         goto done;
     }
 
+    /* save the shell. */
+    tmp->shell = strdup(pw_result->pw_shell);
+    if (NULL == tmp->shell)
+    {
+        retval = FIDO_ERROR_OUT_OF_MEMORY;
+        goto done;
+    }
+
     /* success. */
     retval = 0;
     *user = tmp;
