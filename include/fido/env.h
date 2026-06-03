@@ -215,6 +215,9 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
     const fido_env_node* rhs)
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_env_node_compare)
 
+/* Red-black tree declarations. */
+RB_PROTOTYPE(fido_env_tree, fido_env_node, node, fido_env_node_compare)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
