@@ -25,6 +25,12 @@ void fido_user_release(fido_user* user)
         free(user->username);
     }
 
+    /* free shell if set. */
+    if (NULL != user->shell)
+    {
+        free(user->shell);
+    }
+
     /* free gids if set. */
     if (NULL != user->gids)
     {
