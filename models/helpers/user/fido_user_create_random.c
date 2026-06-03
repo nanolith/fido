@@ -45,6 +45,8 @@ fido_user_create_random(fido_user** user)
 {
     int retval;
     char username[8];
+    char home[8];
+    char shell[8];
     char group0[8];
     char group1[8];
     char group2[8];
@@ -53,6 +55,10 @@ fido_user_create_random(fido_user** user)
     /* initialize string fields. */
     __CPROVER_havoc_object(username);
     username[sizeof(username)-1] = 0;
+    __CPROVER_havoc_object(home);
+    home[sizeof(home)-1] = 0;
+    __CPROVER_havoc_object(shell);
+    shell[sizeof(shell)-1] = 0;
     __CPROVER_havoc_object(group0);
     group0[sizeof(group0)-1] = 0;
     __CPROVER_havoc_object(group1);
@@ -71,6 +77,20 @@ fido_user_create_random(fido_user** user)
     tmp->uid = choose_uid();
     tmp->username = strdup(username);
     if (NULL == tmp->username)
+    {
+        retval = FIDO_ERROR_OUT_OF_MEMORY;
+        goto done;
+    }
+
+    tmp->home = strdup(home);
+    if (NULL == tmp->home)
+    {
+        retval = FIDO_ERROR_OUT_OF_MEMORY;
+        goto done;
+    }
+
+    tmp->shell = strdup(shell);
+    if (NULL == tmp->shell)
     {
         retval = FIDO_ERROR_OUT_OF_MEMORY;
         goto done;
