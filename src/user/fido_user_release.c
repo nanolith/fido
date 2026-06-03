@@ -25,6 +25,12 @@ void fido_user_release(fido_user* user)
         free(user->username);
     }
 
+    /* free home if set. */
+    if (NULL != user->home)
+    {
+        free(user->home);
+    }
+
     /* free shell if set. */
     if (NULL != user->shell)
     {
