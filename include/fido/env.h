@@ -209,6 +209,12 @@ MODEL_CONTRACT_PRECONDITIONS_BEGIN(
         MODEL_ASSERT(property_fido_env_node_valid(rhs));
 MODEL_CONTRACT_PRECONDITIONS_END(fido_env_node_compare)
 
+/* function contract postconditions. */
+MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
+    fido_env_node_compare, int retval, const fido_env_node* lhs,
+    const fido_env_node* rhs)
+MODEL_CONTRACT_POSTCONDITIONS_END(fido_env_node_compare)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
