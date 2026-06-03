@@ -74,6 +74,13 @@ property_fido_env_valid(
 int FN_DECL_MUST_CHECK
 fido_env_create(fido_env** env);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_env_create, fido_env** env)
+        /* the environment pointer is valid. */
+        MODEL_CHECK_OBJECT_RW(env, sizeof(*env));
+MODEL_CONTRACT_PRECONDITIONS_END(fido_env_create)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
