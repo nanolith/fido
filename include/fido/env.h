@@ -198,6 +198,15 @@ MODEL_CONTRACT_POSTCONDITIONS_END(fido_env_node_release)
 int FN_DECL_MUST_CHECK
 fido_env_vararray_create(void** varr, fido_env* env);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_env_vararray_create, void** varr, fido_env* env)
+        /* the node pointer is valid. */
+        MODEL_CHECK_OBJECT_RW(varr, sizeof(*varr));
+        /* the environment is valid. */
+        MODEL_ASSERT(property_fido_env_valid(env));
+MODEL_CONTRACT_PRECONDITIONS_END(fido_env_vararray_create)
+
 /******************************************************************************/
 /* Public methods.                                                            */
 /******************************************************************************/
