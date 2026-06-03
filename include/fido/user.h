@@ -31,6 +31,7 @@ struct fido_user
 {
     uid_t uid;
     char* username;
+    char* shell;
     size_t group_count;
     gid_t* gids;
     char** groupnames;
