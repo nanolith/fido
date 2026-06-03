@@ -184,6 +184,20 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
     fido_env_node_release, fido_env_node* node)
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_env_node_release)
 
+/**
+ * \brief Create an variable array from an environment instance.
+ *
+ * \param varr          Pointer to the variable array pointer to receive the
+ *                      created variable array on success.
+ * \param env           The \ref fido_env instance for this operation.
+ *
+ * \returns a status code indicating success or failure.
+ *      - 0 on success.
+ *      - non-zero on failure.
+ */
+int FN_DECL_MUST_CHECK
+fido_env_vararray_create(void** varr, fido_env* env);
+
 /******************************************************************************/
 /* Public methods.                                                            */
 /******************************************************************************/
