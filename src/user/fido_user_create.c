@@ -163,6 +163,14 @@ fido_user_create(fido_user** user)
         goto done;
     }
 
+    /* save the home directory. */
+    tmp->home = strdup(pw_result->pw_dir);
+    if (NULL == tmp->home)
+    {
+        retval = FIDO_ERROR_OUT_OF_MEMORY;
+        goto done;
+    }
+
     /* success. */
     retval = 0;
     *user = tmp;
