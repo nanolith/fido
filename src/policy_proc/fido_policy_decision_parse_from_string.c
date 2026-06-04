@@ -59,6 +59,13 @@ fido_policy_decision_parse_from_string(
     /* decode the action. */
     const char* action = strsep(&str, ":");
 
+    /* handle invalid action. */
+    if (NULL == action)
+    {
+        retval = FIDO_ERROR_INVALID_INPUT;
+        goto cleanup_tmp;
+    }
+
     /* short circuit a denial. */
     if (!strcmp(action, "deny"))
     {
