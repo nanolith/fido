@@ -281,6 +281,8 @@ MODEL_CONTRACT_POSTCONDITIONS_END(fido_env_node_compare)
  * \brief Add or replace an environment variable node in an environment
  * instance.
  *
+ * \note On success, \p env takes ownership of \p node.
+ *
  * \param env           The env to which this node is added.
  * \param node          The node to add or replace.
  *
