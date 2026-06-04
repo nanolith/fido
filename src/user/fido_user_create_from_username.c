@@ -75,6 +75,9 @@ fido_user_create_from_username(fido_user** user, const char* username)
         goto done;
     }
 
+    /* save the uid. */
+    tmp->uid = pw_result->pw_uid;
+
     /* save the username. */
     tmp->username = strdup(pw_result->pw_name);
     if (NULL == tmp->username)
