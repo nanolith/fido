@@ -9,6 +9,7 @@
 
 #pragma once
 
+#include <fido/user.h>
 #include <sys/tree.h>
 
 /* C++ compatibility. */
@@ -399,6 +400,21 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
             MODEL_ASSERT(__CPROVER_enum_is_in_range(error));
         }
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_env_node_add_or_replace_kvp)
+
+/**
+ * \brief Fill environment entries from the current and target user.
+ *
+ * \param env           The env instance to fill.
+ * \param curr          The current user.
+ * \param target        The target user.
+ *
+ * \returns a status code indicating success or failure.
+ *      - 0 on success.
+ *      - non-zero on failure.
+ */
+int FN_DECL_MUST_CHECK
+fido_env_fill_from_current_and_target_users(
+    fido_env* env, const fido_user* curr, const fido_user* target);
 
 /******************************************************************************/
 /* Helper methods.                                                            */
