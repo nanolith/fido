@@ -428,6 +428,19 @@ MODEL_CONTRACT_PRECONDITIONS_BEGIN(
         MODEL_ASSERT(property_fido_user_valid(target));
 MODEL_CONTRACT_PRECONDITIONS_END(fido_env_fill_from_current_and_target_users)
 
+/* function contract postconditions. */
+MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
+    fido_env_fill_from_current_and_target_users, int retval, fido_env* env,
+    const fido_user* curr, const fido_user* target)
+        /* on failure... */
+        if (0 != retval)
+        {
+            /* this is a defined error code. */
+            enum fido_error_code error = (enum fido_error_code)retval;
+            MODEL_ASSERT(__CPROVER_enum_is_in_range(error));
+        }
+MODEL_CONTRACT_POSTCONDITIONS_END(fido_env_fill_from_current_and_target_users)
+
 /******************************************************************************/
 /* Helper methods.                                                            */
 /******************************************************************************/
