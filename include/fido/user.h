@@ -95,6 +95,19 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_user_create)
 
 /**
+ * \brief Create a \ref fido_user instance by querying the password database for
+ * a user by username.
+ *
+ * \param user          Pointer to the user record pointer to populate with
+ *                      the created user record on success.
+ * \param username      The username to use for the query.
+ *
+ * \returns 0 on success and non-zero on failure.
+ */
+int FN_DECL_MUST_CHECK
+fido_user_create_from_username(fido_user** user, const char* username);
+
+/**
  * \brief Release a \ref fido_user instance.
  *
  * \param user          The user record to release.
