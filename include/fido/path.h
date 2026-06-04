@@ -48,6 +48,26 @@ MODEL_CONTRACT_PRECONDITIONS_BEGIN(
         MODEL_ASSERT(NULL != command);
 MODEL_CONTRACT_PRECONDITIONS_END(fido_path_resolve)
 
+/* function contract postconditions. */
+MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
+    fido_path_resolve, int retval, char** resolved, const char* input_path,
+    const char* command)
+        /* on success... */
+        if (0 == retval)
+        {
+            /* resolved is set to the resolved path. */
+            MODEL_ASSERT(NULL != *resolved);
+        }
+        else
+        {
+            /* this is a defined error code. */
+            enum fido_error_code error = (enum fido_error_code)retval;
+            MODEL_ASSERT(__CPROVER_enum_is_in_range(error));
+            /* resolved is set to NULL. */
+            MODEL_ASSERT(NULL == *resolved);
+        }
+MODEL_CONTRACT_POSTCONDITIONS_END(fido_path_resolve)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
