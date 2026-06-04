@@ -36,6 +36,18 @@ extern "C" {
 int FN_DECL_MUST_CHECK
 fido_path_resolve(char** resolved, const char* input_path, const char* command);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_path_resolve, char** resolved, const char* input_path,
+    const char* command)
+        /* the resolved pointer is valid. */
+        MODEL_CHECK_OBJECT_RW(resolved, sizeof(*resolved));
+        /* input_path is not NULL. */
+        MODEL_ASSERT(NULL != input_path);
+        /* command is not NULL. */
+        MODEL_ASSERT(NULL != command);
+MODEL_CONTRACT_PRECONDITIONS_END(fido_path_resolve)
+
 /* C++ compatibility. */
 # ifdef   __cplusplus
 }
