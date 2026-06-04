@@ -273,6 +273,7 @@ static int create_target_env(
 {
     int retval;
     fido_env* env = NULL;
+    fido_env_node* path_node = NULL;
 
     /* create the environment map. */
     retval = fido_env_create(&env);
@@ -288,6 +289,21 @@ static int create_target_env(
         goto done;
     }
 
+    /* clone the path. */
+    retval = fido_env_node_create_from_getenv(&path_node, "PATH");
+    if (0 != retval)
+    {
+        goto done;
+    }
+
+    /* save the path. */
+    retval = fido_env_node_add_or_replace(env, path_node);
+    if (0 != retval)
+    {
+        goto done;
+    }
+    path_node = NULL;
+
     /* fill the added variables. */
     retval = fido_env_fill_from_add_variable_list(env, var_head);
     if (0 != retval)
@@ -300,6 +316,11 @@ static int create_target_env(
     goto done;
 
 done:
+    if (NULL != path_node)
+    {
+        fido_env_node_release(path_node);
+    }
+
     if (NULL != env)
     {
         fido_env_release(env);
