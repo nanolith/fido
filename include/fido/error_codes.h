@@ -92,6 +92,8 @@ enum fido_error_code
     FIDO_ERROR_SET_USER_CONTEXT = 37,
     /** \brief Exec failed. */
     FIDO_ERROR_EXEC = 38,
+    /** \brief The variable was not found in the environment. */
+    FIDO_ERROR_ENV_VAR_NOT_FOUND = 39,
 };
 
 /* C++ compatibility. */
