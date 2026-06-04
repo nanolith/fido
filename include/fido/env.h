@@ -375,6 +375,18 @@ int FN_DECL_MUST_CHECK
 fido_env_node_add_or_replace_kvp(
     fido_env* env, const char* key, const char* value);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_env_node_add_or_replace_kvp, fido_env* env, const char* key,
+    const char* value)
+        /* env is valid. */
+        MODEL_ASSERT(property_fido_env_valid(env));
+        /* key is not NULL. */
+        MODEL_ASSERT(NULL != key);
+        /* value is not NULL. */
+        MODEL_ASSERT(NULL != value);
+MODEL_CONTRACT_PRECONDITIONS_END(fido_env_node_add_or_replace_kvp)
+
 /******************************************************************************/
 /* Helper methods.                                                            */
 /******************************************************************************/
