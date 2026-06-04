@@ -20,6 +20,8 @@ void fido_env_release(fido_env* env)
     fido_env_node* node;
     fido_env_node* next_node;
 
+    MODEL_CONTRACT_CHECK_PRECONDITIONS(fido_env_release, env);
+
     for (
         node = RB_MIN(fido_env_tree, &env->root);
         node != NULL;
@@ -31,4 +33,6 @@ void fido_env_release(fido_env* env)
     }
 
     free(env);
+
+    MODEL_CONTRACT_CHECK_POSTCONDITIONS(fido_env_release, env);
 }
