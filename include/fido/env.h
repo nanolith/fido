@@ -29,7 +29,7 @@ struct fido_env_node
 typedef struct fido_env fido_env;
 struct fido_env
 {
-    RB_HEAD(fido_env_tree, fido_env_node) head;
+    RB_HEAD(fido_env_tree, fido_env_node) root;
     size_t count;
 };
 
