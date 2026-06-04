@@ -15,30 +15,24 @@
 #include <unistd.h>
 
 /**
- * \brief Look up the password entry for a given user and group, and set the
- * group and user context.
+ * \brief Switch the user context to the given user entry.
  *
  * \note For now, we don't respect group override. TODO we will need to visit
  * this.
  *
- * \param username      The username for this operation.
- * \param groupname     The groupname for this operation.
+ * \param user          The target user.
  *
  * \returns 0 on success and non-zero on failure.
  */
 int FN_DECL_MUST_CHECK
-fido_set_user_context(const char* username, const char* groupname)
+fido_set_user_context(const fido_user* user)
 {
     int retval;
     char* pwbuffer = NULL;
     struct passwd pwd;
     struct passwd* pw_result;
 
-    MODEL_CONTRACT_CHECK_PRECONDITIONS(
-        fido_set_user_context, username, groupname);
-
-    /* TODO - ignore groupname for now. */
-    (void)groupname;
+    MODEL_CONTRACT_CHECK_PRECONDITIONS(fido_set_user_context, user);
 
     /* get the maximum password buffer size. */
     long getpw_size_max = sysconf(_SC_GETPW_R_SIZE_MAX);
@@ -56,7 +50,7 @@ fido_set_user_context(const char* username, const char* groupname)
     }
 
     /* get the password entry. */
-    retval = getpwnam_r(username, &pwd, pwbuffer, getpw_size_max, &pw_result);
+    retval = getpwuid_r(user->uid, &pwd, pwbuffer, getpw_size_max, &pw_result);
     if (0 != retval || NULL == pw_result)
     {
         retval = FIDO_ERROR_BAD_GETPWD;
@@ -83,7 +77,7 @@ cleanup_pwbuffer:
 
 done:
     MODEL_CONTRACT_CHECK_POSTCONDITIONS(
-        fido_set_user_context, retval, username, groupname);
+        fido_set_user_context, retval, user);
 
     return retval;
 }

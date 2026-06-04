@@ -13,6 +13,7 @@
 #include <fido/function_contracts.h>
 #include <fido/function_decl.h>
 #include <fido/model_assert.h>
+#include <fido/user.h>
 
 /* C++ compatibility. */
 # ifdef   __cplusplus
@@ -20,32 +21,28 @@ extern "C" {
 # endif /*__cplusplus*/
 
 /**
- * \brief Look up the password entry for a given user and group, and set the
- * group and user context.
+ * \brief Switch the user context to the given user entry.
  *
  * \note For now, we don't respect group override. TODO we will need to visit
  * this.
  *
- * \param username      The username for this operation.
- * \param groupname     The groupname for this operation.
+ * \param user          The target user.
  *
  * \returns 0 on success and non-zero on failure.
  */
 int FN_DECL_MUST_CHECK
-fido_set_user_context(const char* username, const char* groupname);
+fido_set_user_context(const fido_user* user);
 
 /* function contract preconditions. */
 MODEL_CONTRACT_PRECONDITIONS_BEGIN(
-    fido_set_user_context, const char* username, const char* groupname)
-        /* username and groupname are not NULL. */
-        MODEL_ASSERT(NULL != username);
-        MODEL_ASSERT(NULL != groupname);
+    fido_set_user_context, const fido_user* user)
+        /* user is valid. */
+        MODEL_ASSERT(property_fido_user_valid(user));
 MODEL_CONTRACT_PRECONDITIONS_END(fido_set_user_context)
 
 /* function contract postconditions. */
 MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
-    fido_set_user_context, int retval, const char* username,
-    const char* groupname)
+    fido_set_user_context, int retval, const fido_user* user)
         /* on failure... */
         if (0 != retval)
         {

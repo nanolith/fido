@@ -40,6 +40,7 @@ int main(int argc, char* argv[])
 {
     int retval;
     fido_user* user = NULL;
+    fido_user* target_user = NULL;
     fido_options* opts = NULL;
     fido_policy_decision* dec = NULL;
 
@@ -97,8 +98,18 @@ int main(int argc, char* argv[])
         goto done;
     }
 
+    /* look up the target user. */
+    retval = fido_user_create_from_username(&target_user, dec->as_user);
+    if (0 != retval)
+    {
+        fprintf(stderr, "error: could not find target user.\n");
+        goto done;
+    }
+
+    /* TODO - set target group if specified in config. */
+
     /* set the user context. */
-    retval = fido_set_user_context(dec->as_user, dec->as_group);
+    retval = fido_set_user_context(target_user);
     if (0 != retval)
     {
         goto done;
@@ -128,6 +139,11 @@ done:
     if (NULL != user)
     {
         fido_user_release(user);
+    }
+
+    if (NULL != target_user)
+    {
+        fido_user_release(target_user);
     }
 
     if (NULL != dec)
