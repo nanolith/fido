@@ -8,6 +8,7 @@
  */
 
 #include <fido/options.h>
+#include <fido/path.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -20,11 +21,13 @@
  *                      the created options record on success.
  * \param argc          The argument count.
  * \param argv          The argument vector.
+ * \param input_path    The path to use to resolve the binary.
  *
  * \returns 0 on success and non-zero on failure.
  */
 int FN_DECL_MUST_CHECK
-fido_options_parse(fido_options** opts, int argc, const char** argv)
+fido_options_parse(
+    fido_options** opts, int argc, const char** argv, const char* input_path)
 {
     int retval;
     bool dry_run = false;
@@ -92,8 +95,8 @@ fido_options_parse(fido_options** opts, int argc, const char** argv)
     }
 
     /* resolve the binary name. */
-    binary_name = realpath(argv[0], NULL);
-    if (NULL == binary_name)
+    retval = fido_path_resolve(&binary_name, input_path, argv[0]);
+    if (0 != retval)
     {
         fprintf(stderr, "error: could not resolve binary name %s.\n", argv[0]);
         retval = FIDO_ERROR_OPTION_BINARY_RESOLVE;

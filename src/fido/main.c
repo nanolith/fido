@@ -48,6 +48,8 @@ int main(int argc, char* argv[])
     fido_options* opts = NULL;
     fido_policy_decision* dec = NULL;
     char** env = NULL;
+    const char* safe_path =
+        "/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin";
 
     /* basic program setup. */
     retval = setup_process();
@@ -66,7 +68,7 @@ int main(int argc, char* argv[])
     }
 
     /* parse the command line options. */
-    retval = fido_options_parse(&opts, argc, (const char**)argv);
+    retval = fido_options_parse(&opts, argc, (const char**)argv, safe_path);
     if (0 != retval)
     {
         goto done;

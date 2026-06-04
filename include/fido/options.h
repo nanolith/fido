@@ -61,11 +61,13 @@ property_fido_options_valid(
  *                      the created options record on success.
  * \param argc          The argument count.
  * \param argv          The argument vector.
+ * \param input_path    The path to use to resolve the binary.
  *
  * \returns 0 on success and non-zero on failure.
  */
 int FN_DECL_MUST_CHECK
-fido_options_parse(fido_options** opts, int argc, const char** argv);
+fido_options_parse(
+    fido_options** opts, int argc, const char** argv, const char* input_path);
 
 /* function contract preconditions. */
 MODEL_CONTRACT_PRECONDITIONS_BEGIN(

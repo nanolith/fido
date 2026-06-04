@@ -14,6 +14,7 @@
 static char argument0[8];
 static char argument1[8];
 static char argument2[8];
+static char path[8];
 
 static char* argvec[3] = {argument0, argument1, argument2};
 
@@ -28,11 +29,13 @@ int main(int argc, char* argv[])
     argument1[sizeof(argument1)-1] = 0;
     __CPROVER_havoc_object(argument2);
     argument2[sizeof(argument2)-1] = 0;
+    __CPROVER_havoc_object(path);
+    path[sizeof(path)-1] = 0;
 
     MODEL_ASSUME(argc >= 0 && argc <= 3);
 
     /* parse options. */
-    retval = fido_options_parse(&opts, argc, argvec);
+    retval = fido_options_parse(&opts, argc, argvec, path);
     if (0 != retval)
     {
         goto done;
