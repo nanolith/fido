@@ -416,6 +416,18 @@ int FN_DECL_MUST_CHECK
 fido_env_fill_from_current_and_target_users(
     fido_env* env, const fido_user* curr, const fido_user* target);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_env_fill_from_current_and_target_users, fido_env* env,
+    const fido_user* curr, const fido_user* target)
+        /* env is valid. */
+        MODEL_ASSERT(property_fido_env_valid(env));
+        /* curr is valid. */
+        MODEL_ASSERT(property_fido_user_valid(curr));
+        /* target is valid. */
+        MODEL_ASSERT(property_fido_user_valid(target));
+MODEL_CONTRACT_PRECONDITIONS_END(fido_env_fill_from_current_and_target_users)
+
 /******************************************************************************/
 /* Helper methods.                                                            */
 /******************************************************************************/
