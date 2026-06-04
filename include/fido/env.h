@@ -166,6 +166,21 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_env_node_create)
 
 /**
+ * \brief Create a \ref fido_env_node instance from the current environment.
+ *
+ * \param node          Pointer to the \ref fido_env_node pointer to
+ *                      receive the created node instance on success.
+ * \param key           The key for this node.
+ *
+ * \returns a status code indicating success or failure.
+ *      - 0 on success.
+ *      - FIDO_ERROR_ENV_VAR_NOT_FOUND
+ *      - non-zero on failure.
+ */
+int FN_DECL_MUST_CHECK
+fido_env_node_create_from_getenv(fido_env_node** node, const char* key);
+
+/**
  * \brief Release a \ref fido_node_env instance.
  *
  * \param node          The instance to release.
