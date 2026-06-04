@@ -277,6 +277,20 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
     const fido_env_node* rhs)
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_env_node_compare)
 
+/**
+ * \brief Add or replace an environment variable node in an environment
+ * instance.
+ *
+ * \param env           The env to which this node is added.
+ * \param node          The node to add or replace.
+ *
+ * \returns a status code indicating success or failure.
+ *      - 0 on success.
+ *      - non-zero on failure.
+ */
+int FN_DECL_MUST_CHECK
+fido_env_node_add_or_replace(fido_env* env, fido_env_node* node);
+
 /******************************************************************************/
 /* Helper methods.                                                            */
 /******************************************************************************/
