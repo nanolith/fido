@@ -180,6 +180,15 @@ MODEL_CONTRACT_POSTCONDITIONS_END(fido_env_node_create)
 int FN_DECL_MUST_CHECK
 fido_env_node_create_from_getenv(fido_env_node** node, const char* key);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_env_node_create_from_getenv, fido_env_node** node, const char* key)
+        /* the node pointer is valid. */
+        MODEL_CHECK_OBJECT_RW(node, sizeof(*node));
+        /* key is not NULL. */
+        MODEL_ASSERT(NULL != key);
+MODEL_CONTRACT_PRECONDITIONS_END(fido_env_node_create_from_getenv)
+
 /**
  * \brief Release a \ref fido_node_env instance.
  *
