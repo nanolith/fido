@@ -359,6 +359,22 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
         }
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_env_node_add_or_replace)
 
+/**
+ * \brief Create an environment variable node with the given key and value, and
+ * add it to the environment instance.
+ *
+ * \param env           The env to which this node is added.
+ * \param key           The node key.
+ * \param value         The node value.
+ *
+ * \returns a status code indicating success or failure.
+ *      - 0 on success.
+ *      - non-zero on failure.
+ */
+int FN_DECL_MUST_CHECK
+fido_env_node_add_or_replace_kvp(
+    fido_env* env, const char* key, const char* value);
+
 /******************************************************************************/
 /* Helper methods.                                                            */
 /******************************************************************************/
