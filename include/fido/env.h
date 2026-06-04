@@ -9,6 +9,7 @@
 
 #pragma once
 
+#include <fido/config.h>
 #include <fido/user.h>
 #include <sys/tree.h>
 
@@ -440,6 +441,20 @@ MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
             MODEL_ASSERT(__CPROVER_enum_is_in_range(error));
         }
 MODEL_CONTRACT_POSTCONDITIONS_END(fido_env_fill_from_current_and_target_users)
+
+/**
+ * \brief Fill environment entries from an add variable list.
+ *
+ * \param env           The env instance to fill.
+ * \param var_head      The head of the add variable list.
+ *
+ * \returns a status code indicating success or failure.
+ *      - 0 on success.
+ *      - non-zero on failure.
+ */
+int FN_DECL_MUST_CHECK
+fido_env_fill_from_add_variable_list(
+    fido_env* env, const fido_config_add_variable* var_head);
 
 /******************************************************************************/
 /* Helper methods.                                                            */
