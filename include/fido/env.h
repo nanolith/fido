@@ -291,6 +291,15 @@ MODEL_CONTRACT_POSTCONDITIONS_END(fido_env_node_compare)
 int FN_DECL_MUST_CHECK
 fido_env_node_add_or_replace(fido_env* env, fido_env_node* node);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_env_node_add_or_replace, fido_env* env, fido_env_node* node)
+        /* env is valid. */
+        MODEL_ASSERT(property_fido_env_valid(env));
+        /* node is valid. */
+        MODEL_ASSERT(property_fido_env_node_valid(node));
+MODEL_CONTRACT_PRECONDITIONS_END(fido_env_node_add_or_replace)
+
 /******************************************************************************/
 /* Helper methods.                                                            */
 /******************************************************************************/
