@@ -39,11 +39,24 @@ fido_user_create_from_username(fido_user** user, const char* username)
     MODEL_CONTRACT_CHECK_PRECONDITIONS(
         fido_user_create_from_username, user, username);
 
+    /* get the maximum group buffer size. */
+    long getgr_size_max = sysconf(_SC_GETGR_R_SIZE_MAX);
+    if (getgr_size_max < 0)
+    {
+        getgr_size_max = 16384;
+    }
+
     /* get the maximum password buffer size. */
     long getpw_size_max = sysconf(_SC_GETPW_R_SIZE_MAX);
     if (getpw_size_max < 0)
     {
         getpw_size_max = 16384;
+    }
+
+    /* if the group size is greater, use it. */
+    if (getgr_size_max > getpw_size_max)
+    {
+        getpw_size_max = getgr_size_max;
     }
 
     /* allocate the passwor buffer. */
