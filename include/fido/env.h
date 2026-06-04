@@ -189,6 +189,26 @@ MODEL_CONTRACT_PRECONDITIONS_BEGIN(
         MODEL_ASSERT(NULL != key);
 MODEL_CONTRACT_PRECONDITIONS_END(fido_env_node_create_from_getenv)
 
+/* function contract postconditions. */
+MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
+    fido_env_node_create_from_getenv, int retval, fido_env_node** node,
+    const char* key)
+        /* on success... */
+        if (0 == retval)
+        {
+            /* the node is valid. */
+            MODEL_ASSERT(property_fido_env_node_valid(*node));
+        }
+        else
+        {
+            /* this is a defined error code. */
+            enum fido_error_code error = (enum fido_error_code)retval;
+            MODEL_ASSERT(__CPROVER_enum_is_in_range(error));
+            /* node is set to NULL. */
+            MODEL_ASSERT(NULL == *node);
+        }
+MODEL_CONTRACT_POSTCONDITIONS_END(fido_env_node_create_from_getenv)
+
 /**
  * \brief Release a \ref fido_node_env instance.
  *
