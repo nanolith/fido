@@ -276,8 +276,7 @@ MODEL_CONTRACT_POSTCONDITIONS_END(fido_env_vararray_create)
  *
  * \param varr          The instance to release.
  */
-int FN_DECL_MUST_CHECK
-fido_env_vararray_release(char** varr);
+void fido_env_vararray_release(char** varr);
 
 /* function contract preconditions. */
 MODEL_CONTRACT_PRECONDITIONS_BEGIN(
