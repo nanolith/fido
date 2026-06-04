@@ -456,6 +456,16 @@ int FN_DECL_MUST_CHECK
 fido_env_fill_from_add_variable_list(
     fido_env* env, const fido_config_add_variable* var_head);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_env_fill_from_add_variable_list, fido_env* env,
+    const fido_config_add_variable* var_head)
+        /* env is valid. */
+        MODEL_ASSERT(property_fido_env_valid(env));
+        /* var_head is valid. */
+        MODEL_ASSERT(property_fido_config_add_variable_valid(var_head));
+MODEL_CONTRACT_PRECONDITIONS_END(fido_env_fill_from_add_variable_list)
+
 /******************************************************************************/
 /* Helper methods.                                                            */
 /******************************************************************************/
