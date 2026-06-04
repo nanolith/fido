@@ -107,6 +107,15 @@ MODEL_CONTRACT_POSTCONDITIONS_END(fido_user_create)
 int FN_DECL_MUST_CHECK
 fido_user_create_from_username(fido_user** user, const char* username);
 
+/* function contract preconditions. */
+MODEL_CONTRACT_PRECONDITIONS_BEGIN(
+    fido_user_create_from_username, fido_user** user, const char* username)
+        /* the user pointer is valid. */
+        MODEL_CHECK_OBJECT_RW(user, sizeof(*user));
+        /* the username is not NULL. */
+        MODEL_ASSERT(NULL != username);
+MODEL_CONTRACT_PRECONDITIONS_END(fido_user_create_from_username)
+
 /**
  * \brief Release a \ref fido_user instance.
  *
