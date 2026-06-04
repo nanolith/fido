@@ -10,7 +10,13 @@
 #pragma once
 
 #include <fido/config.h>
+#include <fido/error_codes.h>
+#include <fido/function_contracts.h>
+#include <fido/function_decl.h>
+#include <fido/model_assert.h>
 #include <fido/user.h>
+#include <stdbool.h>
+#include <stddef.h>
 #include <sys/tree.h>
 
 /* C++ compatibility. */
