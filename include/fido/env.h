@@ -387,6 +387,19 @@ MODEL_CONTRACT_PRECONDITIONS_BEGIN(
         MODEL_ASSERT(NULL != value);
 MODEL_CONTRACT_PRECONDITIONS_END(fido_env_node_add_or_replace_kvp)
 
+/* function contract postconditions. */
+MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
+    fido_env_node_add_or_replace_kvp, int retval, fido_env* env,
+    const char* key, const char* value)
+        /* on failure... */
+        if (0 != retval)
+        {
+            /* this is a defined error code. */
+            enum fido_error_code error = (enum fido_error_code)retval;
+            MODEL_ASSERT(__CPROVER_enum_is_in_range(error));
+        }
+MODEL_CONTRACT_POSTCONDITIONS_END(fido_env_node_add_or_replace_kvp)
+
 /******************************************************************************/
 /* Helper methods.                                                            */
 /******************************************************************************/
