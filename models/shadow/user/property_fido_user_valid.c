@@ -23,6 +23,8 @@ property_fido_user_valid(
     MODEL_CHECK_OBJECT_READ(user, sizeof(*user));
 
     MODEL_ASSERT(NULL != user->username);
+    MODEL_ASSERT(NULL != user->shell);
+    MODEL_ASSERT(NULL != user->home);
     MODEL_ASSERT(user->group_count > 0);
     MODEL_ASSERT(NULL != user->gids);
     MODEL_CHECK_OBJECT_READ(
