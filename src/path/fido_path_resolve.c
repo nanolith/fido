@@ -40,7 +40,7 @@ fido_path_resolve(char** resolved, const char* input_path, const char* command)
     /* don't resolve the path further if it has a path element already. */
     if (NULL != strchr(command, '/'))
     {
-        *resolved = strdup(command);
+        *resolved = realpath(command, NULL);
         if (NULL == *resolved)
         {
             retval = FIDO_ERROR_OUT_OF_MEMORY;
@@ -89,7 +89,7 @@ fido_path_resolve(char** resolved, const char* input_path, const char* command)
                 }
 
                 /* copy the resolved file. */
-                *resolved = strdup(buffer);
+                *resolved = realpath(buffer, NULL);
                 if (NULL == *resolved)
                 {
                     retval = FIDO_ERROR_OUT_OF_MEMORY;
