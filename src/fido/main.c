@@ -11,6 +11,7 @@
 #include <fcntl.h>
 #include <fido/auth.h>
 #include <fido/config.h>
+#include <fido/env.h>
 #include <fido/exec.h>
 #include <fido/options.h>
 #include <fido/policy.h>
@@ -27,6 +28,9 @@
 /* forward decls. */
 static int setup_process(void);
 static int policy_check(const fido_user* user, const fido_options* opts);
+static int create_target_env(
+    void** varr, const fido_config_add_variable* var_head,
+    const fido_user* curr, const fido_user* target);
 
 /**
  * \brief Entry point for fido.
@@ -43,6 +47,7 @@ int main(int argc, char* argv[])
     fido_user* target_user = NULL;
     fido_options* opts = NULL;
     fido_policy_decision* dec = NULL;
+    char** env = NULL;
 
     /* basic program setup. */
     retval = setup_process();
@@ -115,11 +120,16 @@ int main(int argc, char* argv[])
         goto done;
     }
 
-    /* TODO - merge the environment. */
-    const char* env[] = { NULL };
+    /* create the environment for the user. */
+    retval =
+        create_target_env((void**)&env, dec->variable_head, user, target_user);
+    if (0 != retval)
+    {
+        goto done;
+    }
 
     /* execute the command. */
-    retval = fido_exec(opts, env);
+    retval = fido_exec(opts, (const char**)env);
     if (0 != retval)
     {
         goto done;
@@ -131,6 +141,11 @@ int main(int argc, char* argv[])
     goto done;
 
 done:
+    if (NULL != env)
+    {
+        fido_env_vararray_release(env);
+    }
+
     if (NULL != opts)
     {
         fido_options_release(opts);
@@ -237,5 +252,58 @@ cleanup_fd:
     close(fd);
 
 done:
+    return retval;
+}
+
+/**
+ * \brief Create the target environment for the user.
+ *
+ * \param varr              The variable array to create.
+ * \param var_head          Head of the variables to copy.
+ * \param curr              Current user.
+ * \param target            Target user.
+ *
+ * \returns a status code indicating success or failure.
+ *      - 0 on success.
+ *      - non-zero on failure.
+ */
+static int create_target_env(
+    void** varr, const fido_config_add_variable* var_head,
+    const fido_user* curr, const fido_user* target)
+{
+    int retval;
+    fido_env* env = NULL;
+
+    /* create the environment map. */
+    retval = fido_env_create(&env);
+    if (0 != retval)
+    {
+        goto done;
+    }
+
+    /* fill the user environment data. */
+    retval = fido_env_fill_from_current_and_target_users(env, curr, target);
+    if (0 != retval)
+    {
+        goto done;
+    }
+
+    /* fill the added variables. */
+    retval = fido_env_fill_from_add_variable_list(env, var_head);
+    if (0 != retval)
+    {
+        goto done;
+    }
+
+    /* create the variable array. */
+    retval = fido_env_vararray_create(varr, env);
+    goto done;
+
+done:
+    if (NULL != env)
+    {
+        fido_env_release(env);
+    }
+
     return retval;
 }
