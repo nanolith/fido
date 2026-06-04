@@ -116,6 +116,26 @@ MODEL_CONTRACT_PRECONDITIONS_BEGIN(
         MODEL_ASSERT(NULL != username);
 MODEL_CONTRACT_PRECONDITIONS_END(fido_user_create_from_username)
 
+/* function contract postconditions. */
+MODEL_CONTRACT_POSTCONDITIONS_BEGIN(
+    fido_user_create_from_username, int retval, fido_user** user,
+    const char* username)
+        /* on success... */
+        if (0 == retval)
+        {
+            /* the user is valid. */
+            MODEL_ASSERT(property_fido_user_valid(*user));
+        }
+        else
+        {
+            /* this is a defined error code. */
+            enum fido_error_code error = (enum fido_error_code)retval;
+            MODEL_ASSERT(__CPROVER_enum_is_in_range(error));
+            /* user is set to NULL. */
+            MODEL_ASSERT(NULL == *user);
+        }
+MODEL_CONTRACT_POSTCONDITIONS_END(fido_user_create_from_username)
+
 /**
  * \brief Release a \ref fido_user instance.
  *
