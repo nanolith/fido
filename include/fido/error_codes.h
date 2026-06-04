@@ -94,6 +94,8 @@ enum fido_error_code
     FIDO_ERROR_EXEC = 38,
     /** \brief The variable was not found in the environment. */
     FIDO_ERROR_ENV_VAR_NOT_FOUND = 39,
+    /** \brief There was an error resolving a command with a path. */
+    FIDO_ERROR_PATH_RESOLUTION = 40,
 };
 
 /* C++ compatibility. */
