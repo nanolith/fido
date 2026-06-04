@@ -13,6 +13,7 @@ size_t runs = 0;
 size_t strsep_max_runs = 2;
 
 size_t nondet_runs();
+int nondet_retval();
 
 size_t random_runs()
 {
@@ -28,6 +29,12 @@ size_t random_runs()
 char* strsep(char **stringp, const char *delim)
 {
     char* str = *stringp;
+
+    if (0 != nondet_retval())
+    {
+        *stringp = NULL;
+        return NULL;
+    }
 
     if (NULL != str)
     {
