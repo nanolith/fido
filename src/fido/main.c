@@ -308,18 +308,21 @@ static int create_target_env(
 
     /* clone TERM. */
     retval = fido_env_node_create_from_getenv(&node, "TERM");
-    if (0 != retval)
+    if (0 != retval && FIDO_ERROR_ENV_VAR_NOT_FOUND != retval)
     {
         goto done;
     }
 
     /* save TERM. */
-    retval = fido_env_node_add_or_replace(env, node);
-    if (0 != retval)
+    if (NULL != node)
     {
-        goto done;
+        retval = fido_env_node_add_or_replace(env, node);
+        if (0 != retval)
+        {
+            goto done;
+        }
+        node = NULL;
     }
-    node = NULL;
 
     /* clone DISPLAY. */
     retval = fido_env_node_create_from_getenv(&node, "DISPLAY");
