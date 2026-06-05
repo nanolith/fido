@@ -321,6 +321,24 @@ static int create_target_env(
     }
     node = NULL;
 
+    /* clone DISPLAY. */
+    retval = fido_env_node_create_from_getenv(&node, "DISPLAY");
+    if (0 != retval && FIDO_ERROR_ENV_VAR_NOT_FOUND != retval)
+    {
+        goto done;
+    }
+
+    /* save DISPLAY if set. */
+    if (NULL != node)
+    {
+        retval = fido_env_node_add_or_replace(env, node);
+        if (0 != retval)
+        {
+            goto done;
+        }
+        node = NULL;
+    }
+
     /* fill the added variables. */
     retval = fido_env_fill_from_add_variable_list(env, var_head);
     if (0 != retval)
