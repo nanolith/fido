@@ -8,7 +8,7 @@
  */
 
 #include <fido/auth.h>
-#include <fido/config.h>
+#include <fido/compile_opts.h>
 #include <fcntl.h>
 #include <stdio.h>
 #include <sys/ioctl.h>
@@ -30,6 +30,7 @@ static void try_set_tty(pam_handle_t* pam);
 
 #ifdef   PERSIST_AUTHENTICATION
 static bool check_authentication_persistence();
+static void set_authentication_persistence();
 /* define auth TTY IOCTLs provided by mod_fido. */
 # ifdef   __FreeBSD__
 #  define TIOCSETVERAUTH    _IOW('t', 200, int)
@@ -83,7 +84,12 @@ fido_auth_challenge(const fido_user* user)
 
 #ifdef PERSIST_AUTHENTICATION
 done:
+    if (0 == retval)
+    {
+        set_authentication_persistence();
+    }
 #endif
+
     MODEL_CONTRACT_CHECK_POSTCONDITIONS(fido_auth_challenge, retval, user);
 
     return retval;
@@ -185,26 +191,44 @@ static void try_set_tty(pam_handle_t* pam)
 #ifdef   PERSIST_AUTHENTICATION
 static bool check_authentication_persistence()
 {
-    fd = open("/dev/tty", O_RDWR);
+    bool auth;
+
+    int fd = open("/dev/tty", O_RDWR);
     if (fd < 0)
     {
-        return false;
+        fprintf(stderr, "error: tty open failed.\n");
+        auth = false;
+        goto done;
     }
 
     /* check to see if we are still authenticated. */
     if (0 == ioctl(fd, TIOCCHKVERAUTH))
     {
-        goto good;
+        auth = true;
+        goto cleanup_fd;
     }
 
     /* not authenticated. */
-    close(fd);
-    return false;
+    auth = false;
+    goto cleanup_fd;
 
-good:
-    int expiry = 5 * 60;
-    ioctl(fd, TIOCSETVERAUTH, &secs);
+cleanup_fd:
     close(fd);
-    return true;
+
+done:
+    return auth;
+}
+
+static void set_authentication_persistence()
+{
+    int fd = open("/dev/tty", O_RDWR);
+    if (fd < 0)
+    {
+        return;
+    }
+
+    int expiry = 5 * 60;
+    ioctl(fd, TIOCSETVERAUTH, &expiry);
+    close(fd);
 }
 #endif /*PERSIST_AUTHENTICATION*/

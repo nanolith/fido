@@ -13,7 +13,7 @@ find_package(PkgConfig REQUIRED)
 pkg_search_module(minunit REQUIRED IMPORTED_TARGET minunit)
 
 #Build config.h
-configure_file(config.h.cmake include/fido/config.h)
+configure_file(compile_opts.h.cmake include/fido/compile_opts.h)
 
 #chooser helpers
 SET(COMPILER_CHOOSER ${CMAKE_SOURCE_DIR}/scripts/compiler-chooser.sh)
