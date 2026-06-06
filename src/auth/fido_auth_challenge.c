@@ -8,8 +8,10 @@
  */
 
 #include <fido/auth.h>
+#include <fido/config.h>
 #include <fcntl.h>
 #include <stdio.h>
+#include <sys/ioctl.h>
 
 #ifdef   __FreeBSD__
 #include <security/pam_appl.h>
@@ -25,6 +27,16 @@
 static int open_pam_auth_challenge(const fido_user* user);
 static void try_set_tty(pam_handle_t* pam);
 #endif /*__FreeBSD__*/
+
+#ifdef   PERSIST_AUTHENTICATION
+static bool check_authentication_persistence();
+/* define auth TTY IOCTLs provided by mod_fido. */
+# ifdef   __FreeBSD__
+#  define TIOCSETVERAUTH    _IOW('t', 200, int)
+#  define TIOCCHKVERAUTH    _IOR('t', 201, int)
+#  define TIOCCLRVERAUTH    _IO('t', 202)
+# endif /*__FreeBSD__*/
+#endif /*PERSIST_AUTHENTICATION*/
 
 /**
  * \brief Provide an authentication challenge, read the response, and verify it
@@ -43,6 +55,15 @@ fido_auth_challenge(const fido_user* user)
 
     MODEL_CONTRACT_CHECK_PRECONDITIONS(fido_auth_challenge, user);
 
+#ifdef PERSIST_AUTHENTICATION
+    if (check_authentication_persistence())
+    {
+        /* authentication was persisted, so don't challenge user again. */
+        retval = 0;
+        goto done;
+    }
+#endif
+
 #if   defined(__FreeBSD__)
     retval = open_pam_auth_challenge(user);
 #elif defined(__OpenBSD__)
@@ -60,6 +81,9 @@ fido_auth_challenge(const fido_user* user)
     #error "Authentication Unsupported!"
 #endif
 
+#ifdef PERSIST_AUTHENTICATION
+done:
+#endif
     MODEL_CONTRACT_CHECK_POSTCONDITIONS(fido_auth_challenge, retval, user);
 
     return retval;
@@ -157,3 +181,30 @@ static void try_set_tty(pam_handle_t* pam)
     }
 }
 #endif /*__FreeBSD__*/
+
+#ifdef   PERSIST_AUTHENTICATION
+static bool check_authentication_persistence()
+{
+    fd = open("/dev/tty", O_RDWR);
+    if (fd < 0)
+    {
+        return false;
+    }
+
+    /* check to see if we are still authenticated. */
+    if (0 == ioctl(fd, TIOCCHKVERAUTH))
+    {
+        goto good;
+    }
+
+    /* not authenticated. */
+    close(fd);
+    return false;
+
+good:
+    int expiry = 5 * 60;
+    ioctl(fd, TIOCSETVERAUTH, &secs);
+    close(fd);
+    return true;
+}
+#endif /*PERSIST_AUTHENTICATION*/
