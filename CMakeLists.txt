@@ -5,11 +5,15 @@ PROJECT(fido VERSION 0.0.1 LANGUAGES C CXX)
 INCLUDE(CheckSymbolExists)
 
 option(MODEL_CHECKING_ENABLED "Enable Model Checking")
+option(PERSIST_AUTHENTICATION "Enable authentication persistence (requires mod_fido on FreeBSD).")
 
 #pkgconfig
 find_package(PkgConfig REQUIRED)
 #minunit package
 pkg_search_module(minunit REQUIRED IMPORTED_TARGET minunit)
+
+#Build config.h
+configure_file(config.h.cmake include/fido/config.h)
 
 #chooser helpers
 SET(COMPILER_CHOOSER ${CMAKE_SOURCE_DIR}/scripts/compiler-chooser.sh)
