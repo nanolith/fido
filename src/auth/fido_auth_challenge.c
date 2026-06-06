@@ -49,6 +49,7 @@ fido_auth_challenge(const fido_user* user)
     retval = auth_userokay(user->username, NULL, NULL, NULL);
     if (0 == retval)
     {
+        fprintf(stderr, "error: authentication failed.\n");
         retval = FIDO_ERROR_AUTH;
     }
     else
