@@ -29,8 +29,8 @@ static void try_set_tty(pam_handle_t* pam);
 #endif /*__FreeBSD__*/
 
 #ifdef   PERSIST_AUTHENTICATION
-static bool check_authentication_persistence();
-static void set_authentication_persistence();
+static bool check_authentication_persistence(void);
+static void set_authentication_persistence(void);
 /* define auth TTY IOCTLs provided by mod_fido. */
 # ifdef   __FreeBSD__
 #  define TIOCSETVERAUTH    _IOW('t', 200, int)
@@ -189,7 +189,7 @@ static void try_set_tty(pam_handle_t* pam)
 #endif /*__FreeBSD__*/
 
 #ifdef   PERSIST_AUTHENTICATION
-static bool check_authentication_persistence()
+static bool check_authentication_persistence(void)
 {
     bool auth;
 
@@ -219,7 +219,7 @@ done:
     return auth;
 }
 
-static void set_authentication_persistence()
+static void set_authentication_persistence(void)
 {
     int fd = open("/dev/tty", O_RDWR);
     if (fd < 0)
