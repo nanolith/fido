@@ -1,6 +1,11 @@
 SET(MC_SOURCES
     ${CMAKE_SOURCE_DIR}/models/shadow/unix/cap_enter.c
+    ${CMAKE_SOURCE_DIR}/models/shadow/unix/cap_rights_init.c
+    ${CMAKE_SOURCE_DIR}/models/shadow/unix/cap_rights_limit.c
+    ${CMAKE_SOURCE_DIR}/models/shadow/unix/close.c
+    ${CMAKE_SOURCE_DIR}/models/shadow/unix/open.c
     ${CMAKE_SOURCE_DIR}/models/shadow/unix/pledge.c
+    ${CMAKE_SOURCE_DIR}/models/shadow/unix/property_file_descriptor_open.c
     ${CMAKE_SOURCE_DIR}/models/shadow/unix/unveil.c
     ${CMAKE_SOURCE_DIR}/src/sandbox/sandbox_enter.c
     main.c)

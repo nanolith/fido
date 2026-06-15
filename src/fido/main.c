@@ -222,7 +222,7 @@ static int policy_check(const fido_user* user, const fido_options* opts)
     int open_errno = errno;
 
     /* After opening the file, enter our sandbox. */
-    retval = sandbox_enter();
+    retval = sandbox_enter(fd);
     if (0 != retval)
     {
         fprintf(stderr, "error: could not enter sandbox.\n");
