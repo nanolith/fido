@@ -57,3 +57,36 @@ and `webstop` as the `www` user. The `EDITOR` environment variable is
 whitelisted. This is probably a very dangerous configuration rule if this allows
 `webstart` or `webstop` to run the `EDITOR` command, but it is provided to
 illustrate environment variable whitelisting.
+
+Building
+========
+
+This utility requires cmake, GNU Make / ninja, and [minunit][minunit] to build.
+The first two can be installed via `pkg_add` (OpenBSD) or `pkg install`
+(FreeBSD). The last can be built and installed via cmake.
+
+[minunit]: https://github.com/nanolith/minunit
+
+To build this project, from the project root, create a separate build directory
+(e.g. `build`) change into this directory, and run cmake. Make sure that minunit
+is in your `PKG_CONFIG_PATH` so it can be detected.
+
+    $ mkdir build
+    $ cd build
+    $ cmake .. 
+    #### or
+    $ cmake -G Ninja ..
+
+If you would like to run the model checks, you will also need a recent release
+of [cbmc][cbmc]. When configuring cmake, pass `-DMODEL_CHECKING_ENABLED=true`.
+
+    $ cmake -DMODEL_CHECKING_ENABLED=true
+
+If you would like to enable authentication persistence (via `VERAUTH` on OpenBSD
+or [mod\_fido][mod\_fido] on FreeBSD), pass `-DPERSIST_AUTHENTICATION=true` to
+cmake.
+
+    $ cmake -DPERSIST_AUTHENTICATION=true
+
+[cbmc]: https://github.com/diffblue/cbmc
+[mod\_fido]: https://github.com/nanolith/mod_fido
